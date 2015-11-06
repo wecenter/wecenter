@@ -101,7 +101,7 @@
 						<div class="form-group">
 							<span class="col-sm-4 col-xs-3 control-label"><?php _e('选择根话题'); ?>:</span>
 							<div class="col-sm-4 col-xs-8">
-								<select id="parent_topic_select" class="hide" name="parent_id">
+								<select id="parent_topic_select" class="collapse" name="parent_id">
 								<option value="0"> --- </option>
 								<?php if ($this->parent_topics) { foreach ($this->parent_topics AS $val) { ?>
 								<option value="<?php echo $val['topic_id']; ?>"<?php if ($val['topic_id'] == $this->topic_info['parent_id']) { ?> selected="selected"<?php } ?>><?php echo $val['topic_title']; ?></option>
@@ -168,7 +168,7 @@
 			$('#parent_topic_select').val($(this).data('value'));
 			$('#aw-topic-tags-select').val($(this).text());
 			$('.aw-publish-title .dropdown').removeClass('open');
-			$('.aw-publish-title .aw-dropdown-list li').removeClass('hide');
+			$('.aw-publish-title .aw-dropdown-list li').removeClass('collapse');
 			//AWS.ajax_request(G_BASE_URL + '/topic/ajax/set_parent_id/', 'topic_id=<?php echo $this->topic_info['topic_id']; ?>&parent_id=' + $(this).data('value'));
 		});
 
@@ -199,17 +199,17 @@
 					{
 						if ($(this).text().match(value) == null)
 						{
-							$(this).addClass('hide');
+							$(this).addClass('collapse');
 						}
 						else
 						{
-							$(this).removeClass('hide');
+							$(this).removeClass('collapse');
 						}
 					});
 				}
 				else
 				{
-					$('.aw-publish-title .aw-dropdown-list li').removeClass('hide');
+					$('.aw-publish-title .aw-dropdown-list li').removeClass('collapse');
 				}
 			}
 		});
@@ -243,14 +243,14 @@
 
 					if (_this.val() != val)
 					{
-						if ($('.aw-publish-title .aw-dropdown-list li:not(".hide")').eq(0).text().match(_this.val()))
+						if ($('.aw-publish-title .aw-dropdown-list li:not(".collapse")').eq(0).text().match(_this.val()))
 						{
-							$('.aw-publish-title .aw-dropdown-list li:not(".hide")').eq(0).click();
+							$('.aw-publish-title .aw-dropdown-list li:not(".collapse")').eq(0).click();
 						}
 						else
 						{
 							var flag = false;
-							$.each($('.aw-publish-title .aw-dropdown-list li:not(".hide")'), function (i, e)
+							$.each($('.aw-publish-title .aw-dropdown-list li:not(".collapse")'), function (i, e)
 							{
 								if ($(this).text().match(_this.val()))
 								{

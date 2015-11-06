@@ -1,6 +1,6 @@
 <?php if ($this->list) { ?>
 <?php if ($_GET['page'] == 0 AND count($this->list) > 0) { ?>
-<a href="javascript:;" class="aw-load-more-content warmming hide" onclick="reload_list(0);" id="new_actions_tip"><span><?php _e('%s 条新动态, 点击查看', '<em id="new_action_num"></em>'); ?></span></a>
+<a href="javascript:;" class="aw-load-more-content warmming collapse" onclick="reload_list(0);" id="new_actions_tip"><span><?php _e('%s 条新动态, 点击查看', '<em id="new_action_num"></em>'); ?></span></a>
 <?php } ?>
 <?php foreach ($this->list AS $key => $val) { ?>
 <div class="aw-item" data-history-id="<?php echo $val['history_id']; ?>">
@@ -20,17 +20,17 @@
 					 • <?php if ($val['topics']) { ?><?php _e('已添加到'); ?>
 					<?php foreach($val['topics'] as $t_key => $t_val) { if ($t_key > 2) { break; } ?><a href="topic/<?php echo $t_val['url_token']; ?>" class="aw-topic-name" data-id="<?php echo $t_val['topic_id']; ?>"><?php echo $t_val['topic_title']; ?></a> <?php } ?><?php if (sizeof($val['topics']) > 3) { ?> <?php _e('等'); ?> <?php _e('%s 个话题', sizeof($val['topics'])); ?><?php } else { ?><?php _e('话题'); ?><?php } ?>
 					<?php } else { ?><a href="question/<?php echo $val['question_info']['question_id']; ?>" class="text-color-999"><?php _e('添加话题'); ?></a><?php } ?>
-				<?php } else if (!$_GET['filter']) { ?><span class="pull-right hide"><a class="text-color-999" href="javascript:;" onClick="AWS.User.question_uninterested($(this).parents('div.aw-item'), <?php echo $val['question_info']['question_id']; ?>);"><?php _e('不感兴趣'); ?></a></span><?php } ?>
+				<?php } else if (!$_GET['filter']) { ?><span class="pull-right collapse"><a class="text-color-999" href="javascript:;" onClick="AWS.User.question_uninterested($(this).parents('div.aw-item'), <?php echo $val['question_info']['question_id']; ?>);"><?php _e('不感兴趣'); ?></a></span><?php } ?>
 			<?php } ?>
 		</p>
 		<h4><a href="<?php echo $val['link']; ?>"><?php echo $val['title']; ?></a></h4>
-		<p class="text-color-999 aw-agree-by<?php if (count($val['answer_info']['agree_users']) == 0) { ?> hide<?php } ?>">
+		<p class="text-color-999 aw-agree-by<?php if (count($val['answer_info']['agree_users']) == 0) { ?> collapse<?php } ?>">
 			<?php _e('赞同来自'); ?>:
 			<?php if ($val['answer_info']['agree_users']) { $count = 0; ?>
 			<?php foreach ($val['answer_info']['agree_users'] as $uid => $user) { ?>
-				<?php if ($count > 0) { ?><em<?php if ($count >= 5) { ?> class="hide"<?php } ?>>、</em><?php } ?><a href="people/<?php echo $user['url_token']; ?>" data-id="<?php echo $user['uid']; ?>" class="aw-user-name<?php if ($count >= 5) { ?> hide<?php } ?>"><?php echo $user['user_name']; ?></a>
+				<?php if ($count > 0) { ?><em<?php if ($count >= 5) { ?> class="collapse"<?php } ?>>、</em><?php } ?><a href="people/<?php echo $user['url_token']; ?>" data-id="<?php echo $user['uid']; ?>" class="aw-user-name<?php if ($count >= 5) { ?> collapse<?php } ?>"><?php echo $user['user_name']; ?></a>
 			<?php $count++; } ?>
-			<?php if (count($val['answer_info']['agree_users']) >= 5) { ?><a href="javascript:;" class="aw-agree-by-show" onclick="$(this).parents('.aw-agree-by').find('em,a').removeClass('hide'); $(this).remove();"><?php _e('更多'); ?> »</a><?php } ?>
+			<?php if (count($val['answer_info']['agree_users']) >= 5) { ?><a href="javascript:;" class="aw-agree-by-show" onclick="$(this).parents('.aw-agree-by').find('em,a').removeClass('collapse'); $(this).remove();"><?php _e('更多'); ?> »</a><?php } ?>
 			<?php } ?>
 		</p>
 	</div>
@@ -43,7 +43,7 @@
         	<a href="javascript:;" class="showMore" onclick="AWS.content_switcher($('#detail_<?php echo $val['history_id']; ?>'), $('#detail_more_<?php echo $val['history_id']; ?>'));"><?php _e('显示全部'); ?> »</a>
         	<?php } ?>
 		</div>
-		<div id="detail_more_<?php echo $val['history_id']; ?>" class="hide markitup-box">
+		<div id="detail_more_<?php echo $val['history_id']; ?>" class="collapse markitup-box">
       		<?php echo nl2br(strip_ubb($val['comment_info']['message'])); ?>
 		</div>
 		<!-- end 文章评论内容 -->
@@ -77,7 +77,7 @@
 				</div>
 			<?php } ?>
 		</div>
-		<div id="detail_more_<?php echo $val['history_id']; ?>" class="hide markitup-box">
+		<div id="detail_more_<?php echo $val['history_id']; ?>" class="collapse markitup-box">
       		<?php echo nl2br(strip_ubb($val['answer_info']['answer_content'])); ?>
 
 			<?php if ($val['answer_info']['attachs']) { ?>

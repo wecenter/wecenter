@@ -19,7 +19,7 @@
 						<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
 						<input type="hidden" name="article_id" id="article_id" value="<?php echo $this->article_info['id']; ?>" />
 						<?php if ($this->article_category_list) { ?>
-							<select name="category_id" class="hide" id="category_id">
+							<select name="category_id" class="collapse" id="category_id">
 								<option value="0">- <?php _e('请选择分类'); ?> -</option>
 								<?php echo $this->article_category_list; ?>
 							</select>

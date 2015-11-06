@@ -16,7 +16,7 @@
 					<div class="aw-dropdown">
 						<div class="mod-body">
 							<p class="title"><?php _e('输入关键字进行搜索'); ?></p>
-							<ul class="aw-dropdown-list hide"></ul>
+							<ul class="aw-dropdown-list collapse"></ul>
 							<p class="search"><span><?php _e('搜索'); ?>:</span><a onClick="$('#global_search_form').submit();"></a></p>
 						</div>
 						<div class="mod-footer">
@@ -92,7 +92,7 @@
 					</a>
 					<div class="aw-dropdown dropdown-list pull-right">
 						<ul class="aw-dropdown-list">
-							<li><a href="inbox/"><i class="icon icon-inbox"></i> <?php _e('私信'); ?><span class="badge badge-important hide" id="inbox_unread">0</span></a></li>
+							<li><a href="inbox/"><i class="icon icon-inbox"></i> <?php _e('私信'); ?><span class="badge badge-important collapse" id="inbox_unread">0</span></a></li>
 							<li class="hidden-xs"><a href="account/setting/profile/"><i class="icon icon-setting"></i> <?php _e('设置'); ?></a></li>
 							<?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
 							<li class="hidden-xs"><a href="admin/"><i class="icon icon-job"></i> <?php _e('管理'); ?></a></li>

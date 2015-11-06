@@ -31,12 +31,12 @@
 					<i class="icon icon-wechat"></i>
 				<?php } ?>
 			</p>
-			<p class="text-color-999 aw-agree-by<?php if (sizeof($this->answer_info['agree_users']) == 0) { ?> hide<?php } ?>">
+			<p class="text-color-999 aw-agree-by<?php if (sizeof($this->answer_info['agree_users']) == 0) { ?> collapse<?php } ?>">
 				<?php _e('赞同来自'); ?>:
 
 				<?php if ($this->answer_info['agree_users']) { ?>
 				<?php $count = 0; foreach($this->answer_info['agree_users'] AS $uid => $user) { ?>
-				<?php if ($count > 0) { ?><em<?php if ($count >= 5) { ?> class="hide"<?php } ?>>、</em><?php } ?><a href="people/<?php echo $user['url_token']; ?>" data-id="<?php echo $user['uid']; ?>" class="aw-user-name<?php if ($count >= 5) { ?> hide<?php } ?>"><?php echo $user['user_name']; ?></a><?php $count++; } ?><?php } ?><?php if (count($this->answer_info['agree_users']) > 5) { ?><a href="javascript:;" class="aw-agree-by-show" onclick="$(this).parents('.aw-agree-by').find('em,a').removeClass('hide'); $(this).remove();"><?php _e('更多'); ?> »</a>
+				<?php if ($count > 0) { ?><em<?php if ($count >= 5) { ?> class="collapse"<?php } ?>>、</em><?php } ?><a href="people/<?php echo $user['url_token']; ?>" data-id="<?php echo $user['uid']; ?>" class="aw-user-name<?php if ($count >= 5) { ?> collapse<?php } ?>"><?php echo $user['user_name']; ?></a><?php $count++; } ?><?php } ?><?php if (count($this->answer_info['agree_users']) > 5) { ?><a href="javascript:;" class="aw-agree-by-show" onclick="$(this).parents('.aw-agree-by').find('em,a').removeClass('collapse'); $(this).remove();"><?php _e('更多'); ?> »</a>
 				<?php } ?>
 			</p>
 		</div>
