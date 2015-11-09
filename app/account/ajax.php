@@ -247,11 +247,11 @@ class ajax extends AWS_CONTROLLER
 
 		if ($_POST['_is_mobile'])
 		{
+			$this->model('account')->setcookie_login($user_info['uid'], $user_info['user_name'], $_POST['password'], $user_info['salt']);
+			
 			if ($_POST['return_url'])
 			{
 				$user_info = $this->model('account')->get_user_info_by_uid($uid);
-
-				$this->model('account')->setcookie_login($user_info['uid'], $user_info['user_name'], $_POST['password'], $user_info['salt']);
 
 				$return_url = strip_tags($_POST['return_url']);
 			}
