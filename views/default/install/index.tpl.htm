@@ -51,9 +51,6 @@
 			<b><?php _e('编码转换'); ?></b><?php if (!$this->system_require['convert_encoding']) { ?><span class="red">× <?php _e('WeCenter 至少需要有 MB 或 ICONV 编码转换处理库才能正常运行'); ?></span><?php } else { ?><span class="green">√</span><?php } ?>
 		</li>
 		<li>
-			<b><?php _e('邮件相关'); ?></b><?php if (!$this->system_require['stream_socket_client']) { ?><span class="red">× <?php _e('WeCenter 至少需要 stream_socket_client 处理库才能发送邮件'); ?></span><?php } else { ?><span class="green">√</span><?php } ?>
-		</li>
-		<li>
 			<b><?php _e('上传限制'); ?></b><span><?php echo get_cfg_var('upload_max_filesize'); ?> (<?php _e('此处建议值'); ?> > 8M)</span>
 		</li>
 		<li>
@@ -63,7 +60,7 @@
 			<b><?php _e('目录权限'); ?></b><span><?php echo AWS_PATH; ?>config/</span><?php if (!$this->system_require['config_writable_config']) { ?><span class="red">×</span><?php } else { ?><span class="green">√</span><?php } ?>
 		</li>
 	</ul>
-	<a class="btn btn-success pull-right<?php if (sizeof($this->system_require) != 13) { ?> disabled<?php } ?>" <?php if (sizeof($this->system_require) == 13) { ?>onclick="document.getElementById('installer').submit(); this.className='btn btn-success disabled pull-right'; this.onclick='';"<?php } ?>><?php _e('下一步'); ?></a>
+	<a class="btn btn-success pull-right<?php if (sizeof($this->system_require) != 12) { ?> disabled<?php } ?>" <?php if (sizeof($this->system_require) == 12) { ?>onclick="document.getElementById('installer').submit(); this.className='btn btn-success disabled pull-right'; this.onclick='';"<?php } ?>><?php _e('下一步'); ?></a>
 	 </form>
 </div>
 
