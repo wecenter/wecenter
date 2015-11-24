@@ -33,6 +33,8 @@ class core_uri
 
 	var $request_main = '';
 	var $index_script = '';
+	
+	var $args_var_str = '';
 
 	public function __construct()
 	{
@@ -98,33 +100,10 @@ class core_uri
 
 		if (count($requests) == 1)
 		{
-			$request_main = $this->parse_uri($request_main);
+			$request_main = $this->_parse_uri($request_main);
 		}
 
 		$this->request_main = $request_main;
-	}
-
-	public function parse_uri($request_main)
-	{
-		if (get_setting('url_rewrite_enable') == 'Y' AND $request_routes = get_request_route(false))
-		{
-			if (!$request_main)
-			{
-				$request_main = '/';
-			}
-
-			foreach($request_routes as $key => $val)
-			{
-				if (preg_match('/^' . $val[0] . '/', $request_main))
-				{
-					$request_main = preg_replace('/^' . $val[0] . '/', $val[1], $request_main);
-
-					return $request_main;
-				}
-			}
-		}
-
-		return $request_main;
 	}
 
 	public function set_rewrite()
@@ -133,10 +112,8 @@ class core_uri
 		{
 			return false;
 		}
-
-		$request_main = $this->request_main;
-
-		if (!$request_main OR $this->index_script == $request_main)
+		
+		if (!$this->request_main OR $this->index_script == $this->request_main)
 		{
 			$this->controller = 'main';
 			$this->action = 'index';
@@ -144,11 +121,11 @@ class core_uri
 			return $this;
 		}
 
-  		$request = explode('?', $request_main, 2);
+  		$request = explode('?', $this->request_main, 2);
 
   		if (count($request) == 1)
   		{
-  			$request = explode('&', $request_main, 2);
+  			$request = explode('&', $this->request_main, 2);
   		}
 
 		$uri = array(
@@ -187,9 +164,9 @@ class core_uri
 		$this->controller = $this->default_vars['controller'];	// 控制器
 		$this->action = $this->default_vars['action'];	// 动作
 
-		$args_var_str = '';
+		$this->args_var_str = '';
 
-		// 删除空值
+		// 删除空值		
 		foreach ($uri['first']['args'] AS $key => $val)
 		{
 			if (strstr($val, $this->params['sep_value']) AND !$start_key)
@@ -203,7 +180,7 @@ class core_uri
 				unset($uri['first']['args'][$key]);
 			}
 		}
-
+		
 		$args_count = count($uri['first']['args']);
 		
 		switch ($args_count)
@@ -213,16 +190,17 @@ class core_uri
 			break;
 
 			case 1:
-				$args_var_str = $uri['first']['args'][0];
+				$this->args_var_str = end($uri['first']['args']);
 			break;
 
 			case 2:
+				$this->args_var_str = end($uri['first']['args']);
+				
 				$__app_dir = $uri['first']['args'][0] ? $uri['first']['args'][0] : $this->default_vars['app_dir'];	// 应用目录
-				$args_var_str = $uri['first']['args'][1];
 			break;
 
 			case 3:
-				$args_var_str = $uri['first']['args'][2];
+				$this->args_var_str = end($uri['first']['args']);
 				
 				$__app_dir = $uri['first']['args'][0] ? $uri['first']['args'][0] : $this->default_vars['app_dir'];	// 应用目录
 
@@ -238,7 +216,7 @@ class core_uri
 			break;
 
 			case 4:
-				$args_var_str = $uri['first']['args'][3];
+				$this->args_var_str = end($uri['first']['args']);
 				
 				$__app_dir = $uri['first']['args'][0] ? $uri['first']['args'][0] : $this->default_vars['app_dir'];	// 应用目录
 				$this->controller = $uri['first']['args'][1] ? $uri['first']['args'][1] : $this->default_vars['controller'];	// 控制器
@@ -246,7 +224,7 @@ class core_uri
 			break;
 			
 			case 5:
-				$args_var_str = $uri['first']['args'][4];
+				$this->args_var_str = end($uri['first']['args']);
 						
 				$__app_dir = $uri['first']['args'][0] ? $uri['first']['args'][0] : $this->default_vars['app_dir'];	// 应用目录
 				$this->controller = $uri['first']['args'][2] ? $uri['first']['args'][1] . '/' . $uri['first']['args'][2] : $this->default_vars['controller'];	// 控制器
@@ -259,34 +237,47 @@ class core_uri
 		$_GET['c'] = $this->controller;
 		$_GET['act'] = $this->action;
 		$_GET['app'] = $__app_dir;
-
-		if ($args_var_str)
-		{
-			if (substr($args_var_str, 0, strlen($this->params['sep_var'])) == $this->params['sep_var'])
-			{
-				$args_var_str = substr($args_var_str, strlen($this->params['sep_var']));
-			}
-
-			if (!strstr($args_var_str,'-'))
+		
+		return $this;
+	}
+	
+	public function parse_args()
+	{
+		if ($args_var_str = $this->args_var_str)
+		{			
+			if (defined('WECENTER_URI_SET_LAST_STRING_TO_ID'))
 			{
 				$_GET['id'] = urldecode($args_var_str);
 			}
-
-			$uri['last'] = explode($this->params['sep_var'], $args_var_str);
-
-			foreach ($uri['last'] as $val)
+			else
 			{
-				@list($k, $v) = explode($this->params['sep_value'], $val, 2);
-
-				if ($k)
+				// 兼容 __param-test 写法
+				if (substr($args_var_str, 0, strlen($this->params['sep_var'])) == $this->params['sep_var'])
 				{
-					if (! strstr($v, '%'))
+					$args_var_str = substr($args_var_str, strlen($this->params['sep_var']));
+				}
+			
+				if (!strstr($args_var_str, '-'))
+				{
+					$_GET['id'] = urldecode($args_var_str);
+				}
+
+				$uri['last'] = explode($this->params['sep_var'], $args_var_str);
+
+				foreach ($uri['last'] as $val)
+				{
+					@list($k, $v) = explode($this->params['sep_value'], $val, 2);
+
+					if ($k)
 					{
-						$_GET[$k] = $v;
-					}
-					else
-					{
-						$_GET[$k] = urldecode($v);
+						if (! strstr($v, '%'))
+						{
+							$_GET[$k] = $v;
+						}
+						else
+						{
+							$_GET[$k] = urldecode($v);
+						}
 					}
 				}
 			}
@@ -299,7 +290,30 @@ class core_uri
 				unset($_GET[$key]);
 			}
 		}
-
+		
 		return $this;
+	}
+	
+	private function _parse_uri($request_main)
+	{
+		if (get_setting('url_rewrite_enable') == 'Y' AND $request_routes = get_request_route(false))
+		{
+			if (!$request_main)
+			{
+				$request_main = '/';
+			}
+
+			foreach($request_routes as $key => $val)
+			{
+				if (preg_match('/^' . $val[0] . '/', $request_main))
+				{
+					$request_main = preg_replace('/^' . $val[0] . '/', $val[1], $request_main);
+
+					return $request_main;
+				}
+			}
+		}
+
+		return $request_main;
 	}
 }
