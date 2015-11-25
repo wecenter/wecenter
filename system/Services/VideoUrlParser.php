@@ -34,10 +34,6 @@
  * http://v.youku.com/v_show/id_XMjU0NjY4OTEy.html
  * <embed src="http://player.youku.com/player.php/sid/XMjU0NjY4OTEy/v.swf" quality="high" width="480" height="400" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash"></embed>
  *
- * // 酷六
- * http://v.ku6.com/special/show_3917484/x0BMXAbgZdQS6FqN.html
- * <embed src="http://player.ku6.com/refer/x0BMXAbgZdQS6FqN/v.swf" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" allowfullscreen="true" type="application/x-shockwave-flash"></embed>
- *
  * // 土豆
  * http://www.tudou.com/playlist/p/a65929.html?iid=74905844
  * <embed src="http://www.tudou.com/l/A_0urj-Geec/&iid=74905844/v.swf" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="opaque" width="480" height="400"></embed>
@@ -45,14 +41,6 @@
  * // 56
  * http://www.56.com/u98/v_NTkyODY2NTU.html
  * <embed src="http://player.56.com/v_NTkyODY2NTU.swf"  type="application/x-shockwave-flash" width="480" height="405" allowNetworking="all" allowScriptAccess="always"></embed>
- *
- * // 新浪播客
- * http://video.sina.com.cn/v/b/46909166-1290055681.html
- * <embed src="http://you.video.sina.com.cn/api/sinawebApi/outplayrefer.php/vid=46909166_1290055681_b0K1GHEwDWbK+l1lHz2stqkP7KQNt6nki2O0u1ehIwZYQ0/XM5GdZNQH6SjQBtkEqDhAQJ42dfcn0Rs/s.swf" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" name="ssss" allowFullScreen="true" allowScriptAccess="always" width="480" height="370"></embed>
- *
- * // 乐视
- * http://www.letv.com/ptv/vplay/1168109.html
- * <embed src="http://i3.imgs.letv.com/player/swfPlayer.swf?id=1168109&host=app.letv.com&vstatus=1&AP=1&logoMask=0&isShowP2p=0&autoplay=true" quality="high" scale="NO_SCALE" wmode="opaque" bgcolor="#000000" width="480" height="388" name="FLV_player" align="middle" allowscriptaccess="always" allowfullscreen="true" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">
  *
  * // Youtube
  * http://www.youtube.com/watch?v=n6NLtldvGCk
@@ -63,7 +51,7 @@
 class Services_VideoUrlParser
 {
 	const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/601.2.7 (KHTML, like Gecko) Version/9.0.1 Safari/601.2.7';
-	const CHECK_URL_VALID = "/(youku\.com|tudou\.com|ku6\.com|56\.com|letv\.com|video\.sina\.com\.cn|(my\.)?tv\.sohu\.com|v\.qq\.com|youtube\.com)/";
+	const CHECK_URL_VALID = "/(youku\.com|tudou\.com|56\.com|(my\.)?tv\.sohu\.com|v\.qq\.com|youtube\.com)/";
 
 	/**
 	 * parse
@@ -79,7 +67,7 @@ class Services_VideoUrlParser
 
 		if (strstr($lowerurl, '.swf'))
 		{
-			return '<p><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0" width="560" height="360"><param name="movie" value="' . $url . '" /><param name="quality" value="high" /><param name="wmode" value="transparent" /><param name="allowFullScreen" value="true" /><embed src="' . $url . '" quality="high" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="460" height="360" wmode="transparent" allowfullscreen="true"></embed></object></p>';
+			return '<p><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0" width="640" height="400"><param name="movie" value="' . $url . '" /><param name="quality" value="high" /><param name="wmode" value="transparent" /><param name="allowFullScreen" value="true" /><embed src="' . $url . '" quality="high" pluginspage="http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash" type="application/x-shockwave-flash" width="640" height="400" wmode="transparent" allowfullscreen="true"></embed></object></p>';
 		}
 
 		preg_match(self::CHECK_URL_VALID, $lowerurl, $matches);
@@ -99,17 +87,8 @@ class Services_VideoUrlParser
 				case 'tudou.com' :
 					$data = self::_parseTudou($url);
 					break;
-				case 'ku6.com' :
-					$data = self::_parseKu6($url);
-					break;
 				case '56.com' :
 					$data = self::_parse56($url);
-					break;
-				case 'letv.com' :
-					$data = self::_parseLetv($url);
-					break;
-				case 'video.sina.com.cn' :
-					$data = self::_parseSina($url);
 					break;
 				case 'my.tv.sohu.com' :
 				case 'tv.sohu.com' :
@@ -137,7 +116,7 @@ class Services_VideoUrlParser
 		{
 			if ($data['iframe'])
 			{
-				return '<p><iframe width="560" height="360" src="' . $data['iframe'] . '" frameborder="0" allowfullscreen="allowfullscreen"></iframe></p>';
+				return '<p><iframe width="640" height="400" src="' . $data['iframe'] . '" frameborder="0" allowfullscreen="allowfullscreen"></iframe></p>';
 			}
 			else
 			{
@@ -263,38 +242,6 @@ class Services_VideoUrlParser
 	}
 
 	/**
-	 * 酷6网
-	 * http://v.ku6.com/film/show_520/3X93vo4tIS7uotHg.html
-	 * http://v.ku6.com/special/show_4926690/Klze2mhMeSK6g05X.html
-	 * http://v.ku6.com/show/7US-kDXjyKyIInDevhpwHg...html
-	 * http://player.ku6.com/refer/3X93vo4tIS7uotHg/v.swf
-	 */
-	private function _parseKu6($url)
-	{
-		$html = iconv('GBK', 'UTF-8', self::_fget($url));
-
-		preg_match('/id: "([a-zA-Z0-9]+\.\.)"/i', $html, $matches);
-
-		if (!$vid = $matches[1])
-		{
-			return false;
-		}
-
-		preg_match('/<h1 title="(.+)">/i', $html, $matches);
-		$data['title'] = $matches[1];
-
-		preg_match('/"bigpicpath":".+?\.jpg"/i', $html, $matches);
-		$data['img'] = json_decode('{' . $matches[0] . '}', true);
-		$data['img'] = $data['img']['bigpicpath'];
-
-		$data['url'] = $url;
-
-		$data['swf'] = 'http://player.ku6.com/refer/' . $vid . '/v.swf';
-
-		return $data;
-	}
-
-	/**
 	 * 56网
 	 * http://www.56.com/u73/v_NTkzMDcwNDY.html
 	 * http://player.56.com/v_NTkzMDcwNDY.swf
@@ -328,27 +275,6 @@ class Services_VideoUrlParser
 		}
 	}
 
-	/**
-	 * 乐视网
-	 * http://www.letv.com/ptv/vplay/1168109.html
-	 * http://www.letv.com/player/x1168109.swf
-	 */
-	private function _parseLetv($url)
-	{
-		$html = self::_fget($url);
-
-		preg_match("#http://v.t.sina.com.cn/([^'\"]*)#", $html, $matches);
-		parse_str(parse_url(urldecode($matches[0]), PHP_URL_QUERY));
-		preg_match("#vplay/(\d+)#", $url, $matches);
-
-		$data['img'] = $pic;
-		$data['title'] = $title;
-		$data['url'] = $url;
-		$data['swf'] = "http://www.letv.com/player/x{$matches[1]}.swf";
-
-		return $data;
-	}
-
 	// 搜狐TV http://my.tv.sohu.com/u/vw/5101536
 	private function _parseSohu($url)
 	{
@@ -360,47 +286,6 @@ class Services_VideoUrlParser
 		$data['title'] = $matches[2][1];
 		$data['url'] = $url;
 		$data['swf'] = $matches[2][0];
-
-		return $data;
-	}
-
-	/*
-     * 新浪播客
-     * http://video.sina.com.cn/v/b/48717043-1290055681.html
-     * http://you.video.sina.com.cn/api/sinawebApi/outplayrefer.php/vid=48717043_1290055681_PUzkSndrDzXK+l1lHz2stqkP7KQNt6nki2O0u1ehIwZYQ0/XM5GdatoG5ynSA9kEqDhAQJA4dPkm0x4/s.swf
-     */
-	private function _parseSina($url)
-	{
-		preg_match("/(\d+)(?:\-|\_)(\d+)/", $url, $matches);
-
-		$url = "http://video.sina.com.cn/v/b/{$matches[1]}-{$matches[2]}.html";
-		$html = self::_fget($url);
-
-		preg_match("/video\s?:\s?([^<]+)}/", $html, $matches);
-
-		$find = array(
-			"/\n/",
-			"/\s*/",
-			"/\'/",
-			"/\{([^:,]+):/",
-			"/,([^:]+):/",
-			"/:[^\d\"]\w+[^\,]*,/i"
-		);
-		$replace = array(
-			'',
-			'',
-			'"',
-			'{"\\1":',
-			',"\\1":',
-			':"",'
-		);
-		$str = preg_replace($find, $replace, $matches[1]);
-		$arr = json_decode($str, true);
-
-		$data['img'] = $arr['pic'];
-		$data['title'] = $arr['title'];
-		$data['url'] = $url;
-		$data['swf'] = $arr['swfOutsideUrl'];
 
 		return $data;
 	}
