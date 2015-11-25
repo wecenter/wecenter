@@ -27,7 +27,7 @@
                         },
                         {
                             type: 'html',
-                            html : '<p style="font-size:14px;color:#999;">我们目前支持: 优酷、酷六、土豆、56、新浪播客、乐视、Youtube 与 SWF 文件!</p>'
+                            html : '<p style="font-size:14px;color:#999;">我们目前支持: 优酷、土豆、56、Youtube 与 SWF 文件</p>'
                         }
                     ]
                 }
