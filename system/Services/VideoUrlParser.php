@@ -3,7 +3,7 @@
  * Video Parser
  *
  * @package
- * @version 1.2
+ * @version 1.3
  * @copyright 2005-2011 HDJ.ME
  * @author Dijia Huang <huangdijia@gmail.com>
  * @license PHP Version 3.0 {@link http://www.php.net/license/3_0.txt}
@@ -30,31 +30,31 @@
  *
  *
  *
- * //优酷
+ * // 优酷
  * http://v.youku.com/v_show/id_XMjU0NjY4OTEy.html
  * <embed src="http://player.youku.com/player.php/sid/XMjU0NjY4OTEy/v.swf" quality="high" width="480" height="400" align="middle" allowScriptAccess="sameDomain" type="application/x-shockwave-flash"></embed>
  *
- * //酷六
+ * // 酷六
  * http://v.ku6.com/special/show_3917484/x0BMXAbgZdQS6FqN.html
  * <embed src="http://player.ku6.com/refer/x0BMXAbgZdQS6FqN/v.swf" quality="high" width="480" height="400" align="middle" allowScriptAccess="always" allowfullscreen="true" type="application/x-shockwave-flash"></embed>
  *
- * //土豆
+ * // 土豆
  * http://www.tudou.com/playlist/p/a65929.html?iid=74905844
  * <embed src="http://www.tudou.com/l/A_0urj-Geec/&iid=74905844/v.swf" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="opaque" width="480" height="400"></embed>
  *
- * //56
+ * // 56
  * http://www.56.com/u98/v_NTkyODY2NTU.html
  * <embed src="http://player.56.com/v_NTkyODY2NTU.swf"  type="application/x-shockwave-flash" width="480" height="405" allowNetworking="all" allowScriptAccess="always"></embed>
  *
- * //新浪播客
+ * // 新浪播客
  * http://video.sina.com.cn/v/b/46909166-1290055681.html
  * <embed src="http://you.video.sina.com.cn/api/sinawebApi/outplayrefer.php/vid=46909166_1290055681_b0K1GHEwDWbK+l1lHz2stqkP7KQNt6nki2O0u1ehIwZYQ0/XM5GdZNQH6SjQBtkEqDhAQJ42dfcn0Rs/s.swf" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" name="ssss" allowFullScreen="true" allowScriptAccess="always" width="480" height="370"></embed>
  *
- * //乐视
+ * // 乐视
  * http://www.letv.com/ptv/vplay/1168109.html
  * <embed src="http://i3.imgs.letv.com/player/swfPlayer.swf?id=1168109&host=app.letv.com&vstatus=1&AP=1&logoMask=0&isShowP2p=0&autoplay=true" quality="high" scale="NO_SCALE" wmode="opaque" bgcolor="#000000" width="480" height="388" name="FLV_player" align="middle" allowscriptaccess="always" allowfullscreen="true" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer">
  *
- * //youtube
+ * // Youtube
  * http://www.youtube.com/watch?v=n6NLtldvGCk
  * <embed src="http://www.youtube.com/v/n6NLtldvGCk?version=3&hl=th_TH" type="application/x-shockwave-flash" width="560" height="315" allowscriptaccess="always" allowfullscreen="true"></embed>
  */
@@ -62,7 +62,7 @@
 
 class Services_VideoUrlParser
 {
-	const USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.93 Safari/537.36";
+	const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_1) AppleWebKit/601.2.7 (KHTML, like Gecko) Version/9.0.1 Safari/601.2.7';
 	const CHECK_URL_VALID = "/(youku\.com|tudou\.com|ku6\.com|56\.com|letv\.com|video\.sina\.com\.cn|(my\.)?tv\.sohu\.com|v\.qq\.com|youtube\.com)/";
 
 	/**
@@ -161,8 +161,11 @@ class Services_VideoUrlParser
 		$html = self::_fget($url);
 
 		preg_match('/vid:"(\w+)"/i', $html, $matches);
-		$vid = $matches[1];
-		if (!$vid) return false;
+
+		if (!$vid = $matches[1])
+		{
+			return false;
+		}
 
 		preg_match('/<h1 class="mod_player_title" title="(.+)" id="h1_title">/i', $html, $matches);
 		$data['title'] = $matches[1];
@@ -171,7 +174,6 @@ class Services_VideoUrlParser
 		$data['img'] = $matches[1];
 
 		$data['url'] = $url;
-
 		$data['swf'] = 'http://static.video.qq.com/TPout.swf?vid=' . $vid . '&auto=0';
 
 		return $data;
@@ -189,14 +191,20 @@ class Services_VideoUrlParser
 		if (empty($matches))
 		{
 			preg_match("#v_playlist\/#", $url, $mat);
+
 			if (!$mat)
+			{
 				return false;
+			}
 
 			$html = self::_fget($url);
 
 			preg_match("#videoId2\s*=\s*\'(\w+)\'#", $html, $matches);
+
 			if (!$matches)
+			{
 				return false;
+			}
 		}
 
 		return array(
@@ -266,8 +274,11 @@ class Services_VideoUrlParser
 		$html = iconv('GBK', 'UTF-8', self::_fget($url));
 
 		preg_match('/id: "([a-zA-Z0-9]+\.\.)"/i', $html, $matches);
-		$vid = $matches[1];
-		if (!$vid) return false;
+
+		if (!$vid = $matches[1])
+		{
+			return false;
+		}
 
 		preg_match('/<h1 title="(.+)">/i', $html, $matches);
 		$data['title'] = $matches[1];
@@ -293,7 +304,9 @@ class Services_VideoUrlParser
 		preg_match("#/v_(\w+)\.html#", $url, $matches);
 
 		if (empty($matches))
+		{
 			return false;
+		}
 
 		$link = "http://vxml.56.com/json/{$matches[1]}/?src=out";
 		$retval = self::_cget($link);
@@ -323,9 +336,11 @@ class Services_VideoUrlParser
 	private function _parseLetv($url)
 	{
 		$html = self::_fget($url);
+
 		preg_match("#http://v.t.sina.com.cn/([^'\"]*)#", $html, $matches);
 		parse_str(parse_url(urldecode($matches[0]), PHP_URL_QUERY));
 		preg_match("#vplay/(\d+)#", $url, $matches);
+
 		$data['img'] = $pic;
 		$data['title'] = $title;
 		$data['url'] = $url;
@@ -417,13 +432,20 @@ class Services_VideoUrlParser
 	private function _fget($url = '')
 	{
 		if (!$url)
+		{
 			return false;
+		}
+
 		$html = self::_vita_get_url_content($url);
 		// 判断是否gzip压缩
 		if ($dehtml = self::_gzdecode($html))
+		{
 			return $dehtml;
+		}
 		else
+		{
 			return $html;
+		}
 	}
 
 	/*
@@ -432,7 +454,10 @@ class Services_VideoUrlParser
 	private function _fsget($path = '/', $host = '', $user_agent = '')
 	{
 		if (!$path || !$host)
+		{
 			return false;
+		}
+
 		$user_agent = $user_agent ? $user_agent : self::USER_AGENT;
 
 		$out = <<<HEADER
@@ -466,7 +491,9 @@ HEADER;
 	private function _cget($url = '', $user_agent = '')
 	{
 		if (!$url)
+		{
 			return;
+		}
 
 		$user_agent = $user_agent ? $user_agent : self::USER_AGENT;
 
@@ -486,11 +513,14 @@ HEADER;
 			curl_close($ch);
 			return false;
 		}
+
 		curl_close($ch);
+
 		if (!is_string($html) || !strlen($html))
 		{
 			return false;
 		}
+
 		return $html;
 		// 判断是否gzip压缩
 		if ($dehtml = self::_gzdecode($html))
@@ -502,29 +532,36 @@ HEADER;
 	private function _vita_get_url_content($url)
 	{
 		$ch = curl_init();
-		$timeout = 5;
+
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+
 		$file_contents = curl_exec($ch);
+
 		curl_close($ch);
+
 		return $file_contents;
 	}
 
 	private function _gzdecode($data)
 	{
 		$len = strlen($data);
+
 		if ($len < 18 || strcmp(substr($data, 0, 2), "\x1f\x8b"))
 		{
 			return null; // Not GZIP format (See RFC 1952)
 		}
+
 		$method = ord(substr($data, 2, 1)); // Compression method
 		$flags = ord(substr($data, 3, 1)); // Flags
+
 		if ($flags & 31 != $flags)
 		{
 			// Reserved bits are set -- NOT ALLOWED by RFC 1952
 			return null;
 		}
+
 		// NOTE: $mtime may be negative (PHP integer limitations)
 		$mtime = unpack("V", substr($data, 4, 4));
 		$mtime = $mtime[1];
@@ -533,6 +570,7 @@ HEADER;
 		$headerlen = 10;
 		$extralen = 0;
 		$extra = "";
+
 		if ($flags & 4)
 		{
 			// 2-byte length prefixed EXTRA data in header
@@ -552,6 +590,7 @@ HEADER;
 
 		$filenamelen = 0;
 		$filename = "";
+
 		if ($flags & 8)
 		{
 			// C-style string file NAME data in header
@@ -570,6 +609,7 @@ HEADER;
 
 		$commentlen = 0;
 		$comment = "";
+
 		if ($flags & 16)
 		{
 			// C-style string COMMENT data in header
@@ -587,6 +627,7 @@ HEADER;
 		}
 
 		$headercrc = "";
+
 		if ($flags & 1)
 		{
 			// 2-bytes (lowest order) of CRC32 on header present
@@ -594,6 +635,7 @@ HEADER;
 			{
 				return false; // Invalid format
 			}
+
 			$calccrc = crc32(substr($data, 0, $headerlen)) & 0xffff;
 			$headercrc = unpack("v", substr($data, $headerlen, 2));
 			$headercrc = $headercrc[1];
@@ -601,6 +643,7 @@ HEADER;
 			{
 				return false; // Bad header CRC
 			}
+
 			$headerlen += 2;
 		}
 
@@ -612,6 +655,7 @@ HEADER;
 
 		// Perform the decompression:
 		$bodylen = $len - $headerlen - 8;
+
 		if ($bodylen < 1)
 		{
 			// This should never happen - IMPLEMENTATION BUG!
