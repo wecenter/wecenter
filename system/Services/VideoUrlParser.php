@@ -186,7 +186,7 @@ class Services_VideoUrlParser
 	 */
 	private function _parseYouku($url)
 	{
-		preg_match("#id\_(\w+==)#", $url, $matches);
+		preg_match("#id\_(\w+(?:==)?)#", $url, $matches);
 
 		if (empty($matches))
 		{
