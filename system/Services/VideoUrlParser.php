@@ -184,7 +184,7 @@ class Services_VideoUrlParser
 	 */
 	private function _parseYouku($url)
 	{
-		preg_match("#id\_(\w+)#", $url, $matches);
+		preg_match("#id\_(\w+==)#", $url, $matches);
 
 		if (empty($matches))
 		{
@@ -198,6 +198,11 @@ class Services_VideoUrlParser
 			if (!$matches)
 				return false;
 		}
+
+		return array(
+			'url' => $url,
+			'iframe' => "http://player.youku.com/player.php/sid/{$matches[1]}/v.swf"
+		);
 
 		$link = "http://v.youku.com/player/getPlayList/VideoIDS/{$matches[1]}/timezone/+08/version/5/source/out?password=&ran=2513&n=3";
 
