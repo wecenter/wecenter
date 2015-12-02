@@ -1340,3 +1340,9 @@ function get_paid_progress_bar($amount, $paid)
 
 	return intval(($paid / $amount) * 100);
 }
+
+
+function uniqid_generate($length = 16)
+{
+	return substr(strtolower(md5(uniqid(rand()))), 0, $length);
+}
