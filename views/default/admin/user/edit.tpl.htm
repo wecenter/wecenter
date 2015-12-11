@@ -362,7 +362,7 @@ $(document).ready(function () {
         detector: function () {
             this.select(["<?php echo $this->user['province']; ?>", "<?php echo $this->user['city']; ?>"]);
         },
-        dataUrl: G_BASE_URL + '/static/js/areas.js'
+        dataUrl: G_BASE_URL.replace('/?', '') + '/static/js/areas.js'
     });
 
     $('.mod-input-file').change(function(){

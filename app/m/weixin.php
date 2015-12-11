@@ -111,8 +111,6 @@ class weixin extends AWS_CONTROLLER
 	{
 		$this->model('account')->logout();
 
-		unset(AWS_APP::session()->WXConnect);
-
 		if (get_setting('weixin_account_role') != 'service')
 		{
 			H::redirect_msg(AWS_APP::lang()->_t('此功能只适用于通过微信认证的服务号'));
@@ -209,10 +207,10 @@ class weixin extends AWS_CONTROLLER
 				}
 				else
 				{
-					AWS_APP::session()->WXConnect = array(
+					HTTP::set_cookie('_WXConnect', json_encode(array(
 						'access_token' => $access_token,
 						'access_user' => $access_user
-					);
+					)), null, '/', null, false, true);
 
 					TPL::assign('access_token', $access_token);
 					TPL::assign('access_user', $access_user);
@@ -241,9 +239,16 @@ class weixin extends AWS_CONTROLLER
 
 	public function binding_action()
 	{
-		if (AWS_APP::session()->WXConnect['access_token']['openid'])
+		if ($_COOKIE[G_COOKIE_PREFIX . '_WXConnect'])
 		{
-			$this->model('openid_weixin_weixin')->bind_account(AWS_APP::session()->WXConnect['access_user'], AWS_APP::session()->WXConnect['access_token'], $this->user_id);
+			$WXConnect = json_decode($_COOKIE[G_COOKIE_PREFIX . '_WXConnect'], true);
+		}
+
+		if ($WXConnect['access_token']['openid'])
+		{
+			$this->model('openid_weixin_weixin')->bind_account($WXConnect['access_user'], $WXConnect['access_token'], $this->user_id);
+
+			HTTP::set_cookie('_WXConnect', '', null, '/', null, false, true);
 
 			if ($_GET['redirect'])
 			{

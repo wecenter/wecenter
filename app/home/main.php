@@ -49,7 +49,7 @@ class main extends AWS_CONTROLLER
 	}
 
 	public function index_action()
-	{
+	{		
 		if (! $this->user_id)
 		{
 			HTTP::redirect('/explore/');
