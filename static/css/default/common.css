@@ -1048,6 +1048,7 @@ blockquote {margin: 0 40px;padding: 0 15px;font-size: 14px;color: #777;border-le
 	.aw-user-detail-box .mod-head img {width: 50px;left: 10px !important;top: 10px !important;}
 	.aw-user-detail-box .mod-body .meta span {float: left;width: 25%;margin:0 !important;}
 	.aw-user-center-tab .tab-pane > .aw-mod a.aw-hide-txt {max-width: auto;}
+	.aw-imageVideo-box .modal-dialog, .aw-share-box .modal-dialog, .aw-question-redirect-box .modal-dialog, .aw-inbox .modal-dialog, .aw-topic-edit-note-box .modal-dialog, .aw-favorite-box .modal-dialog{width: 100%;}
 }
 /* iphone竖屏幕 */
 @media (max-width:414px) {
