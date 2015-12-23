@@ -1,4 +1,4 @@
-var ATTACH_ACCESS_KEY
+var ATTACH_ACCESS_KEY;
 var COMMENT_UNFOLD;
 var QUESTION_ID;
 var UNINTERESTED_COUNT;
@@ -37,7 +37,7 @@ $(function()
 				// 自动保存草稿
 				EDITOR.on( 'blur', EDITOR_CALLBACK);
 			}
-			
+
 		}
 
 		if ($('.aw-upload-box').length)

@@ -26,7 +26,7 @@
 						<input type="hidden" name="question_id" id="question_id" value="<?php echo $this->question_info['question_id']; ?>" />
 						<input type="hidden" name="ask_user_id" value="<?php echo $_POST['ask_user_id']; ?>" />
 						<?php if ($this->question_category_list) { ?>
-						<select name="category_id" class="hide" id="category_id">
+						<select name="category_id" class="collapse" id="category_id">
 							<option value="0">- <?php _e('请选择分类'); ?> -</option>
 							<?php echo $this->question_category_list; ?>
 						</select>
@@ -38,7 +38,7 @@
 								<div class="aw-publish-title<?php if (!$this->question_category_list) { ?> active<?php } ?>">
 									<div>
 										<input type="text" placeholder="<?php _e('问题标题'); ?>..." name="question_content" id="question_contents" value="<?php echo $this->question_info['question_content']; ?>" class="form-control" />
-										<div class="aw-publish-suggest-question hide">
+										<div class="aw-publish-suggest-question collapse">
 											<p class="text-color-999">你的问题可能已经有答案</p>
 											<ul class="aw-dropdown-list">
 											</ul>

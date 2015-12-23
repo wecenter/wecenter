@@ -7,7 +7,7 @@
 	</div>
 	<div class="mod-body">
 		<p><?php _e('已有账号'); ?>? <a class="aw-register-open-tabs"><?php _e('点此绑定'); ?><i class="aw-icon i-triangle-down"></i></a></p>
-		<form id="login_form" method="post" class="aw-register-form hide" onsubmit="return false" action="account/ajax/login_process/">
+		<form id="login_form" method="post" class="aw-register-form collapse" onsubmit="return false" action="account/ajax/login_process/">
 			<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
 			<input type="hidden" name="return_url" id="login_return_url" value="" />
 			<ul>
@@ -36,12 +36,12 @@
 				</li>
 				<li class="last">
 					<label><input type="checkbox" checked="checked" value="agree" name="agreement_chk" /> <?php _e('我同意'); ?></label> <a href="javascript:;" onclick="$('.aw-regiter-agreement').show();"><?php _e('用户协议'); ?></a>
-					<div class="aw-regiter-agreement hide">
+					<div class="aw-regiter-agreement collapse">
 						<i></i>
 						<div class="aw-register-agreement-txt" id="register_agreement"></div>
 					</div>
 				</li>
-				<li class="alert alert-danger hide error_message">
+				<li class="alert alert-danger collapse error_message">
 					<i class="icon icon-delete"></i>
 					<em></em>
 				</li>

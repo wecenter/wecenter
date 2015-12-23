@@ -181,7 +181,7 @@
 </div>
 
 <?php if ($this->parent_topic_list) { ?>
-<div id="target-category" class="hide">
+<div id="target-category" class="collapse">
     <?php foreach ($this->parent_topic_list AS $topic_info) { ?>
     <option value="<?php echo $topic_info['topic_id']; ?>"><?php echo $topic_info['topic_title']; ?></option>
     <?php } ?>

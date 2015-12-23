@@ -72,7 +72,7 @@
 												<?php } ?>
 											</div>
 
-											<div id="detail_more_<?php echo md5($val['item_id'] . $val['item_type']); ?>" class="hide">
+											<div id="detail_more_<?php echo md5($val['item_id'] . $val['item_type']); ?>" class="collapse">
 									      		<?php echo nl2br(strip_ubb($val['answer_info']['answer_content'])); ?>
 
 												<?php if ($val['answer_info']['attachs']) { ?>

@@ -1,6 +1,6 @@
 var AW_TEMPLATE = {
 	'loadingBox':
-		'<div id="aw-loading" class="hide">'+
+		'<div id="aw-loading" class="collapse">'+
 			'<div id="aw-loading-box"></div>'+
 		'</div>',
 
@@ -81,7 +81,7 @@ var AW_TEMPLATE = {
 						'</div>'+
 						'<form action="' + G_BASE_URL + '/question/ajax/update_answer/answer_id-{{answer_id}}" method="post" onsubmit="return false" id="answer_edit">'+
 						'<div class="modal-body">'+
-							'<div class="alert alert-danger hide error_message"><i class="icon icon-delete"></i> <em></em></div>'+
+							'<div class="alert alert-danger collapse error_message"><i class="icon icon-delete"></i> <em></em></div>'+
 							'<input type="hidden" name="attach_access_key" value="{{attach_access_key}}" />'+
 							'<textarea name="answer_content" id="editor_reply" class="form-control" rows="10"></textarea>'+
 							'<div class="aw-file-upload-box">'+
@@ -116,7 +116,7 @@ var AW_TEMPLATE = {
 		'</div>',
 
 	'favoriteBox' :
-		'<div class="modal hide fade alert-box aw-favorite-box">'+
+		'<div class="modal collapse fade alert-box aw-favorite-box">'+
 			'<div class="modal-dialog">'+
 				'<div class="modal-content">'+
 					'<div class="modal-header">'+
@@ -126,18 +126,18 @@ var AW_TEMPLATE = {
 					'<form id="favorite_form" action="' + G_BASE_URL + '/favorite/ajax/update_favorite_tag/" method="post" onsubmit="return false;">'+
 						'<input type="hidden" name="item_id" value="{{item_id}}" />'+
 						'<input type="hidden" name="item_type" value="{{item_type}}" />'+
-						'<input type="text" name="tags" id="add_favorite_tags" class="hide" />'+
+						'<input type="text" name="tags" id="add_favorite_tags" class="collapse" />'+
 						'<div class="mod aw-favorite-tag-list">'+
 							'<div class="modal-body">'+
 								'<div class="mod-body"><ul></ul></div>'+
-								'<div class="alert alert-danger hide error_message"><i class="icon icon-delete"></i> <em></em></div>'+
+								'<div class="alert alert-danger collapse error_message"><i class="icon icon-delete"></i> <em></em></div>'+
 							'</div>'+
 							'<div class="modal-footer">'+
 								'<a class="pull-left" onclick="$(\'.aw-favorite-box .aw-favorite-tag-list\').hide();$(\'.aw-favorite-box .aw-favorite-tag-add\').show();">' + _t('创建标签') + '</a>'+
 								'<a href="javascript:;"  data-dismiss="modal" aria-hidden="true" class="btn btn-large btn-gray" onclick="return false;">' + _t('关闭') + '</a>'+
 							'</div>'+
 						'</div>'+
-						'<div class="mod aw-favorite-tag-add hide">'+
+						'<div class="mod aw-favorite-tag-add collapse">'+
 							'<div class="modal-body">'+
 								'<input type="text" class="form-control add-input" placeholder="' + _t('标签名字') + '" />'+
 							'</div>'+
@@ -180,14 +180,14 @@ var AW_TEMPLATE = {
 							'<h3 class="modal-title" id="myModalLabel">' + _t('发起问题') + '</h3>'+
 						'</div>'+
 						'<div class="modal-body">'+
-							'<div class="alert alert-danger hide error_message"><i class="icon icon-delete"></i> <em></em></div>'+
+							'<div class="alert alert-danger collapse error_message"><i class="icon icon-delete"></i> <em></em></div>'+
 							'<form action="' + G_BASE_URL + '/publish/ajax/publish_question/" method="post" id="quick_publish" onsubmit="return false">'+
 								'<input type="hidden" id="quick_publish_category_id" name="category_id" value="{{category_id}}" />'+
 								'<input type="hidden" name="post_hash" value="' + G_POST_HASH + '" />'+
 								'<input type="hidden" name="ask_user_id" value="{{ask_user_id}}" />'+
 								'<div>'+
 									'<textarea class="form-control" placeholder="' + _t('写下你的问题') + '..." rows="1" name="question_content" id="quick_publish_question_content" onkeydown="if (event.keyCode == 13) { return false; }"></textarea>'+
-									'<div class="aw-publish-suggest-question hide">'+
+									'<div class="aw-publish-suggest-question collapse">'+
 										'<p class="text-color-999">你的问题可能已经有答案</p>'+
 										'<ul class="aw-dropdown-list">'+
 										'</ul>'+
@@ -207,7 +207,7 @@ var AW_TEMPLATE = {
 										'<span class="aw-edit-topic"><i class="icon icon-edit"></i>' + _t('编辑话题') + '</span>'+
 									'</div>'+
 								'</div>'+
-								'<div class="clearfix hide" id="quick_publish_captcha">'+
+								'<div class="clearfix collapse" id="quick_publish_captcha">'+
 									'<input type="text" class="pull-left form-control" name="seccode_verify" placeholder="' + _t('验证码') + '" />'+
 									'<img id="qp_captcha" class="pull-left" onclick="this.src = \'' +G_BASE_URL + '/account/captcha/\' + Math.floor(Math.random() * 10000);" src="" />'+
 								'</div>'+
@@ -233,7 +233,7 @@ var AW_TEMPLATE = {
 							'<h3 class="modal-title" id="myModalLabel">' + _t('新私信') + '</h3>'+
 						'</div>'+
 						'<div class="modal-body">'+
-							'<div class="alert alert-danger hide error_message"> <i class="icon icon-delete"></i> <em></em></div>'+
+							'<div class="alert alert-danger collapse error_message"> <i class="icon icon-delete"></i> <em></em></div>'+
 							'<form action="' + G_BASE_URL + '/inbox/ajax/send/" method="post" id="quick_publish" onsubmit="return false">'+
 								'<input type="hidden" name="post_hash" value="' + G_POST_HASH + '" />'+
 								'<input id="invite-input" class="form-control" type="text" placeholder="' + _t('搜索用户') + '" name="recipient" value="{{recipient}}" />'+
@@ -322,7 +322,7 @@ var AW_TEMPLATE = {
 							'<input type="hidden" name="type" value="{{item_type}}" />'+
 							'<input type="hidden" name="target_id" value="{{item_id}}" />'+
 							'<div class="modal-body">'+
-								'<div class="alert alert-danger hide error_message"><i class="icon icon-delete"></i> <em></em></div>'+
+								'<div class="alert alert-danger collapse error_message"><i class="icon icon-delete"></i> <em></em></div>'+
 								'<textarea class="form-control" name="reason" rows="5" placeholder="' + _t('请填写举报理由') + '..."></textarea>'+
 							'</div>'+
 							'<div class="modal-footer">'+
@@ -348,7 +348,7 @@ var AW_TEMPLATE = {
 					'<input type="hidden" name="item_type" value="{{article}}" />'+
 					'<div class="mod">'+
 					'<div class="modal-body clearfix">'+
-						'<div class="alert alert-danger hide error_message"><i class="icon icon-delete"></i> <em></em></div>'+
+						'<div class="alert alert-danger collapse error_message"><i class="icon icon-delete"></i> <em></em></div>'+
 						'<div class="mod-body">'+
 							'<ul></ul>'+
 						'</div>'+
@@ -457,21 +457,21 @@ var AW_TEMPLATE = {
 
 	// Modify by wecenter
 	'ProjectForm' :
-		'<div class="mod aw-project-return-form hide">'+
+		'<div class="mod aw-project-return-form collapse">'+
 			'<form action="" method="" name="">'+
 				'<div class="mod-body">'+
 					'<dl class="clearfix">'+
 						'<dt><strong>*</strong>回报标题:</dt>'+
-						'<dd><input type="text" class="form-control form-normal title"/><label class="label label-danger hide">回报标题与支持额度至少填写一个</label></dd>'+
+						'<dd><input type="text" class="form-control form-normal title"/><label class="label label-danger collapse">回报标题与支持额度至少填写一个</label></dd>'+
 						'</dl>'+
 					'<dl>'+
 					'<dt><strong>*</strong>支持额度:</dt>'+
-						'<dd><input type="text" class="form-control form-normal amount" name="" /> <label class="label label-danger hide">额度不能为空</label></dd>'+
+						'<dd><input type="text" class="form-control form-normal amount" name="" /> <label class="label label-danger collapse">额度不能为空</label></dd>'+
 					'</dl>'+
 					'<dl class="clearfix">'+
 						'<dt><strong>*</strong>回报内容:</dt>'+
 						'<dd>'+
-							'<textarea rows="5" class="form-control content"></textarea> <label class="label label-danger hide">回报内容不能为空</label>'+
+							'<textarea rows="5" class="form-control content"></textarea> <label class="label label-danger collapse">回报内容不能为空</label>'+
 						'</dd>'+
 					'</dl>'+
 					'<dl>'+
@@ -483,7 +483,7 @@ var AW_TEMPLATE = {
 								'<label>'+
 									'<input type="radio" name="limit-num" class="limit-num-yes" value="true"/> 是 '+
 								'</label>'+
-								'<label class="count hide">'+
+								'<label class="count collapse">'+
 									'<span class="pull-left">名额数量:</span>'+
 									'<input type="text" class="form-control form-xs pull-left people-amount" name="" />'+
 								'</label>'+
@@ -505,7 +505,7 @@ var AW_TEMPLATE = {
 				'<div class="modal-dialog">'+
 					'<div class="modal-content">'+
 							'<div class="kn-box vmod aw-publish-contact">'+
-								'<label class="label label-danger hide"></label>'+
+								'<label class="label label-danger collapse"></label>'+
 								'<div class="mod-head">'+
 									'<p>'+
 										'提示：提交审核后点名时间将在 3 个工作日内完成审核，请留意站内通知以及你的邮箱'+
