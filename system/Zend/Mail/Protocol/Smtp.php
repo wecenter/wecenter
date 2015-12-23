@@ -156,14 +156,15 @@ class Zend_Mail_Protocol_Smtp extends Zend_Mail_Protocol_Abstract
         parent::__construct($host, $port);
     }
 
+
     /**
      * Connect to the server with the parameters given in the constructor.
      *
      * @return boolean
      */
-    // Modify by WeCenter
     public function connect()
     {
+    	// Modify by WeCenter
         return $this->_connect($this->_transport, $this->_host, $this->_port);
     }
 

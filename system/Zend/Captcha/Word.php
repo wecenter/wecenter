@@ -15,12 +15,15 @@
  * @category   Zend
  * @package    Zend_Captcha
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
 /** @see Zend_Captcha_Base */
 //require_once 'Zend/Captcha/Base.php';
+
+/** @see Zend_Crypt_Math */
+//require_once 'Zend/Crypt/Math.php';
 
 /**
  * Word-based captcha adapter
@@ -30,7 +33,7 @@
  * @category   Zend
  * @package    Zend_Captcha
  * @subpackage Adapter
- * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
@@ -39,10 +42,10 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
     /**#@+
      * @var array Character sets
      */
-    static $V  = array("a", "e", "i", "o", "u", "y");
-    static $VN = array("a", "e", "i", "o", "u", "y","2","3","4","5","6","7","8","9");
-    static $C  = array("b","c","d","f","g","h","j","k","m","n","p","q","r","s","t","u","v","w","x","z");
-    static $CN = array("b","c","d","f","g","h","j","k","m","n","p","q","r","s","t","u","v","w","x","z","2","3","4","5","6","7","8","9");
+    static public $V  = array("a", "e", "i", "o", "u", "y");
+    static public $VN = array("a", "e", "i", "o", "u", "y","2","3","4","5","6","7","8","9");
+    static public $C  = array("b","c","d","f","g","h","j","k","m","n","p","q","r","s","t","u","v","w","x","z");
+    static public $CN = array("b","c","d","f","g","h","j","k","m","n","p","q","r","s","t","u","v","w","x","z","2","3","4","5","6","7","8","9");
     /**#@-*/
 
     /**
@@ -175,7 +178,7 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
      *
      * @return string
      */
-    public function getId ()
+    public function getId()
     {
         if (null === $this->_id) {
             $this->_setId($this->_generateRandomId());
@@ -187,9 +190,9 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
      * Set captcha identifier
      *
      * @param string $id
-     * return Zend_Captcha_Word
+     * @return Zend_Captcha_Word
      */
-    protected function _setId ($id)
+    protected function _setId($id)
     {
         $this->_id = $id;
         return $this;
@@ -250,7 +253,7 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
         $this->_useNumbers = $_useNumbers;
         return $this;
     }
-    
+
     /**
      * Get session object
      *
@@ -280,7 +283,7 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
     public function setSession(Zend_Session_Namespace $session)
     {
         $this->_session = $session;
-        if($session) {
+        if ($session) {
             $this->_keepSession = true;
         }
         return $this;
@@ -326,10 +329,12 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
         $vowels     = $this->_useNumbers ? self::$VN : self::$V;
         $consonants = $this->_useNumbers ? self::$CN : self::$C;
 
+        $totIndexCon = count($consonants) - 1;
+        $totIndexVow = count($vowels) - 1;
         for ($i=0; $i < $wordLen; $i = $i + 2) {
             // generate word with mix of vowels and consonants
-            $consonant = $consonants[array_rand($consonants)];
-            $vowel     = $vowels[array_rand($vowels)];
+            $consonant = $consonants[Zend_Crypt_Math::randInteger(0, $totIndexCon, true)];
+            $vowel     = $vowels[Zend_Crypt_Math::randInteger(0, $totIndexVow, true)];
             $word     .= $consonant . $vowel;
         }
 
@@ -347,7 +352,7 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
      */
     public function generate()
     {
-        if(!$this->_keepSession) {
+        if (!$this->_keepSession) {
             $this->_session = null;
         }
         $id = $this->_generateRandomId();
@@ -359,14 +364,15 @@ abstract class Zend_Captcha_Word extends Zend_Captcha_Base
 
     protected function _generateRandomId()
     {
-        return md5(mt_rand(0, 1000) . microtime(true));
+        return md5(Zend_Crypt_Math::randBytes(32));
     }
 
     /**
      * Validate the word
      *
      * @see    Zend_Validate_Interface::isValid()
-     * @param  mixed $value
+     * @param  mixed      $value
+     * @param  array|null $context
      * @return boolean
      */
     public function isValid($value, $context = null)

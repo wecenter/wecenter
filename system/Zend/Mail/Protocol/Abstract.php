@@ -258,8 +258,7 @@ abstract class Zend_Mail_Protocol_Abstract
      * @throws Zend_Mail_Protocol_Exception
      * @return boolean
      */
-    // Modify by WeCenter
-    protected function _connect($transport, $host, $port)
+    protected function _connect($transport, $host, $port)	// Modify by WeCenter
     {
         $errorNum = 0;
         $errorStr = '';

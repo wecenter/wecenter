@@ -1015,6 +1015,12 @@ function fetch_file_lists($dir, $file_type = null)
 	}
 
 	$base_dir = realpath($dir);
+	
+	if (!file_exists($base_dir))
+	{
+		return false;
+	}
+	
 	$dir_handle = opendir($base_dir);
 
 	$files_list = array();

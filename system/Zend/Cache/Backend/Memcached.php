@@ -15,7 +15,7 @@
  * @category   Zend
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Backend
- * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  * @version    $Id$
  */
@@ -35,7 +35,7 @@
 /**
  * @package    Zend_Cache
  * @subpackage Zend_Cache_Backend
- * @copyright  Copyright (c) 2005-2014 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2015 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 class Zend_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend_Cache_Backend_ExtendedInterface
@@ -135,43 +135,42 @@ class Zend_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend_Ca
         if (defined('IN_SAE')){
             $this->_memcache = memcache_init();
         } else {
-            $this->_memcache = new Memcache;
-            foreach ($this->_options['servers'] as $server) {
-                if (!array_key_exists('port', $server)) {
-                    $server['port'] = self::DEFAULT_PORT;
-                }
-                if (!array_key_exists('persistent', $server)) {
-                    $server['persistent'] = self::DEFAULT_PERSISTENT;
-                }
-                if (!array_key_exists('weight', $server)) {
-                    $server['weight'] = self::DEFAULT_WEIGHT;
-                }
-                if (!array_key_exists('timeout', $server)) {
-                    $server['timeout'] = self::DEFAULT_TIMEOUT;
-                }
-                if (!array_key_exists('retry_interval', $server)) {
-                    $server['retry_interval'] = self::DEFAULT_RETRY_INTERVAL;
-                }
-                if (!array_key_exists('status', $server)) {
-                    $server['status'] = self::DEFAULT_STATUS;
-                }
-                if (!array_key_exists('failure_callback', $server)) {
-                    $server['failure_callback'] = self::DEFAULT_FAILURE_CALLBACK;
-                }
-                if ($this->_options['compatibility']) {
-                    // No status for compatibility mode (#ZF-5887)
-                    $this->_memcache->addServer($server['host'], $server['port'], $server['persistent'],
-                                            $server['weight'], $server['timeout'],
-                                            $server['retry_interval']);
-                } else {
-                    $this->_memcache->addServer($server['host'], $server['port'], $server['persistent'],
-                                            $server['weight'], $server['timeout'],
-                                            $server['retry_interval'],
-                                            $server['status'], $server['failure_callback']);
-                }
-            }
+			$this->_memcache = new Memcache;
+			foreach ($this->_options['servers'] as $server) {
+				if (!array_key_exists('port', $server)) {
+					$server['port'] = self::DEFAULT_PORT;
+				}
+				if (!array_key_exists('persistent', $server)) {
+					$server['persistent'] = self::DEFAULT_PERSISTENT;
+				}
+				if (!array_key_exists('weight', $server)) {
+					$server['weight'] = self::DEFAULT_WEIGHT;
+				}
+				if (!array_key_exists('timeout', $server)) {
+					$server['timeout'] = self::DEFAULT_TIMEOUT;
+				}
+				if (!array_key_exists('retry_interval', $server)) {
+					$server['retry_interval'] = self::DEFAULT_RETRY_INTERVAL;
+				}
+				if (!array_key_exists('status', $server)) {
+					$server['status'] = self::DEFAULT_STATUS;
+				}
+				if (!array_key_exists('failure_callback', $server)) {
+					$server['failure_callback'] = self::DEFAULT_FAILURE_CALLBACK;
+				}
+				if ($this->_options['compatibility']) {
+					// No status for compatibility mode (#ZF-5887)
+					$this->_memcache->addServer($server['host'], $server['port'], $server['persistent'],
+											$server['weight'], $server['timeout'],
+											$server['retry_interval']);
+				} else {
+					$this->_memcache->addServer($server['host'], $server['port'], $server['persistent'],
+											$server['weight'], $server['timeout'],
+											$server['retry_interval'],
+											$server['status'], $server['failure_callback']);
+				}
+			}
         }
-
     }
 
     /**
@@ -396,7 +395,12 @@ class Zend_Cache_Backend_Memcached extends Zend_Cache_Backend implements Zend_Ca
             }
 
             $eachSize = $mem['limit_maxbytes'];
-            $eachUsed = $mem['bytes'];
+
+            /**
+             * Couchbase 1.x uses 'mem_used' instead of 'bytes'
+             * @see https://www.couchbase.com/issues/browse/MB-3466
+             */
+            $eachUsed = isset($mem['bytes']) ? $mem['bytes'] : $mem['mem_used'];
             if ($eachUsed > $eachSize) {
                 $eachUsed = $eachSize;
             }
