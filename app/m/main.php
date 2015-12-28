@@ -735,6 +735,13 @@ class main extends AWS_CONTROLLER
 			$this->model('people')->update_views($user['uid']);
 		}
 
+		if ($user['forbidden'] AND !$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'])
+		{
+			header('HTTP/1.1 404 Not Found');
+
+			H::redirect_msg(AWS_APP::lang()->_t('该用户已被封禁'), '/');
+		}
+
 		TPL::assign('user', $user);
 
 		TPL::assign('user_follow_check', $this->model('follow')->user_follow_check($this->user_id, $user['uid']));
