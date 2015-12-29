@@ -1009,14 +1009,12 @@ blockquote {margin: 0 40px;padding: 0 15px;font-size: 14px;color: #777;border-le
         position: absolute;
         width: 120px;
         left: -15px;
-        background: #499ef3;
     }
 }
 @media (min-width: 768px) {
     .navbar-collapse {
         position: static;
         width: auto;
-        background: #499ef3;
     }
 }
 /* iphone横屏幕 */
