@@ -61,6 +61,7 @@ class message_class extends AWS_MODEL
 		{
 			$this->model('email')->action_email('NEW_MESSAGE', $recipient_uid, get_js_url('/inbox/'), array(
 				'user_name' => $user_info['user_name'],
+				'message' => nl2br(htmlspecialchars($message)),
 			));
 		}
 
