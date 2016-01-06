@@ -304,7 +304,7 @@ class ajax extends AWS_CONTROLLER
 		$answer_info = $this->model('answer')->get_answer_by_id($_GET['answer_id']);
 
 		TPL::assign('question', $this->model('question')->get_question_info_by_id($answer_info['question_id']));
-
+		TPL::assign('answer_info', $answer_info);
 		TPL::assign('comments', $comments);
 
 		if (is_mobile())
