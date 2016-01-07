@@ -173,7 +173,7 @@ class article_class extends AWS_MODEL
 		return true;
 	}
 
-	public function update_article($article_id, $title, $message, $topics, $category_id, $create_topic)
+	public function update_article($article_id, $uid, $title, $message, $topics, $category_id, $create_topic)
 	{
 		if (!$article_info = $this->model('article')->get_article_info_by_id($article_id))
 		{
@@ -188,7 +188,7 @@ class article_class extends AWS_MODEL
 			{
 				$topic_id = $this->model('topic')->save_topic($topic_title, $uid, $create_topic);
 
-				$this->model('topic')->save_topic_relation($this->user_id, $topic_id, $article_id, 'article');
+				$this->model('topic')->save_topic_relation($uid, $topic_id, $article_id, 'article');
 			}
 		}
 

@@ -797,7 +797,7 @@ class ajax extends AWS_CONTROLLER
             ), 1, null));
         }
 
-        $this->model('article')->update_article($article_info['id'], $_POST['title'], $_POST['message'], $_POST['topics'], $_POST['category_id'], $this->user_info['permission']['create_topic']);
+        $this->model('article')->update_article($article_info['id'], $this->user_id, $_POST['title'], $_POST['message'], $_POST['topics'], $_POST['category_id'], $this->user_info['permission']['create_topic']);
 
         if ($_POST['attach_access_key'])
         {

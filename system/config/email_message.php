@@ -33,7 +33,7 @@ $config['NEW_ANSWER'] = array(
 
 $config['NEW_MESSAGE'] = array(
 	'subject' => "[#user_name#] 在 [#site_name#] 上给您发送了私信",
-	'message' => "[#user_name#] 在 [#site_name#] 上给您发送了私信",
+	'message' => "[#user_name#] 在 [#site_name#] 上给您发送了私信<br /><br />----- 私信内容 -----<br /><br />[#message#]<br /><br />",
 );
 
 $config['INVITE_QUESTION'] = array(
