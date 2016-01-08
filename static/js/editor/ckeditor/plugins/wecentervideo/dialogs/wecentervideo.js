@@ -20,7 +20,7 @@
                             required: true,
                             commit: function () {
                                 if (this.getValue()) {
-                                    editor.insertHtml('<br /><video>' + this.getValue()  + '</video>');
+                                    editor.insertHtml('<br /><video title="' + this.getValue() + '">' + this.getValue()  + '</video>');
                                     //editor.insertText( '!![视频名称](' + this.getValue() + ')' );
                                 }
                             }
