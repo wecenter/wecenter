@@ -54,12 +54,26 @@ FileUpload.prototype =
 	// 初始化上传器
 	init : function (element, container)
 	{
+		
 		var form = this.createForm(),
 			input = this.createInput();
 
-		$(element).prepend($(form).append(input));
+		if(navigator.userAgent.indexOf("MSIE 8.0") > 0)
+		{
+			$(element).prepend($(form).append(input));
+		}
+		else
+		{
+			$('#aw-ajax-box').prepend($(form).append(input));
+
+			$(element).click(function ()
+			{
+				$('#upload-form .file-input').click();
+			});
+		}
 
 		$(container).append('<ul class="upload-list"></ul>');
+		
 	},
 
 	// 创建表单
