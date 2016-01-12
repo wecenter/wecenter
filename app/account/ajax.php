@@ -49,12 +49,12 @@ class ajax extends AWS_CONTROLLER
 
 	public function check_username_action()
 	{
-		if ($this->model('account')->check_username_char($_GET['username']))
+		if ($this->model('account')->check_username_char($_POST['username']) OR $this->model('account')->check_username_sensitive_words($_POST['username']))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('用户名不符合规则')));
 		}
-
-		if ($this->model('account')->check_username_sensitive_words($_GET['username']) || $this->model('account')->check_username($_GET['username']))
+		
+		if ($this->model('account')->check_username($_POST['username']))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('用户名已被注册')));
 		}
@@ -247,11 +247,11 @@ class ajax extends AWS_CONTROLLER
 
 		if ($_POST['_is_mobile'])
 		{
+			$this->model('account')->setcookie_login($user_info['uid'], $user_info['user_name'], $_POST['password'], $user_info['salt']);
+			
 			if ($_POST['return_url'])
 			{
 				$user_info = $this->model('account')->get_user_info_by_uid($uid);
-
-				$this->model('account')->setcookie_login($user_info['uid'], $user_info['user_name'], $_POST['password'], $user_info['salt']);
 
 				$return_url = strip_tags($_POST['return_url']);
 			}
@@ -326,7 +326,7 @@ class ajax extends AWS_CONTROLLER
 					($_POST['_is_mobile'] AND strstr($_POST['return_url'], '/m/') OR
 					strstr($_POST['return_url'], '://') AND strstr($_POST['return_url'], base_url())))
 				{
-					$url = strip_tags($_POST['return_url']);
+					$url = get_js_url($_POST['return_url']);
 				}
 				else if ($_POST['_is_mobile'])
 				{
@@ -677,7 +677,7 @@ class ajax extends AWS_CONTROLLER
                 break;
 
                 case 'upload_invalid_filesize':
-                    die("{'error':'文件尺寸过大, 最大允许尺寸为 " . get_setting('upload_size_limit') .  " KB'}");
+                    die("{'error':'文件尺寸过大, 最大允许尺寸为 " . get_setting('upload_avatar_size_limit') .  " KB'}");
                 break;
             }
 		}
@@ -1251,7 +1251,22 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('当前帐号已经完善资料')));
 		}
 
-		$_POST['user_name'] = htmlspecialchars(trim($_POST['user_name']));		if ($check_result = $this->model('account')->check_username_char($_POST['user_name']))		{			H::ajax_json_output(AWS_APP::RSM(null, '-1', $check_result));		}				if ($this->user_info['user_name'] != $_POST['user_name'])		{			if ($this->model('account')->check_username_sensitive_words($_GET['username']) || $this->model('account')->check_username($_GET['username']))			{				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('用户名已被注册')));			}		}				$update_data['user_name'] = $_POST['user_name'];
+		$_POST['user_name'] = htmlspecialchars(trim($_POST['user_name']));
+
+		if ($check_result = $this->model('account')->check_username_char($_POST['user_name']))
+		{
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', $check_result));
+		}
+		
+		if ($this->user_info['user_name'] != $_POST['user_name'])
+		{
+			if ($this->model('account')->check_username_sensitive_words($_GET['username']) || $this->model('account')->check_username($_GET['username']))
+			{
+				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('用户名已被注册')));
+			}
+		}
+		
+		$update_data['user_name'] = $_POST['user_name'];
 
 		if (! H::valid_email($this->user_info['email']))
 		{

@@ -517,7 +517,7 @@ class publish_class extends AWS_MODEL
 					break;
 			}
 
-			return $this->update($attach['item_type'], array(
+			$this->update($attach['item_type'], array(
 				'has_attach' => 0
 			), $update_key . ' = ' . $attach['item_id']);
 		}
@@ -600,7 +600,7 @@ class publish_class extends AWS_MODEL
 
 			if ($data['is_image'] == 1 AND $size)
 			{
-				$attach_list[$data['id']]['thumb'] = $attach_url . '/' . AWS_APP::config()->get('image')->attachment_thumbnail[$size]['w'] . 'x' . AWS_APP::config()->get('image')->attachment_thumbnail[$size]['h'] . '_' . $data['file_location'];
+				$attach_list[$data['id']]['thumb'] = $attach_url . AWS_APP::config()->get('image')->attachment_thumbnail[$size]['w'] . 'x' . AWS_APP::config()->get('image')->attachment_thumbnail[$size]['h'] . '_' . $data['file_location'];
 			}
 		}
 

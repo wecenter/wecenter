@@ -47,6 +47,8 @@ class main extends AWS_CONTROLLER
 
 		if (! $article_info = $this->model('article')->get_article_info_by_id($_GET['id']))
 		{
+			header('HTTP/1.1 404 Not Found');
+
 			H::redirect_msg(AWS_APP::lang()->_t('文章不存在或已被删除'), '/');
 		}
 

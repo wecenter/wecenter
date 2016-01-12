@@ -77,7 +77,7 @@ class ajax extends AWS_CONTROLLER
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('页面停留时间过长,或内容已提交,请刷新页面')));
 		}
 
-		if ($this->publish_approval_valid() OR H::sensitive_word_exists($message))
+		if ($this->publish_approval_valid($message))
 		{
 			$this->model('publish')->publish_approval('article_comment', array(
 				'article_id' => intval($_POST['article_id']),

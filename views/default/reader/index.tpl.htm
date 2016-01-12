@@ -41,7 +41,7 @@
                     </div>
 
                     <div class="filter">
-                        <div class="dropdown-list-wrap" <?php if (sizeof($this->feature_list) == 0) { ?> class="hide"<?php } ?>>
+                        <div class="dropdown-list-wrap" <?php if (sizeof($this->feature_list) == 0) { ?> class="collapse"<?php } ?>>
                             <span>全部内容</span>
                             <div class="dropdown-list">
                                 <ul>
@@ -56,7 +56,7 @@
                             <i class="icon icon-down"></i>
                         </div>
 
-                        <select id="feature_selecter"<?php if (sizeof($this->feature_list) == 0) { ?> class="hide"<?php } ?>>
+                        <select id="feature_selecter"<?php if (sizeof($this->feature_list) == 0) { ?> class="collapse"<?php } ?>>
                             <option value=""><?php _e('全部内容'); ?></option>
                             <?php if ($this->feature_list) { ?>
                             <?php foreach($this->feature_list AS $key => $val) { ?>
@@ -73,7 +73,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-9 col-sm-9 pull-right hide aw-reader-content"  id="right_panel" >
+                <div class="col-md-9 col-sm-9 pull-right collapse aw-reader-content"  id="right_panel" >
                     <div class="header">
                         <a href="#" class="top-actions" id="top_actions"><?php _e('查看原问题'); ?></a>
                         <?php _e('%s 个回复', '<span id="answer_users">0</span>'); ?> <span class="middot">·</span>
@@ -103,14 +103,14 @@
                                     </div>
 
                                     <div class="aw-answer-body">
-                                        <div class="answer-vote-info hide" id="answer_vote_info">
+                                        <div class="answer-vote-info collapse" id="answer_vote_info">
                                             <span class="vote-info-num"><span id="vote_info_num">0</span></span>
                                             <?php _e('赞同来自'); ?>
                                             <ul class="vote-info-users-list" id="vote_info_users_list">
 
                                             </ul>
 
-                                            <ul class="vote-info-users-list hide" id="vote_info_users_list_more">
+                                            <ul class="vote-info-users-list collapse" id="vote_info_users_list_more">
 
                                             </ul>
 

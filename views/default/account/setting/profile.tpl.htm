@@ -137,7 +137,7 @@
 						<dd class="pull-left">
 							<h5><?php _e('头像设置'); ?></h5>
 							<p><?php _e('支持 jpg、gif、png 等格式的图片'); ?></p>
-							<a class="btn btn-mini btn-success" id="avatar_uploader" href="javascript:;"><?php _e('上传头像'); ?></a> <span id="avatar_uploading_status" class="hide"><i class="aw-loading"></i> <?php _e('文件上传中...'); ?></span>
+							<a class="btn btn-mini btn-success" id="avatar_uploader" href="javascript:;"><?php _e('上传头像'); ?></a> <span id="avatar_uploading_status" class="collapse"><i class="aw-loading"></i> <?php _e('文件上传中...'); ?></span>
 						</dd>
 					</dl>
 				</div>
@@ -272,7 +272,7 @@ $(document).ready(function () {
         detector: function () {
             this.select(["<?php echo $this->user_info['province']; ?>", "<?php echo $this->user_info['city']; ?>"]);
         },
-		dataUrl: G_STATIC_URL + '/js/areas.js'
+		dataUrl: G_BASE_URL.replace('/?', '') + '/static/js/areas.js'
     });
 
     var fileUpload = new FileUpload('avatar', $('#avatar_uploader'), $('#avatar_src'), G_BASE_URL + '/account/ajax/avatar_upload/', {'loading_status' : '#avatar_uploading_status'});

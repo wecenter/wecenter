@@ -37,7 +37,9 @@ class account_class extends AWS_MODEL
      * @return boolean
      */
     public function check_username($user_name)
-    {    	$user_name = trim($user_name);    	
+    {
+    	$user_name = trim($user_name);
+    	
         return $this->fetch_one('users', 'uid', "user_name = '" . $this->quote($user_name) . "' OR url_token = '" . $this->quote($user_name) . "'");
     }
 
@@ -817,15 +819,14 @@ class account_class extends AWS_MODEL
             return AWS_APP::lang()->_t('用户名不能为纯数字');
         }
 
-        if (strstr($user_name, '-'))
+        if (strstr($user_name, '-') OR strstr($user_name, '.') OR strstr($user_name, '/') OR strstr($user_name, '%') OR strstr($user_name, '__'))
         {
-            return AWS_APP::lang()->_t('用户名不能包含 -');
+            return AWS_APP::lang()->_t('用户名不能包含 - / . % 与连续的下划线');
         }
 
         $length = strlen(convert_encoding($user_name, 'UTF-8', 'GB2312'));
 
         $length_min = intval(get_setting('username_length_min'));
-
         $length_max = intval(get_setting('username_length_max'));
 
         if ($length < $length_min || $length > $length_max)

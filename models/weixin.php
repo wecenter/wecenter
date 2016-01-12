@@ -194,7 +194,7 @@ class weixin_class extends AWS_MODEL
                 'longitude' => $post_object['Longitude'],
                 'precision' => $post_object['Precision'],
                 'location_X' => $post_object['Location_X'],
-                'location_Y' => $post_object['Location_y'],
+                'location_Y' => $post_object['Location_Y'],
                 'label' => $post_object['Label'],
                 'ticket' => $post_object['Ticket'],
                 'createTime' => $post_object['CreateTime'],
@@ -332,7 +332,7 @@ class weixin_class extends AWS_MODEL
                 break;
 
             case 'location':
-                if ($near_by_questions = $this->model('people')->get_near_by_users($input_message['location_X'], $input_message['location_y'], $this->user_id, 5))
+                if ($near_by_questions = $this->model('people')->get_near_by_users($input_message['location_X'], $input_message['location_Y'], $this->user_id, 5))
                 {
                     foreach ($near_by_questions AS $key => $val)
                     {

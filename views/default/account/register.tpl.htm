@@ -11,7 +11,7 @@
             <?php if ($this->return_url) { ?><input type="hidden" name="return_url" value="<?php echo $this->return_url; ?>" /><?php } ?>
 
             <ul>
-                <li class="alert alert-danger hide error_message text-left">
+                <li class="alert alert-danger collapse error_message text-left">
                     <i class="icon icon-delete"></i> <em></em>
                 </li>
                 <li>
@@ -23,7 +23,7 @@
                 <li>
                     <input class="aw-register-pwd form-control" type="password" name="password" placeholder="密码" tips="<?php _e('请输入 6-16 个字符,区分大小写'); ?>" errortips="<?php _e('密码不符合规则'); ?>" />
                 </li>
-                <li class="more-information hide">
+                <li class="more-information collapse">
                     <ul>
                         <li>
                             <?php _e('性别'); ?>:
@@ -68,7 +68,7 @@
                 <li class="last">
                     <label><input type="checkbox" checked="checked" value="agree" name="agreement_chk" /> <?php _e('我同意'); ?></label> <a href="javascript:;" class="aw-agreement-btn"><?php _e('用户协议'); ?></a>
                     <a href="account/login/" class="pull-right">已有账号?</a>
-                    <div class="aw-register-agreement hide">
+                    <div class="aw-register-agreement collapse">
                         <div class="aw-register-agreement-txt" id="register_agreement"></div>
                     </div>
 
@@ -141,7 +141,10 @@ $(document).ready(function ()
                             }
                             else
                             {
-                                $.get(G_BASE_URL + '/account/ajax/check_username/username' + '-' + encodeURIComponent($(this).val()), function (result)
+                                $.post(G_BASE_URL + '/account/ajax/check_username/', 
+                                    {
+                                        username: $(this).val()
+                                    }, function (result)
                                 {
                                     if (result.errno == -1)
                                     {
@@ -207,7 +210,7 @@ $(document).ready(function ()
         detector: function () {
             this.select(["<?php echo $this->user_info['province']; ?>", "<?php echo $this->user_info['city']; ?>"]);
         },
-        dataUrl: G_STATIC_URL + '/js/areas.js'
+        dataUrl: G_BASE_URL.replace('/?', '') + '/static/js/areas.js'
     });
 });
 </script>

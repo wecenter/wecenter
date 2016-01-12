@@ -43,7 +43,7 @@
 									<?php if ($this->all_list_bit) { ?>
 									<li><a href="#recommend" data-toggle="tab"><?php _e('推荐'); ?></a></li>
 									<?php } ?>
-									<?php if ($this->questions) { ?>
+									<?php if ($this->all_questions_list_bit) { ?>
 									<li><a href="#questions" data-toggle="tab"><?php _e('问题'); ?></a></li>
 									<?php } ?>
 									<?php if ($this->recommend_list_bit) { ?>
@@ -263,7 +263,7 @@
 						<div class="mod-head">
 							<h3><i class="icon icon-down pull-right"></i><?php _e('话题修改记录'); ?></h3>
 						</div>
-						<div class="mod-body hide">
+						<div class="mod-body collapse">
 							<ul>
 								<?php if ($this->log_list) { ?>
 								<?php foreach ($this->log_list as $key => $val) { ?>

@@ -60,7 +60,7 @@
 			<b><?php _e('目录权限'); ?></b><span><?php echo AWS_PATH; ?>config/</span><?php if (!$this->system_require['config_writable_config']) { ?><span class="red">×</span><?php } else { ?><span class="green">√</span><?php } ?>
 		</li>
 	</ul>
-	<a class="btn btn-success pull-right"<?php if (sizeof($this->system_require) != 12) { ?> onclick="alert('<?php _e('抱歉, 您的服务器需要满足系统的运行需求才能安装'); ?>');"<?php } else { ?> onclick="document.getElementById('installer').submit(); this.className='btn btn-success disabled pull-right'; this.onclick='';"<?php } ?>><?php _e('下一步'); ?></a>
+	<a class="btn btn-success pull-right<?php if (sizeof($this->system_require) != 12) { ?> disabled<?php } ?>" <?php if (sizeof($this->system_require) == 12) { ?>onclick="document.getElementById('installer').submit(); this.className='btn btn-success disabled pull-right'; this.onclick='';"<?php } ?>><?php _e('下一步'); ?></a>
 	 </form>
 </div>
 

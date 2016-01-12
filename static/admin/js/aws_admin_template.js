@@ -1,6 +1,6 @@
 var AW_TEMPLATE = {
 	'loadingBox':
-		'<div id="aw-loading" class="hide">'+
+		'<div id="aw-loading" class="collapse">'+
 			'<div id="aw-loading-box"></div>'+
 		'</div>',
 
@@ -73,7 +73,7 @@ var AW_TEMPLATE = {
 							'<h3 class="modal-title" id="myModalLabel">' + _t('新私信') + '</h3>'+
 						'</div>'+
 						'<div class="modal-body">'+
-							'<div class="alert alert-danger hide error_message"> <i class="icon icon-delete"></i> <em></em></div>'+
+							'<div class="alert alert-danger collapse error_message"> <i class="icon icon-delete"></i> <em></em></div>'+
 							'<form action="' + G_BASE_URL + '/inbox/ajax/send/" method="post" id="quick_publish" onsubmit="return false">'+
 								'<input type="hidden" name="post_hash" value="' + G_POST_HASH + '" />'+
 								'<input id="invite-input" class="form-control" type="text" placeholder="' + _t('搜索用户') + '" name="recipient" value="{{recipient}}" />'+
@@ -263,9 +263,9 @@ var AW_TEMPLATE = {
 							'<h3 class="modal-title" id="myModalLabel">{{name}}</h3>'+
 						'</div>'+
 						'<div class="modal-body">'+
-							'<div class="alert alert-danger hide error_message"></div>'+
+							'<div class="alert alert-danger collapse error_message"></div>'+
 							'<div class="row">'+
-								'<div class="col-md-6 hide">'+
+								'<div class="col-md-6 collapse">'+
 									'<select class="from-category form-control" name="from_id">'+
 										'{{#items}}'+
 											'<option value="{{id}}">{{title}}</option>'+
@@ -302,7 +302,7 @@ var AW_TEMPLATE = {
 						'</div>'+
 						'<div class="modal-body">'+
 							'<div class="aw-dropdown-box">'+
-								'<div class="alert alert-danger hide error_message"></div>'+
+								'<div class="alert alert-danger collapse error_message"></div>'+
 								'<input type="text" class="form-control search-input" />'+
 								'<div class="aw-dropdown"><p class="title">' + _t('没有找到相关结果') + '</p><ul class="aw-dropdown-list"><li><a>123</a></li></ul></div>'+
 							'</div>'+

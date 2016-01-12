@@ -43,7 +43,9 @@ class H
 	{
 		//HTTP::no_cache_header('text/javascript');
 
-		echo str_replace(array("\r", "\n", "\t"), '', json_encode(H::sensitive_words($array)));
+		//$array = H::sensitive_words($array);
+
+		echo str_replace(array("\r", "\n", "\t"), '', json_encode($array));
 		exit;
 	}
 
@@ -54,14 +56,18 @@ class H
 		//return ( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $email)) ? FALSE : TRUE;
 	}
 
-	public static function redirect_msg($message, $url = NULL, $interval = 5)
+	public static function redirect_msg($message, $url = NULL, $interval = 5, $exit = true)
 	{
 		TPL::assign('message', $message);
 		TPL::assign('url_bit', HTTP::parse_redirect_url($url));
 		TPL::assign('interval', $interval);
 
 		TPL::output('global/show_message');
-		die;
+		
+		if ($exit)
+		{
+			die;
+		}
 	}
 
 	/**
@@ -233,16 +239,28 @@ class H
 				continue;
 			}
 
-			$replace_str = '';
-
-			$word_length = cjk_strlen($word);
-
-			for($i = 0; $i < $word_length; $i++)
+			if (substr($word, 0, 1) == '{' AND substr($word, -1, 1) == '}')
 			{
-				$replace_str .=  $replace;
+				$regex[] = substr($word, 1, -1);
 			}
+			else
+			{
+				$word_length = cjk_strlen($word);
 
-			$content = str_replace($word, $replace_str, $content);
+				$replace_str = '';
+
+				for($i = 0; $i < $word_length; $i++)
+				{
+					$replace_str .=  $replace;
+				}
+
+				$content = str_replace($word, $replace_str, $content);
+			}
+		}
+
+		if (isset($regex))
+		{
+			preg_replace($regex, '***', $content);
 		}
 
 		return $content;
@@ -285,9 +303,19 @@ class H
 				continue;
 			}
 
-			if (strstr($content, $word))
+			if (substr($word, 0, 1) == '{' AND substr($word, -1, 1) == '}')
 			{
-				return true;
+				if (preg_match(substr($word, 1, -1), $content))
+				{
+					return true;
+				}
+			}
+			else
+			{
+				if (strstr($content, $word))
+				{
+					return true;
+				}
 			}
 		}
 

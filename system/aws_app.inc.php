@@ -204,8 +204,11 @@ class AWS_APP
 
 		if (! class_exists($controller_class, false))
 		{
-			require_once ($class_file);
+			require_once $class_file;
 		}
+		
+		// 解析路由查询参数
+		load_class('core_uri')->parse_args();
 
 		if (class_exists($controller_class, false))
 		{

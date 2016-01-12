@@ -64,6 +64,11 @@ class weixin extends AWS_CONTROLLER
 
 		if ($_GET['code'] AND get_setting('weixin_app_id') AND get_setting('weixin_app_secret'))
 		{
+			if (!$_GET['redirect'])
+			{
+				$_GET['redirect'] = base64_encode(get_js_url('/'));
+			}
+			
 			if ($access_token = $this->model('openid_weixin_weixin')->get_sns_access_token_by_authorization_code($_GET['code']))
 			{
 				if ($access_token['errcode'])
@@ -105,8 +110,6 @@ class weixin extends AWS_CONTROLLER
 	public function authorization_action()
 	{
 		$this->model('account')->logout();
-
-		unset(AWS_APP::session()->WXConnect);
 
 		if (get_setting('weixin_account_role') != 'service')
 		{
@@ -204,10 +207,10 @@ class weixin extends AWS_CONTROLLER
 				}
 				else
 				{
-					AWS_APP::session()->WXConnect = array(
+					HTTP::set_cookie('_WXConnect', json_encode(array(
 						'access_token' => $access_token,
 						'access_user' => $access_user
-					);
+					)), null, '/', null, false, true);
 
 					TPL::assign('access_token', $access_token);
 					TPL::assign('access_user', $access_user);
@@ -236,9 +239,16 @@ class weixin extends AWS_CONTROLLER
 
 	public function binding_action()
 	{
-		if (AWS_APP::session()->WXConnect['access_token']['openid'])
+		if ($_COOKIE[G_COOKIE_PREFIX . '_WXConnect'])
 		{
-			$this->model('openid_weixin_weixin')->bind_account(AWS_APP::session()->WXConnect['access_user'], AWS_APP::session()->WXConnect['access_token'], $this->user_id);
+			$WXConnect = json_decode($_COOKIE[G_COOKIE_PREFIX . '_WXConnect'], true);
+		}
+
+		if ($WXConnect['access_token']['openid'])
+		{
+			$this->model('openid_weixin_weixin')->bind_account($WXConnect['access_user'], $WXConnect['access_token'], $this->user_id);
+
+			HTTP::set_cookie('_WXConnect', '', null, '/', null, false, true);
 
 			if ($_GET['redirect'])
 			{

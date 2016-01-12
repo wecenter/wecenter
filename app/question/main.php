@@ -54,6 +54,8 @@ class main extends AWS_CONTROLLER
 
 		if (! $question_info = $this->model('question')->get_question_info_by_id($_GET['id']))
 		{
+			header('HTTP/1.1 404 Not Found');
+
 			H::redirect_msg(AWS_APP::lang()->_t('问题不存在或已被删除'), '/question/');
 		}
 

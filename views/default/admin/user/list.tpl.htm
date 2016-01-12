@@ -180,7 +180,7 @@
                             <select name="province" class="select_area form-control"></select>
                         </div>
                         <div class="col-sm-3 col-xs-3">
-                            <select name="city" class="select_area form-control hide"></select>
+                            <select name="city" class="select_area form-control collapse"></select>
                         </div>
                     </div>
 
@@ -203,7 +203,7 @@ $(document).ready(function () {
         detector: function () {
             this.select(["<?php echo $_GET['province']; ?>", "<?php echo $_GET['city']; ?>"]);
         },
-        dataUrl: G_STATIC_URL + '/js/areas.js'
+        dataUrl: G_BASE_URL.replace('/?', '') + '/static/js/areas.js'
     });
 });
 </script>

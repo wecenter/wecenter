@@ -777,7 +777,8 @@ CREATE TABLE `[#DB_PREFIX#]users` (
   KEY `last_active` (`last_active`),
   KEY `integral` (`integral`),
   KEY `url_token` (`url_token`),
-  KEY `verified` (`verified`)
+  KEY `verified` (`verified`),
+  KEY `answer_count` (`answer_count`)
 ) ENGINE=[#DB_ENGINE#] DEFAULT CHARSET=utf8;
 
 CREATE TABLE `[#DB_PREFIX#]users_attrib` (

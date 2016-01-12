@@ -19,11 +19,6 @@ if (!defined('IN_ANWSION'))
 
 class active_class extends AWS_MODEL
 {
-	public function active_code_generate()
-	{
-		return substr(strtolower(md5(uniqid(rand()))), 0, 20);
-	}
-
 	public function active_code_active($active_code, $active_type_code)
 	{
 		if (!$active_type_code)
@@ -39,7 +34,7 @@ class active_class extends AWS_MODEL
 		$this->update('active_data', array(
 			'active_time' => time(),
 			'active_ip' => time(),
-		), 'active_id = ' . intval($active_info['active_id']));
+		), 'active_id = ' . $active_info['active_id']);
 
 		switch ($active_type_code)
 		{
@@ -88,7 +83,7 @@ class active_class extends AWS_MODEL
 			return false;
 		}
 
-		$active_code_hash = $this->active_code_generate();
+		$active_code_hash = uniqid_generate(20);
 
 		$active_id = $this->new_active_code($uid, (time() + 60 * 60 * 24), $active_code_hash, 'VALID_EMAIL');
 
@@ -97,7 +92,7 @@ class active_class extends AWS_MODEL
 			$uid = $email;
 		}
 
-		return $this->model('email')->action_email('VALID_EMAIL', $uid, get_js_url('/account/valid_email_active/key-' . $active_code_hash), $server);
+		return $this->model('email')->action_email('VALID_EMAIL', $uid, get_js_url('/account/valid_email_active/key-' . $active_code_hash), null, $server);
 	}
 
 	public function new_find_password($uid, $server = 'master')
@@ -107,11 +102,11 @@ class active_class extends AWS_MODEL
 			return false;
 		}
 
-		$active_code_hash = $this->active_code_generate();
+		$active_code_hash = uniqid_generate(20);
 
 		$active_id = $this->model('active')->new_active_code($uid, (time() + 60 * 60 * 24), $active_code_hash, 'FIND_PASSWORD');
 
-		return $this->model('email')->action_email('FIND_PASSWORD', $uid, get_js_url('/account/find_password/modify/key-' . $active_code_hash), $server);
+		return $this->model('email')->action_email('FIND_PASSWORD', $uid, get_js_url('/account/find_password/modify/key-' . $active_code_hash), null, $server);
 	}
 
 	public function clean_expire()

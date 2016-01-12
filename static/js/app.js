@@ -32,28 +32,18 @@ $(document).ready(function ()
     }
 
     //文章列表样式调整
-    $.each($('.aw-common-list .aw-item.article'), function (i, e)
+    if ($('.aw-common-list').length)
     {
-        if ($(this).find('img').length > 1)
+        $.each($('.aw-common-list .aw-item.article'), function (i, e)
         {
-            if ($.trim($(this).find('.markitup-box').text()) == '')
+            if ($(this).find('.all-content img').length >= 1)
             {
-                $(this).find('.aw-upload-img-list, .markitup-box img').css({
-                    'right': 'auto',
-                    'left': 0,
-                    'top': 10
-                });
+                $(this).find('.markitup-box').prepend($(this).find('.all-content img').eq(0).addClass('pull-left inline-img'))
             }
-            $(this).find('.aw-upload-img-list').next().detach();
-            $(this).find('.markitup-box img').eq(0).css({'z-index':'999'});
-        }
-        else
-        {
-            $(this).find('.img.pull-right').hide();
-        }
-    });
+        });
+    }
 
-    $('a[rel=lightbox]').fancybox(
+    $('a[rel=lightbox]:visible').fancybox(
     {
         openEffect: 'none',
         closeEffect: 'none',
@@ -245,6 +235,21 @@ $(document).ready(function ()
             AWS.check_placeholder($('input[data-placeholder!="true"], textarea[data-placeholder!="true"]'));
         }, 1000);
     }
+
+    if ($('.aw-back-top').length)
+    {
+        $(window).scroll(function ()
+        {
+            if ($(window).scrollTop() > ($(window).height() / 2))
+            {
+                $('.aw-back-top').fadeIn();
+            }
+            else
+            {
+                $('.aw-back-top').fadeOut();
+            }
+        });
+    }
 });
 
 $(window).on('hashchange', function() {
@@ -256,18 +261,3 @@ $(window).on('hashchange', function() {
         }
     }
 });
-
-if ($('.aw-back-top').length)
-{
-    $(window).scroll(function ()
-    {
-        if ($(window).scrollTop() > ($(window).height() / 2))
-        {
-            $('.aw-back-top').fadeIn();
-        }
-        else
-        {
-            $('.aw-back-top').fadeOut();
-        }
-    });
-}

@@ -1585,7 +1585,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                     $this->model('active')->active_user_by_uid($approval_uid);;
                 }
             break;
-
+			
             case 'decline':
                 foreach ($_POST['approval_uids'] AS $approval_uid)
                 {

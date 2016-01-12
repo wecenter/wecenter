@@ -304,7 +304,7 @@ class ajax extends AWS_CONTROLLER
 		$answer_info = $this->model('answer')->get_answer_by_id($_GET['answer_id']);
 
 		TPL::assign('question', $this->model('question')->get_question_info_by_id($answer_info['question_id']));
-
+		TPL::assign('answer_info', $answer_info);
 		TPL::assign('comments', $comments);
 
 		if (is_mobile())
@@ -577,7 +577,7 @@ class ajax extends AWS_CONTROLLER
 
 		$this->model('draft')->delete_draft($question_info['question_id'], 'answer', $this->user_id);
 
-		if ($this->publish_approval_valid() OR H::sensitive_word_exists($answer_content))
+		if ($this->publish_approval_valid($answer_content))
 		{
 			$this->model('publish')->publish_approval('answer', array(
 				'question_id' => $question_info['question_id'],

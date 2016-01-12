@@ -164,7 +164,8 @@ class Zend_Mail_Protocol_Smtp extends Zend_Mail_Protocol_Abstract
      */
     public function connect()
     {
-        return $this->_connect($this->_transport . '://' . $this->_host . ':'. $this->_port);
+    	// Modify by WeCenter
+        return $this->_connect($this->_transport, $this->_host, $this->_port);
     }
 
 

@@ -33,7 +33,14 @@ function base_url()
 	$clean_url = dirname(rtrim($_SERVER['PHP_SELF'], $clean_url));
 	$clean_url = rtrim($_SERVER['HTTP_HOST'] . $clean_url, '/\\');
 
-	$scheme = ($_SERVER['HTTPS'] AND !in_array(strtolower($_SERVER['HTTPS']), array('off', 'no'))) ? 'https' : 'http';
+	if ((isset($_SERVER['HTTPS']) AND !in_array(strtolower($_SERVER['HTTPS']), array('off', 'no', 'false', 'disabled'))) OR $_SERVER['SERVER_PORT'] == 443)
+	{
+		$scheme = 'https';
+	}
+	else
+	{
+		$scheme = 'http';
+	}
 
 	return $scheme . '://' . $clean_url;
 }
@@ -1008,6 +1015,12 @@ function fetch_file_lists($dir, $file_type = null)
 	}
 
 	$base_dir = realpath($dir);
+	
+	if (!file_exists($base_dir))
+	{
+		return false;
+	}
+	
 	$dir_handle = opendir($base_dir);
 
 	$files_list = array();
@@ -1100,9 +1113,16 @@ function curl_get_contents($url, $timeout = 10)
 	curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
 	curl_setopt($curl, CURLOPT_HEADER, FALSE);
 	curl_setopt($curl, CURLOPT_FOLLOWLOCATION, TRUE);
-	curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/29.0.1547.57 Safari/537.36');
-
-
+	
+	if (defined('WECENTER_CURL_USERAGENT'))
+	{
+		curl_setopt($curl, CURLOPT_USERAGENT, WECENTER_CURL_USERAGENT);
+	}
+	else
+	{
+		curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/600.7.12 (KHTML, like Gecko) Version/8.0.7 Safari/600.7.12');
+	}
+	
 	if (substr($url, 0, 8) == 'https://')
 	{
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
@@ -1325,4 +1345,10 @@ function get_paid_progress_bar($amount, $paid)
 	}
 
 	return intval(($paid / $amount) * 100);
+}
+
+
+function uniqid_generate($length = 16)
+{
+	return substr(strtolower(md5(uniqid(rand()))), 0, $length);
 }

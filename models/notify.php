@@ -77,6 +77,7 @@ class notify_class extends AWS_MODEL
 
 	/**
 	 * 发送通知
+	 * 
 	 * @param $action_type	操作类型，使用notify_class调用TYPE
 	 * @param $uid			接收用户id
 	 * @param $data			附加数据
@@ -118,7 +119,8 @@ class notify_class extends AWS_MODEL
 
 	/**
 	 * 获得通知列表
-	 * read_status 0 - 未读, 1 - 已读, other - 所有
+	 * 
+	 * @param $read_status 0 - 未读, 1 - 已读, other - 所有
 	 */
 	public function list_notification($recipient_uid, $read_status = 0, $limit = null)
 	{
@@ -1089,5 +1091,24 @@ class notify_class extends AWS_MODEL
 		}
 
 		return $data;
+	}
+	
+	/**
+	 * 定期清理已读通知
+	 * 
+	 * @param $period 周期, 单位: 秒
+	 */
+	public function clean_mark_read_notifications($period)
+	{
+		while ($notifications = $this->fetch_all('notification', 'read_flag = 1 AND add_time < ' . (time() - $period), 'notification_id ASC', 1000))
+		{
+			foreach ($notifications AS $k => $v)
+			{
+				$this->delete('notification', 'notification_id = ' . $v['notification_id']);
+				$this->delete('notification_data', 'notification_id = ' . $v['notification_id']);
+			}
+		}
+		
+		return true;
 	}
 }

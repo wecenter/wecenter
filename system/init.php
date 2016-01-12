@@ -24,12 +24,9 @@ else if (version_compare(PHP_VERSION, ENVIRONMENT_PHP_VERSION, '<'))
 {
 	die('Error: WeCenter require PHP version ' . ENVIRONMENT_PHP_VERSION . ' or newer');
 }
-else if (version_compare(PHP_VERSION, '6.0', '>='))
-{
-	die('Error: WeCenter not support PHP version 6 currently');
-}
 
-define('START_TIME', microtime(TRUE));define('TIMESTAMP', time());
+define('START_TIME', microtime(TRUE));
+define('TIMESTAMP', time());
 
 if (function_exists('memory_get_usage'))
 {

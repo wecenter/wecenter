@@ -43,13 +43,17 @@ class main extends AWS_CONTROLLER
 	{
 		if (is_digits($_GET['id']))
 		{
-			if (! $feature_info = $this->model('feature')->get_feature_by_id($_GET['id']))
-			{
-				H::redirect_msg(AWS_APP::lang()->_t('专题不存在'), '/');
-			}
+			$feature_info = $this->model('feature')->get_feature_by_id($_GET['id']);
 		}
-		else if (! $feature_info = $this->model('feature')->get_feature_by_url_token($_GET['id']))
+		else
 		{
+			$feature_info = $this->model('feature')->get_feature_by_url_token($_GET['id']);
+		}
+
+		if (!$feature_info)
+		{
+			header('HTTP/1.1 404 Not Found');
+
 			H::redirect_msg(AWS_APP::lang()->_t('专题不存在'), '/');
 		}
 

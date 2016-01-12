@@ -162,7 +162,7 @@ class question_class extends AWS_MODEL
 
 	public function update_question($question_id, $question_content, $question_detail, $uid, $verified = true, $modify_reason = null, $anonymous = null, $category_id = null)
 	{
-		if (!$quesion_info = $this->get_question_info_by_id($question_id) OR !$uid)
+		if (!$question_info = $this->get_question_info_by_id($question_id) OR !$uid)
 		{
 			return false;
 		}
@@ -192,9 +192,9 @@ class question_class extends AWS_MODEL
 			'modify_reason' => $modify_reason,
 		);
 
-		if ($quesion_info['question_detail'] != $question_detail)
+		if ($question_info['question_detail'] != $question_detail)
 		{
-			$log_id = ACTION_LOG::save_action($uid, $question_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::MOD_QUESTION_DESCRI, $question_detail, $quesion_info['question_detail'], null, $anonymous, $addon_data);
+			$log_id = ACTION_LOG::save_action($uid, $question_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::MOD_QUESTION_DESCRI, $question_detail, $question_info['question_detail'], null, $anonymous, $addon_data);
 
 			if (!$verified)
 			{
@@ -204,9 +204,9 @@ class question_class extends AWS_MODEL
 		}
 
 		//记录日志
-		if ($quesion_info['question_content'] != $question_content)
+		if ($question_info['question_content'] != $question_content)
 		{
-			$log_id = ACTION_LOG::save_action($uid, $question_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::MOD_QUESTON_TITLE, $question_content, $quesion_info['question_content'], 0, 0, $addon_data);
+			$log_id = ACTION_LOG::save_action($uid, $question_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::MOD_QUESTON_TITLE, $question_content, $question_info['question_content'], 0, 0, $addon_data);
 
 			if (!$verified)
 			{
@@ -291,19 +291,19 @@ class question_class extends AWS_MODEL
 
 	public function get_unverified_modify($question_id)
 	{
-		if (!$quesion_info = $this->get_question_info_by_id($question_id, false))
+		if (!$question_info = $this->get_question_info_by_id($question_id, false))
 		{
 			return false;
 		}
 
-		if (is_array($quesion_info['unverified_modify']))
+		if (is_array($question_info['unverified_modify']))
 		{
-			return $quesion_info['unverified_modify'];
+			return $question_info['unverified_modify'];
 		}
 
-		if ($quesion_info['unverified_modify'] = @unserialize($quesion_info['unverified_modify']))
+		if ($question_info['unverified_modify'] = @unserialize($question_info['unverified_modify']))
 		{
-			return $quesion_info['unverified_modify'];
+			return $question_info['unverified_modify'];
 		}
 
 		return array();
@@ -344,14 +344,14 @@ class question_class extends AWS_MODEL
 
 	public function get_unverified_modify_count($question_id)
 	{
-		$quesion_info = $this->get_question_info_by_id($question_id, false);
+		$question_info = $this->get_question_info_by_id($question_id, false);
 
-		if (!$quesion_info)
+		if (!$question_info)
 		{
 			return false;
 		}
 
-		return $quesion_info['unverified_modify_count'];
+		return $question_info['unverified_modify_count'];
 	}
 
 	public function remove_question($question_id)
@@ -840,18 +840,24 @@ class question_class extends AWS_MODEL
 
 	public function get_invite_users($question_id, $limit = 10)
 	{
+		if ($invite_users_list = AWS_APP::cache()->get('question_invite_users_' . $question_id))
+		{
+			return $invite_users_list;
+		}
+		
 		if ($invites = $this->fetch_all('question_invite', 'question_id = ' . intval($question_id), 'question_invite_id DESC', $limit))
 		{
 			foreach ($invites as $key => $val)
 			{
-				$invite_users[] = $val['recipients_uid'];
+				$invite_users[$val['recipients_uid']] = $val['recipients_uid'];
 			}
 
-			if ($invite_users)
-			{
-				return $this->model('account')->get_user_info_by_uids($invite_users);
-			}
+			$invite_users_list = $this->model('account')->get_user_info_by_uids($invite_users);
+			
+			AWS_APP::cache()->set('question_invite_users_' . $question_id, $invite_users_list, get_setting('cache_level_normal'));
 		}
+		
+		return $invite_users_list;
 	}
 
 	public function get_invite_question_list($uid, $limit = 10)

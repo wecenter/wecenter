@@ -327,10 +327,9 @@
 			var pendingAdd = [],
 				newPendingInline = [],
 				candidate = currentNode;
-
-
-
+				
 			while ( candidate.type && candidate.name != tagName ) {
+
 				// If this is an inline element, add it to the pending list, if we're
 				// really closing one of the parents element later, they will continue
 				// after it.
@@ -359,8 +358,10 @@
 
 				// The parent should start receiving new nodes now, except if
 				// addElement changed the currentNode.
-				if ( candidate == currentNode )
+				if ( candidate == currentNode) 
+				{
 					currentNode = currentNode.parent;
+				}
 
 				pendingInline = pendingInline.concat( newPendingInline );
 			}
@@ -407,6 +408,12 @@
 			addElement( node, parent );
 			currentNode = parent;
 		}
+
+		// Modify by wecenter
+		// if (fragment.children && fragment.children[fragment.children.length - 1].previous != null && fragment.children[fragment.children.length - 1].previous.name == 'br')
+		// {
+		// 	fragment.children.pop();
+		// }
 
 		return fragment;
 	};

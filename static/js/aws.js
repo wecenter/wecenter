@@ -669,18 +669,21 @@ var AWS =
 							'item_type' : $('#favorite_form input[name="item_type"]').val()
 						}, function (result)
 						{
-							$.each(result, function (i, e)
+							if (result != null)
 							{
-								var index = i;
-
-								$.each($('.aw-favorite-tag-list ul li .title'), function (i, e)
+								$.each(result, function (i, e)
 								{
-									if ($(this).text() == result[index])
+									var index = i;
+
+									$.each($('.aw-favorite-tag-list ul li .title'), function (i, e)
 									{
-										$(this).parents('li').addClass('active');
-									}
+										if ($(this).text() == result[index])
+										{
+											$(this).parents('li').addClass('active');
+										}
+									});
 								});
-							});
+							}
 						}, 'json');
 
 						$(document).on('click', '.aw-favorite-tag-list ul li a', function()
@@ -1511,7 +1514,7 @@ AWS.User =
 
 	share_out: function(options)
 	{
-		var url = url || window.location.href, pic = '';
+		var url = options.url || window.location.href, pic = '';
 
 		if (options.title)
 		{
