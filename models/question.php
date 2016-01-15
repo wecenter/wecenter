@@ -206,7 +206,7 @@ class question_class extends AWS_MODEL
 		//记录日志
 		if ($question_info['question_content'] != $question_content)
 		{
-			$log_id = ACTION_LOG::save_action($uid, $question_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::MOD_QUESTON_TITLE, $question_content, $question_info['question_content'], 0, 0, $addon_data);
+			$log_id = ACTION_LOG::save_action($uid, $question_id, ACTION_LOG::CATEGORY_QUESTION, ACTION_LOG::MOD_QUESTION_TITLE, $question_content, $question_info['question_content'], 0, 0, $addon_data);
 
 			if (!$verified)
 			{
@@ -1101,7 +1101,7 @@ class question_class extends AWS_MODEL
 					$title_list = $user_name_string . ' 添加了该问题</p><p>' . $log['associate_content'] . '</p><p>' . $log['associate_attached'] . '';
 					break;
 
-				case ACTION_LOG::MOD_QUESTON_TITLE : //修改问题标题
+				case ACTION_LOG::MOD_QUESTION_TITLE : //修改问题标题
 
 					$title_list = $user_name_string . ' 修改了问题标题';
 
