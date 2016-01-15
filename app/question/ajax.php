@@ -717,7 +717,7 @@ class ajax extends AWS_CONTROLLER
 
 		$log_list = ACTION_LOG::get_action_by_event_id($_GET['id'], (intval($_GET['page']) * get_setting('contents_per_page')) . ', ' . get_setting('contents_per_page'), ACTION_LOG::CATEGORY_QUESTION, implode(',', array(
 			ACTION_LOG::ADD_QUESTION,
-			ACTION_LOG::MOD_QUESTON_TITLE,
+			ACTION_LOG::MOD_QUESTION_TITLE,
 			ACTION_LOG::MOD_QUESTION_DESCRI,
 			ACTION_LOG::ADD_TOPIC,
 			ACTION_LOG::DELETE_TOPIC,
