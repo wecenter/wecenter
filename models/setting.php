@@ -26,7 +26,12 @@ class setting_class extends AWS_MODEL
 		{
 			foreach ($system_setting as $key => $val)
 			{
-				$settings[$val['varname']] = unserialize($val['value']);
+				if ($val['value'])
+				{
+					$val['value'] = unserialize($val['value']);
+				}
+
+				$settings[$val['varname']] = $val['value'];
 			}
 		}
 
