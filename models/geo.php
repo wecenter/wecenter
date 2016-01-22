@@ -57,21 +57,14 @@ class geo_class extends AWS_MODEL
 		));
 	}
 
-	public function get_distance($longitude_a, $latitude_a, $longitude_b, $latitude_b)
+	public function get_distance($lon1, $lat1, $lon2, $lat2)
 	{
-		$round_latitude_1 = $latitude_a * pi() / 180.0;
-		$round_latitude_2 = $latitude_b * pi() / 180.0;
+		$theta = $lon1 - $lon2;
+		$dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+		$dist = acos($dist);
+		$dist = rad2deg($dist);
+		$miles = $dist * 60 * 1.1515;
 
-		$round_longitude_1 = $longitude_a * pi() / 180.0;
-		$round_longitude_2 = $longitude_b * pi() / 180.0;
-
-		$a = $round_latitude_1 - $round_latitude_2;
-	    $b = $round_longitude_1 - $round_longitude_2;
-		$s = 2 * asin(sqrt(pow(sin($a / 2), 2) + cos($round_latitude_1) * cos($round_latitude_2) * pow(sin($b / 2), 2)));
-
-		$s = $s * GEO_EARTH_RADIUS;
-		$s = round($s * 10000) / 1000;
-
-		return number_format($s, 2);
+		return ($miles * 0.8684);
 	}
 }

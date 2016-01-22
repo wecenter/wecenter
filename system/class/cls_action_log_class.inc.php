@@ -25,7 +25,7 @@ class ACTION_LOG
 
 	const ADD_QUESTION = 101;	// 添加问题
 
-	const MOD_QUESTON_TITLE = 102;	// 修改问题标题
+	const MOD_QUESTION_TITLE = 102;	// 修改问题标题
 
 	const MOD_QUESTION_DESCRI = 103;	// 修改问题描述
 

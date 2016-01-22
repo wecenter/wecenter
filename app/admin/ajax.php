@@ -1585,7 +1585,7 @@ class ajax extends AWS_ADMIN_CONTROLLER
                     $this->model('active')->active_user_by_uid($approval_uid);;
                 }
             break;
-			
+
             case 'decline':
                 foreach ($_POST['approval_uids'] AS $approval_uid)
                 {
@@ -1728,12 +1728,12 @@ class ajax extends AWS_ADMIN_CONTROLLER
 
     public function statistic_action()
     {
-        if (!$start_time = strtotime($_GET['start_date']))
+        if (!$start_time = strtotime($_GET['start_date'] . ' 00:00:00'))
         {
             $start_time = strtotime('-12 months');
         }
 
-        if (!$end_time = strtotime($_GET['end_date']))
+        if (!$end_time = strtotime($_GET['end_date'] . ' 23:59:59'))
         {
             $end_time = time();
         }
