@@ -2578,8 +2578,6 @@ AWS.Init =
 
 				AWS.at_user_lists(comment_box_id + ' .aw-comment-txt', 5);
 			}
-
-			AWS.at_user_lists($(this).parents('.aw-item').find('.aw-comment-txt'));
 		});
 	},
 
