@@ -669,6 +669,10 @@
 							title: description,
 							alt: description
 						};
+					},
+					// Modify by wecenter
+					video: function ( element ) {
+						element.attributes.title = element.children[0].value;
 					}
 				}
 			} );
