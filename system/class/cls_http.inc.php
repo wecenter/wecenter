@@ -360,80 +360,59 @@ class HTTP
 		return 0;
 	}
 
-	public static function request($url, $method, $post_fields = null, $time_out = 15, $header = null, $cookie = null)
+	public static function request($url, $method, $data = null, $timeout = 15, $header = null, $cookie = null)
 	{
-		if (!function_exists('curl_init'))
-		{
-			throw new Zend_Exception('CURL not support');
-		}
-
-		$curl = curl_init();
-
-		curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, 10);
-		curl_setopt($curl, CURLOPT_TIMEOUT, $time_out);
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
-		curl_setopt($curl, CURLOPT_HEADER, FALSE);
-		curl_setopt($curl, CURLOPT_FOLLOWLOCATION, TRUE);
-
 		if (defined('WECENTER_CURL_USERAGENT'))
 		{
-			curl_setopt($curl, CURLOPT_USERAGENT, WECENTER_CURL_USERAGENT);
+			$user_agent = WECENTER_CURL_USERAGENT;
 		}
 		else
 		{
-			curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/600.7.12 (KHTML, like Gecko) Version/8.0.7 Safari/600.7.12');
+			$user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/600.7.12 (KHTML, like Gecko) Version/8.0.7 Safari/600.7.12';
 		}
 
-		switch ($method)
-		{
-			case 'POST' :
-				curl_setopt($curl, CURLOPT_POST, TRUE);
+		$headers = array(
+			'API-RemoteIP' => fetch_ip()
+		);
 
-				if ($post_fields)
-				{
-					curl_setopt($curl, CURLOPT_POSTFIELDS, $post_fields);
-				}
+		if ($header)
+		{
+			$headers = array_merge($header, $headers);
+		}
+		
+		$options = array(
+			'useragent' => $user_agent,
+			'timeout' => $timeout,
+			'cookies' => $cookie
+		);
+
+		switch (strtoupper($method))
+		{
+			default:
+			case 'GET':
+				$request = Services_Requests::get($url, $headers, $options);
 			break;
 
-			case 'DELETE' :
-				curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'DELETE');
+			case 'POST':
+				$request = Services_Requests::post($url, $headers, $data, $options);
+			break;
 
-				if ($post_fields)
-				{
-					$url = "{$url}?{$post_fields}";
-				}
+			case 'DELETE':
+				$request = Services_Requests::delete($url, $headers, $options);
+			break;
+
+			case 'PUT':
+				$request = Services_Requests::put($url, $headers, $data, $options);
+			break;
+
+			case 'PATCH':
+				$request = Services_Requests::put($url, $headers, $data, $options);
 			break;
 		}
 
-		curl_setopt($curl, CURLOPT_URL, $url);
-		curl_setopt($curl, CURLINFO_HEADER_OUT, TRUE);
-
-		if (isset($header) AND !is_array($header))
+		if ($request->status_code == 200)
 		{
-			unset($header);
+			return $request->body;
 		}
-
-		$header[] = 'API-RemoteIP: ' . fetch_ip();
-
-		curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
-
-		if (substr($url, 0, 8) == 'https://')
-		{
-			curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
-			curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
-
-			curl_setopt($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
-		}
-
-		if ($cookie AND is_array($cookie))
-		{
-			curl_setopt($curl, CURLOPT_COOKIE, urldecode(http_build_query($cookie, '', '; ')));
-		}
-
-		$response = curl_exec($curl);
-
-		curl_close($curl);
-
-		return $response;
 	}
 }
