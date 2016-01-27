@@ -97,6 +97,9 @@ textarea.form-control{padding:6px;}
 .aw-dropdown-list li a:active{background-color: #66b7ff;color: #fff;}
 .aw-publish-box .aw-topic-bar .aw-dropdown-list{max-height: 124px;}
 
+#upload-form{position: relative;width: 0;height: 0;opacity: 0;filter:alpha(opacity=0);}
+#upload-form .file-input{position:absolute;top:-7px;left:-12px;width: 80px;height: 34px;filter:alpha(opacity=0);cursor: pointer;}
+
 /* header */
 .header{height: 44px;padding:0 10px;background-color: #499ef3;}
 .header span{line-height: 42px;}
