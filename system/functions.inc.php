@@ -1101,41 +1101,7 @@ function in_weixin()
  */
 function curl_get_contents($url, $timeout = 10)
 {
-	if (!function_exists('curl_init'))
-	{
-		throw new Zend_Exception('CURL not support');
-	}
-
-	$curl = curl_init();
-
-	curl_setopt($curl, CURLOPT_URL, $url);
-	curl_setopt($curl, CURLOPT_TIMEOUT, $timeout);
-	curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
-	curl_setopt($curl, CURLOPT_HEADER, FALSE);
-	curl_setopt($curl, CURLOPT_FOLLOWLOCATION, TRUE);
-	
-	if (defined('WECENTER_CURL_USERAGENT'))
-	{
-		curl_setopt($curl, CURLOPT_USERAGENT, WECENTER_CURL_USERAGENT);
-	}
-	else
-	{
-		curl_setopt($curl, CURLOPT_USERAGENT, 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_4) AppleWebKit/600.7.12 (KHTML, like Gecko) Version/8.0.7 Safari/600.7.12');
-	}
-	
-	if (substr($url, 0, 8) == 'https://')
-	{
-		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
-		curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
-
-		curl_setopt($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1);
-	}
-
-	$result = curl_exec($curl);
-
-	curl_close($curl);
-
-	return $result;
+	return HTTP::request($url, 'GET', null, $timeout);
 }
 
 /**
