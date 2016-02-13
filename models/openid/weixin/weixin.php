@@ -255,7 +255,7 @@ class openid_weixin_weixin_class extends AWS_MODEL
                 return false;
             }
 
-            if ($avatar_stream = curl_get_contents($headimgurl, 1))
+            if ($avatar_stream = file_get_contents($headimgurl))
             {
                 $avatar_location = get_setting('upload_dir') . '/avatar/' . $this->model('account')->get_avatar($uid, '', 1) . $this->model('account')->get_avatar($uid, '', 2);
 
