@@ -502,7 +502,7 @@ class openid_weixin_weixin_class extends AWS_MODEL
             return false;
         }
 
-        AWS_APP::cache()->set($cached_ticket, $result['ticket'], 60);
+        AWS_APP::cache()->set($cached_ticket, $result['ticket'], 3600);
 
         return $result['ticket'];
     }
