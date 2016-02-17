@@ -39,7 +39,7 @@ class account_class extends AWS_MODEL
     public function check_username($user_name)
     {
     	$user_name = trim($user_name);
-    	
+
         return $this->fetch_one('users', 'uid', "user_name = '" . $this->quote($user_name) . "' OR url_token = '" . $this->quote($user_name) . "'");
     }
 
@@ -1411,7 +1411,7 @@ class account_class extends AWS_MODEL
             return false;
         }
 
-        if (!$avatar_stream = curl_get_contents($headimgurl, 1))
+        if (!$avatar_stream = file_get_contents($headimgurl))
         {
             return false;
         }

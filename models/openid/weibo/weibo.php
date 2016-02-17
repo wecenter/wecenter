@@ -216,7 +216,7 @@ class openid_weibo_weibo_class extends AWS_MODEL
 
                         $pic_url = 'http://' . implode('/', $pic_url_array);
 
-                        $result = curl_get_contents($pic_url);
+                        $result = file_get_contents($pic_url);
 
                         if (!$result)
                         {
