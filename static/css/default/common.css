@@ -722,7 +722,7 @@ blockquote {margin: 0 40px;padding: 0 15px;font-size: 14px;color: #777;border-le
 .aw-inbox-read h2 a{font-size: 12px;font-weight: normal;}
 .aw-inbox-read .mod-body{position: relative;padding:15px 60px;}
 .aw-inbox-read .mod-body .aw-user-img{position: absolute;right: 20px;}
-.aw-inbox-read .mod-body .aw-user-img img{widows: 32px;height: 32px;}
+.aw-inbox-read .mod-body .aw-user-img img{width: 32px;height: 32px;}
 .aw-inbox-read .mod-body textarea{min-height: 100px;}
 .aw-inbox-read .mod-body p{margin-top:10px;text-align: right;}
 .aw-inbox-read .mod-footer{margin:0 0 20px;}
