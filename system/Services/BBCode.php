@@ -41,16 +41,31 @@ class Services_BBCode
 
 	private function _url_callback($match)
 	{
+		if (substr($match[1], 0, 4) != 'http')
+		{
+			return $match[1];
+		}
+
 		return "<a href=\"$match[1]\" rel=\"nofollow\" target=\"_blank\">$match[1]</a>";
 	}
 
 	private function _link_callback($match)
 	{
+		if (substr($match[1], 0, 4) != 'http')
+		{
+			return $match[2];
+		}
+
 		return "<a href=\"$match[1]\" rel=\"nofollow\" target=\"_blank\">$match[2]</a>";
 	}
 
 	private function _img_callback($match)
 	{
+		if (substr($match[1], 0, 4) != 'http')
+		{
+			return $match[1];
+		}
+
 		return "<img src=\"$match[1]\" />";
 	}
 
@@ -99,7 +114,7 @@ class Services_BBCode
         $this->bbcode_table["/\[i\](.*?)\[\/i\]/is"] = '_i_callback';
 
         // Replace [quote]...[/quote] with <blockquote><p>...</p></blockquote>
-        $this->bbcode_table["/\[quote\]\n*(.*?)\n*\[\/quote\]/is"] = '_quote_callback';
+        $this->bbcode_table["/\[quote\](.*?)\[\/quote\]/is"] = '_quote_callback';
 
         // Replace [size=30]...[/size] with <span style="font-size:30%">...</span>
         $this->bbcode_table["/\[size=(\d+)\](.*?)\[\/size\]/is"] = '_size_callback';
