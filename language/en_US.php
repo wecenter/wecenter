@@ -43,6 +43,7 @@ $language['已保存草稿, %s'] = 'Saved to draft, %s';
 $language['用户不存在'] = 'User does not exist';
 $language['不允许已认证邮箱用户更改邮箱'] = '不允许已认证邮箱用户更改邮箱';
 $language['邮件发送成功'] = 'The Email has been sent';
+$language['邮箱更改成功, 请前往邮箱接收验证邮件'] = 'The Email has modify success';
 $language['错误, 用户没有提供 E-mail'] = 'Error, no E-mail given by the user';
 $language['用户邮箱已经认证'] = 'User Email confirmed';
 $language['激活失败, 无效的链接'] = 'Failed to activate, invalid URL';

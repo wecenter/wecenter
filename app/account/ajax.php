@@ -463,7 +463,7 @@ class ajax extends AWS_CONTROLLER
 		
 		AWS_APP::session()->valid_email = strtolower($_POST['email']);
 		
-		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('邮件发送成功')));
+		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('邮箱更改成功, 请前往邮箱接收验证邮件')));
 	}
 
 	public function send_valid_mail_action()
