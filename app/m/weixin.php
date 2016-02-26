@@ -119,7 +119,7 @@ class weixin extends AWS_CONTROLLER
 		{
 			if ($_GET['state'] == 'OAUTH')
 			{
-				$access_token = unserialize(json_decode($_GET['access_token']));
+				$access_token = json_decode(base64_decode($_GET['access_token']), true);
 			}
 			else
 			{
