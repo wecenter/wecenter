@@ -88,7 +88,7 @@ class weixin extends AWS_CONTROLLER
 				{
 					if ($_GET['state'] == 'OAUTH')
 					{
-						HTTP::redirect('/m/weixin/authorization/?state=OAUTH&access_token=' . urlencode(base64_encode(serialize($access_token))) . '&redirect=' . urlencode($_GET['redirect']));
+						HTTP::redirect('/m/weixin/authorization/?state=OAUTH&access_token=' . urlencode(base64_encode(json_encode($access_token))) . '&redirect=' . urlencode($_GET['redirect']));
 					}
 					else
 					{
@@ -119,7 +119,7 @@ class weixin extends AWS_CONTROLLER
 		{
 			if ($_GET['state'] == 'OAUTH')
 			{
-				$access_token = unserialize(base64_decode($_GET['access_token']));
+				$access_token = unserialize(json_decode($_GET['access_token']));
 			}
 			else
 			{
