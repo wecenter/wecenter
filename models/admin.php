@@ -48,11 +48,11 @@ class admin_class extends AWS_MODEL
 
     public function set_admin_login($uid)
     {
-        AWS_APP::session()->admin_login = H::encode_hash(array(
+        AWS_APP::session()->admin_login = AWS_APP::crypt()->encode(json_encode(array(
             'uid' => $uid,
             'UA' => $_SERVER['HTTP_USER_AGENT'],
             'ip' => fetch_ip()
-        ));
+        )));
     }
 
     public function admin_logout()

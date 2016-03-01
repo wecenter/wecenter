@@ -1453,6 +1453,7 @@ $language['FreeType 支持'] = 'FreeType support';
 $language['WeCenter 的验证码需要 FreeType 支持'] = 'WeCenter verification code requires FreeType support';
 $language['Zlib 支持'] = 'Zlib support';
 $language['WeCenter 的搜索需要 Zlib 支持'] = 'WeCenter search needs Zlib support';
+$language['WeCenter 的加密需要 Mcrypt 支持'] = 'WeCenter crypt needs Mcrypt support';
 $language['编码转换'] = 'Transcoding';
 $language['WeCenter 至少需要有 MB 或 ICONV 编码转换处理库才能正常运行'] = 'WeCenter need at least MB or ICONV transcoding processing libraries to run properly';
 $language['邮件相关'] = '邮件相关';

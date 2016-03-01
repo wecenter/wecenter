@@ -88,7 +88,11 @@ switch ($_POST['step'])
 		{
 			$system_require['ft_font'] = TRUE;
 		}
-
+		
+		if (function_exists('mcrypt_module_open'))
+		{
+			$system_require['mcrypt'] = TRUE;
+		}
 
 		if (function_exists('gzcompress'))
 		{
