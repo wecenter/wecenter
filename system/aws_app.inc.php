@@ -38,6 +38,7 @@ class AWS_APP
 	private static $captcha;
 	private static $mail;
 	private static $user;
+	private static $crypt;
 
 	public static $session_type = 'file';
 
@@ -58,7 +59,7 @@ class AWS_APP
 
 		// 传入应用目录, 返回控制器对象
 		$handle_controller = self::create_controller(load_class('core_uri')->controller, load_class('core_uri')->app_dir);
-		
+
 		$action_method = load_class('core_uri')->action . '_action';
 
 		// 判断
@@ -194,7 +195,7 @@ class AWS_APP
 		}
 
 		$class_file = $app_dir . $controller . '.php';
-		
+
 		$controller_class = str_replace('/', '_', $controller);
 
 		if (! file_exists($class_file))
@@ -206,7 +207,7 @@ class AWS_APP
 		{
 			require_once $class_file;
 		}
-		
+
 		// 解析路由查询参数
 		load_class('core_uri')->parse_args();
 
@@ -495,6 +496,24 @@ class AWS_APP
 		}
 
 		return self::$db->setObject($db_object_name);
+	}
+
+	/**
+	 * 加密处理类
+	 *
+	 * 调用 core/crypt.php
+	 *
+	 * @access	public
+	 * @return	object
+	 */
+	public static function crypt()
+	{
+		if (!self::$crypt)
+		{
+			self::$crypt = load_class('core_crypt');
+		}
+
+		return self::$crypt;
 	}
 
 	/**

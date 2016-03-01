@@ -373,7 +373,7 @@ class AWS_ADMIN_CONTROLLER extends AWS_CONTROLLER
 			return true;
 		}
 
-		if ($admin_info = H::decode_hash(AWS_APP::session()->admin_login))
+		if ($admin_info = json_decode(AWS_APP::crypt()->decode(AWS_APP::session()->admin_login), true))
 		{
 			if ($admin_info['uid'] != $this->user_id OR $admin_info['UA'] != $_SERVER['HTTP_USER_AGENT'] OR !AWS_APP::session()->permission['is_administortar'] AND !AWS_APP::session()->permission['is_moderator'])
 			{

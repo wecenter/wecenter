@@ -28,7 +28,7 @@ class core_user
 			$auth_hash_key = md5(G_COOKIE_HASH_KEY . $_SERVER['HTTP_USER_AGENT']);
 
 			// 解码 Cookie
-			$sso_user_login = H::decode_hash($_COOKIE[G_COOKIE_PREFIX . '_user_login'], $auth_hash_key);
+			$sso_user_login = json_decode(AWS_APP::crypt()->decode($_COOKIE[G_COOKIE_PREFIX . '_user_login'], $auth_hash_key), true);
 
 			if ($sso_user_login['user_name'] AND $sso_user_login['password'] AND $sso_user_login['uid'])
 			{

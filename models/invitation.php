@@ -110,11 +110,7 @@ class invitation_class extends AWS_MODEL
 		}
 
 		$user_info = $this->model('account')->get_user_info_by_uid($invitation_row['uid']);
-
-		$email_hash = base64_encode(H::encode_hash(array(
-			'email' => $invitation_row['invitation_email']
-		)));
-
+		
 		return $this->model('email')->action_email('INVITE_REG', $invitation_row['invitation_email'], get_js_url('/account/register/email-' . urlencode($invitation_row['invitation_email']) . '__icode-' . $invitation_row['invitation_code']), array(
 			'user_name' => $user_info['user_name'],
 		));

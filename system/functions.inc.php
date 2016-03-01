@@ -792,11 +792,11 @@ function get_login_cookie_hash($user_name, $password, $salt, $uid, $hash_passwor
 
 	$auth_hash_key = md5(G_COOKIE_HASH_KEY . $_SERVER['HTTP_USER_AGENT']);
 
-	return H::encode_hash(array(
+	return AWS_APP::crypt()->encode(json_encode(array(
 		'uid' => $uid,
 		'user_name' => $user_name,
 		'password' => $password
-	), $auth_hash_key);
+	)), $auth_hash_key);
 }
 
 /**
@@ -1015,12 +1015,12 @@ function fetch_file_lists($dir, $file_type = null)
 	}
 
 	$base_dir = realpath($dir);
-	
+
 	if (!file_exists($base_dir))
 	{
 		return false;
 	}
-	
+
 	$dir_handle = opendir($base_dir);
 
 	$files_list = array();
