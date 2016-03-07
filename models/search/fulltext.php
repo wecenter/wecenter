@@ -212,8 +212,10 @@ class search_fulltext_class extends AWS_MODEL
     			$output .= $code;
     		}
     	}
+    	
+    	$output = preg_replace('/[^a-zA-Z0-9 ]/', '', $output);
 
-    	return htmlspecialchars($output);
+    	return $output;
 	}
 
 	public function push_index($type, $string, $item_id)
