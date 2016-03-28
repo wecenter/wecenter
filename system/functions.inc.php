@@ -1099,7 +1099,7 @@ function in_weixin()
  * @param integerr
  * @return string
  */
-function curl_get_contents($url, $timeout = 10)
+function curl_get_contents($url, $timeout = 30)
 {
 	return HTTP::request($url, 'GET', null, $timeout);
 }

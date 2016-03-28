@@ -283,6 +283,11 @@ class AWS_APP
 	 */
 	public static function config()
 	{
+		if (!self::$config)
+		{
+			self::$config = load_class('core_config');
+		}
+		
 		return self::$config;
 	}
 
@@ -492,7 +497,7 @@ class AWS_APP
 	{
 		if (!self::$db)
 		{
-			return false;
+			self::$db = load_class('core_db');
 		}
 
 		return self::$db->setObject($db_object_name);
