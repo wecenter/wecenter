@@ -89,7 +89,7 @@ class openid_weixin_weixin_class extends AWS_MODEL
             return false;
         }
 
-        AWS_APP::cache()->set($cached_token, $result['access_token'], 60);
+        AWS_APP::cache()->set($cached_token, $result['access_token'], 3600);
 
         return $result['access_token'];
     }
