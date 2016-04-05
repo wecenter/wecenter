@@ -26,16 +26,14 @@ class main extends AWS_CONTROLLER
 
 		if (! $url)
 		{
-			H::redirect_msg(AWS_APP::lang()->_t('文件未找到'));
+			HTTP::error_404();
 		}
 
 		$path = get_setting('upload_dir') . '/' . str_replace(get_setting('upload_url'), '', $url);
 
 		if (strstr($path, '..') OR !file_exists($path))
 		{
-			header('HTTP/1.1 404 Not Found');
-
-			H::redirect_msg(AWS_APP::lang()->_t('文件未找到'));
+			HTTP::error_404();
 		}
 
 		HTTP::force_download_header(base64_decode($_GET['file_name']), filesize($path));
