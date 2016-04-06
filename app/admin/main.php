@@ -64,7 +64,12 @@ class main extends AWS_ADMIN_CONTROLLER
         }
         else if (AWS_APP::session()->admin_login)
         {
-            HTTP::redirect('/admin/');
+            $admin_info = json_decode(AWS_APP::crypt()->decode(AWS_APP::session()->admin_login), true);
+
+            if ($admin_info['uid'])
+            {
+                HTTP::redirect('/admin/');
+            }
         }
 
         TPL::import_css('admin/css/login.css');

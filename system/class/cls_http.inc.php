@@ -383,7 +383,9 @@ class HTTP
 		$options = array(
 			'useragent' => $user_agent,
 			'timeout' => $timeout,
-			'cookies' => $cookie
+			'cookies' => $cookie,
+			'verify' => false,
+			'verifyname' => false,
 		);
 
 		switch (strtoupper($method))

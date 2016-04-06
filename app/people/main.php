@@ -64,9 +64,7 @@ class main extends AWS_CONTROLLER
 
 		if (!$user)
 		{
-			header('HTTP/1.1 404 Not Found');
-
-			H::redirect_msg(AWS_APP::lang()->_t('用户不存在'), '/');
+			HTTP::error_404();
 		}
 
 		if ($user['forbidden'] AND !$this->user_info['permission']['is_administortar'] AND !$this->user_info['permission']['is_moderator'])

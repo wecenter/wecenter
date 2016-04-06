@@ -379,7 +379,7 @@ a.aw-load-more-content{display: block;}
 .aw-mod.people-sort .mod-body .icon-down{position: absolute;right: 8px;top: 10px;}
 
 /* 附件上传 */
-#upload-form{display:none;display:block\0;position: relative;width: 0;height: 0;opacity: 0;filter:alpha(opacity=0);}
+#upload-form{position: relative;width: 0;height: 0;opacity: 0;filter:alpha(opacity=0);}
 #upload-form .file-input{position:absolute;top:-7px;left:-12px;width: 80px;height: 34px;filter:alpha(opacity=0);cursor: pointer;}
 .aw-upload-box #upload-form .file-input{position:absolute;top:-7px;left:-12px;width: 80px;height: 34px;filter:alpha(opacity=0);}
 .aw-upload-box .upload-list{width:694px;height: auto;overflow: hidden;}
