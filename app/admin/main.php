@@ -66,7 +66,7 @@ class main extends AWS_ADMIN_CONTROLLER
         {
             $admin_info = json_decode(AWS_APP::crypt()->decode(AWS_APP::session()->admin_login), true);
 
-            if (!$admin_info['uid'])
+            if ($admin_info['uid'])
             {
                 HTTP::redirect('/admin/');
             }
