@@ -54,9 +54,7 @@ class main extends AWS_CONTROLLER
 
 		if (!$topic_info)
 		{
-			header('HTTP/1.1 404 Not Found');
-
-			H::redirect_msg(AWS_APP::lang()->_t('话题不存在'), '/');
+			HTTP::error_404();
 		}
 
 		if ($topic_info['merged_id'] AND $topic_info['merged_id'] != $topic_info['topic_id'])
@@ -113,7 +111,7 @@ class main extends AWS_CONTROLLER
 		{
 			default:
 				$related_topics_ids = array();
-				
+
 				$page_keywords[] = $topic_info['topic_title'];
 
 				if ($related_topics = $this->model('topic')->related_topics($topic_info['topic_id']))
@@ -121,11 +119,11 @@ class main extends AWS_CONTROLLER
 					foreach ($related_topics AS $key => $val)
 					{
 						$related_topics_ids[$val['topic_id']] = $val['topic_id'];
-						
+
 						$page_keywords[] = $val['topic_title'];
 					}
 				}
-				
+
 				TPL::set_meta('keywords', implode(',', $page_keywords));
 				TPL::set_meta('description', cjk_substr(str_replace("\r\n", ' ', strip_tags($topic_info['topic_description'])), 0, 128, 'UTF-8', '...'));
 

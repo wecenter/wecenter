@@ -263,9 +263,7 @@ class main extends AWS_CONTROLLER
 
 		if (! $question_info = $this->model('question')->get_question_info_by_id($_GET['id']))
 		{
-			header('HTTP/1.1 404 Not Found');
-
-			H::redirect_msg(AWS_APP::lang()->_t('问题不存在或已被删除'), '/m/explore/');
+			HTTP::error_404();
 		}
 
 		$question_info['redirect'] = $this->model('question')->get_redirect($question_info['question_id']);
@@ -722,9 +720,7 @@ class main extends AWS_CONTROLLER
 
 			if (!$user)
 			{
-				header('HTTP/1.1 404 Not Found');
-
-				H::redirect_msg(AWS_APP::lang()->_t('用户不存在'), '/m/');
+				HTTP::error_404();
 			}
 
 			if (urldecode($user['url_token']) != $_GET['id'])
@@ -909,9 +905,7 @@ class main extends AWS_CONTROLLER
 
 		if (!$topic_info)
 		{
-			header('HTTP/1.1 404 Not Found');
-
-			H::redirect_msg(AWS_APP::lang()->_t('话题不存在'), '/m/');
+			HTTP::error_404();
 		}
 
 		if ($topic_info['merged_id'])
@@ -1104,9 +1098,7 @@ class main extends AWS_CONTROLLER
 
 		if (! $article_info = $this->model('article')->get_article_info_by_id($_GET['id']))
 		{
-			header('HTTP/1.1 404 Not Found');
-
-			H::redirect_msg(AWS_APP::lang()->_t('文章不存在或已被删除'), '/home/explore/');
+			HTTP::error_404();
 		}
 
 		$this->crumb($article_info['title'], '/article/' . $article_info['id']);

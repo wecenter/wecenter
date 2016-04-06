@@ -399,7 +399,7 @@ class publish_class extends AWS_MODEL
 					$this->model('notify')->send($uid, $user_id, notify_class::TYPE_ARTICLE_COMMENT_AT_ME, notify_class::CATEGORY_ARTICLE, $article_info['id'], array(
 						'from_uid' => $uid,
 						'article_id' => $article_info['id'],
-						'item_id' => $answer_id
+						'item_id' => $comment_id
 					));
 				}
 			}
