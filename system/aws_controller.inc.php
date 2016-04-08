@@ -387,7 +387,7 @@ class AWS_ADMIN_CONTROLLER extends AWS_CONTROLLER
 				}
 				else
 				{
-					H::redirect_msg(AWS_APP::lang()->_t('会话超时, 请重新登录'), '/admin/login/url-' . base64_encode($_SERVER['REQUEST_URI']));
+					H::redirect_msg(AWS_APP::lang()->_t('会话超时, 请重新登录'), '/admin/login/url-' . base64_current_path());
 				}
 			}
 		}
@@ -399,7 +399,7 @@ class AWS_ADMIN_CONTROLLER extends AWS_CONTROLLER
 			}
 			else
 			{
-				HTTP::redirect('/admin/login/url-' . base64_encode($_SERVER['REQUEST_URI']));
+				HTTP::redirect('/admin/login/url-' . base64_current_path());
 			}
 		}
 
