@@ -268,7 +268,7 @@ class AWS_APP
 			}
 			else
 			{
-				HTTP::redirect('/account/login/url-' . base64_encode($_SERVER['REQUEST_URI']));
+				HTTP::redirect('/account/login/url-' . base64_current_path());
 			}
 		}
 	}
@@ -287,7 +287,7 @@ class AWS_APP
 		{
 			self::$config = load_class('core_config');
 		}
-		
+
 		return self::$config;
 	}
 

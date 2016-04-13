@@ -45,6 +45,11 @@ function base_url()
 	return $scheme . '://' . $clean_url;
 }
 
+function base64_current_path()
+{
+	return base64_encode('/' . ltrim($_SERVER['REQUEST_URI'], dirname($_SERVER['PHP_SELF'])));
+}
+
 /**
  * 根据特定规则对数组进行排序
  *
