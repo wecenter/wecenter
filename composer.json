@@ -1,3 +1,6 @@
 {
-	    "require": {"php": "~5.6"}
+    "require": {
+    	"php": "~5.6",
+	"ext-imagick": "*"
+    }
 }
