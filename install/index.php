@@ -194,8 +194,7 @@ switch ($_POST['step'])
 				'charset' => 'utf8',
 				'host' => $_POST['db_host'],
 				'username' => $_POST['db_username'],
-				'password' => $_POST['db_password'],
-				'dbname' => $_POST['db_dbname']
+				'password' => $_POST['db_password']
 			);
 
 			if ($_POST['db_port'])
@@ -228,9 +227,9 @@ switch ($_POST['step'])
 
 		try
 		{
-			$createdb_sql = "CREATE DATABASE IF NOT EXISTS ".$db_config['dbname'];
-			$db->getConnection()->exec($createdb_sql);
+			$createdb_sql = "CREATE DATABASE IF NOT EXISTS ".$_POST['db_dbname'];
 			$db = Zend_Db::factory($db_driver, $db_config);
+			$db->query($createdb_sql);
 		}
 		catch (Exception $e)
 		{
