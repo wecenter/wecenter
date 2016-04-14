@@ -228,6 +228,8 @@ switch ($_POST['step'])
 
 		try
 		{
+			$createdb_sql = "select * from table where account_name = ".$db_config['dbname'];
+                        $db->getConnection()->exec($createdb_sql);
 			$db = Zend_Db::factory($db_driver, $db_config);
 		}
 		catch (Exception $e)
