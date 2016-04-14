@@ -228,7 +228,6 @@ switch ($_POST['step'])
 		try
 		{
 			$pdo = new PDO("mysql:host=".$db_config['host'].";port=".$db_config['port'], $db_config['username'], $db_config['password']);
-			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$pdo->query("CREATE DATABASE IF NOT EXISTS $db_config['dbname']");
 			
 			$db = Zend_Db::factory($db_driver, $db_config);
