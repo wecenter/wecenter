@@ -77,7 +77,7 @@ class main extends AWS_CONTROLLER
 
 		if (!$this->user_id AND !$this->user_info['permission']['visit_site'] AND $_GET['act'] != 'login' AND $_GET['act'] != 'register')
 		{
-			HTTP::redirect('/m/login/url-' . base64_encode($_SERVER['REQUEST_URI']));
+			HTTP::redirect('/m/login/url-' . base64_current_path());
 		}
 
 		switch ($_GET['act'])
@@ -85,7 +85,7 @@ class main extends AWS_CONTROLLER
 			default:
 				if (!$this->user_id)
 				{
-					HTTP::redirect('/m/login/url-' . base64_encode($_SERVER['REQUEST_URI']));
+					HTTP::redirect('/m/login/url-' . base64_current_path());
 				}
 			break;
 
