@@ -237,9 +237,13 @@ class weixin extends AWS_ADMIN_CONTROLLER
                     H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('上传失败, 请与管理员联系')));
                 }
 
+                $origin_file = get_setting('upload_dir') . '/weixin/' . 'origin_' . $upload_data['file_name'];
+
+                rename($upload_data['full_path'], $origin_file);
+
                 AWS_APP::image()->initialize(array(
                     'quality' => 90,
-                    'source_image' => $upload_data['full_path'],
+                    'source_image' => $origin_file,
                     'new_image' => $upload_data['full_path'],
                     'width' => 640,
                     'height' => 320
@@ -247,7 +251,7 @@ class weixin extends AWS_ADMIN_CONTROLLER
 
                 AWS_APP::image()->initialize(array(
                     'quality' => 90,
-                    'source_image' => $upload_data['full_path'],
+                    'source_image' => $origin_file,
                     'new_image' => get_setting('upload_dir') . '/weixin/square_' . basename($upload_data['full_path']),
                     'width' => 80,
                     'height' => 80
