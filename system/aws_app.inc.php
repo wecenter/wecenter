@@ -227,9 +227,9 @@ class AWS_APP
 	 * @access	public
 	 * @param	object
 	 */
-	public static function exception_handle(Exception $exception)
+	public static function exception_handle($exception)
     {
-		$exception_message = "Application error\n------\nMessage: " . $exception->getMessage() . "\n------\nBuild: " . G_VERSION . " " . G_VERSION_BUILD . "\nPHP Version: " . PHP_VERSION . "\nUser Agent: " . $_SERVER['HTTP_USER_AGENT'] . "\n------\n" . $exception->__toString();
+		$exception_message = "Application error\n------\nMessage: " . $exception->getMessage() . "\nFile: " . $exception->getFile() . "\nLine: " . $exception->getLine() . "\n------\nBuild: " . G_VERSION . " " . G_VERSION_BUILD . "\nPHP Version: " . PHP_VERSION . "\nURI: " . $_SERVER['REQUEST_URI'] . "\nUser Agent: " . $_SERVER['HTTP_USER_AGENT'] . "\nAccept Language: " . $_SERVER['HTTP_ACCEPT_LANGUAGE'] . "\nIP Address: " . fetch_ip() . "\n------\n" . $exception->getTraceAsString();
 
         show_error($exception_message, $exception->getMessage());
     }
