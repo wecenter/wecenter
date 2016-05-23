@@ -38,7 +38,12 @@ class core_autoload
 
     private static function loader($class_name)
 	{
-		$require_file = AWS_PATH . preg_replace('#_+#', '/', $class_name) . '.php';
+		if (preg_match('#[^a-zA-Z0-9_\\\\]#', $class_name))
+		{
+			return false;
+		}
+		
+		$require_file = AWS_PATH . str_replace(array('_', '\\'), '/', $class_name) . '.php';
 
 		if (file_exists($require_file))
 		{
