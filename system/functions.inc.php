@@ -30,7 +30,7 @@
 function base_url()
 {
 	$clean_url = isset($_SERVER['PATH_INFO']) ? $_SERVER['PATH_INFO'] : NULL;
-	$clean_url = dirname(rtrim($_SERVER['PHP_SELF'], $clean_url));
+	$clean_url = dirname(substr($_SERVER['PHP_SELF'], 0, sublen($_SERVER['PHP_SELF']) - sublen($clean_url)));
 	$clean_url = rtrim($_SERVER['HTTP_HOST'] . $clean_url, '/\\');
 
 	if ((isset($_SERVER['HTTPS']) AND !in_array(strtolower($_SERVER['HTTPS']), array('off', 'no', 'false', 'disabled'))) OR $_SERVER['SERVER_PORT'] == 443)
@@ -47,7 +47,7 @@ function base_url()
 
 function base64_current_path()
 {
-	return base64_encode('/' . ltrim($_SERVER['REQUEST_URI'], dirname($_SERVER['PHP_SELF'])));
+	return base64_encode('/' . substr($_SERVER['REQUEST_URI'], strlen(dirname($_SERVER['PHP_SELF'])) - 1));
 }
 
 /**
