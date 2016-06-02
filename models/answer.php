@@ -478,7 +478,7 @@ class answer_class extends AWS_MODEL
 	{
 		if (is_array($answer_id))
 		{
-			$answer_id = array_walk_recursive($answer_id, 'intval_string');
+			array_walk_recursive($answer_id, 'intval_string');
 
 			if ($result = $this->query_all("SELECT answer_id, vote_value FROM " . get_table('answer_vote') . " WHERE answer_id IN(" . implode(',', $answer_id) . ") AND vote_uid = " . intval($uid)))
 			{
