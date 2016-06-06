@@ -47,7 +47,7 @@ function base_url()
 
 function base64_current_path()
 {
-	return base64_encode('/' . substr($_SERVER['REQUEST_URI'], strlen(dirname($_SERVER['PHP_SELF'])) - 1));
+	return base64_encode('/' . str_replace('/' . G_INDEX_SCRIPT, '', substr($_SERVER['REQUEST_URI'], strlen(dirname($_SERVER['PHP_SELF'])))));
 }
 
 /**
