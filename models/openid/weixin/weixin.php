@@ -203,8 +203,6 @@ class openid_weixin_weixin_class extends AWS_MODEL
             return true;
         }
 
-        $this->associate_avatar($uid, $access_user['headimgurl']);
-
         $this->insert('users_weixin', array(
             'uid' => intval($uid),
             'openid' => $access_token['openid'],
@@ -220,6 +218,8 @@ class openid_weixin_weixin_class extends AWS_MODEL
             'country' => $access_user['country'],
             'add_time' => time()
         ));
+        
+        $this->associate_avatar($uid, $access_user['headimgurl']);
 
         $this->model('account')->associate_remote_avatar($uid, $access_user['headimgurl']);
 

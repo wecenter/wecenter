@@ -41,6 +41,8 @@ class core_user
 					return true;
 				}
 			}
+			
+			HTTP::set_cookie('_user_login', '', null, '/', null, false, true);
 
 			return false;
 		}
