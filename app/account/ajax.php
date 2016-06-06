@@ -53,7 +53,7 @@ class ajax extends AWS_CONTROLLER
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('用户名不符合规则')));
 		}
-		
+
 		if ($this->model('account')->check_username($_POST['username']))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('用户名已被注册')));
@@ -188,8 +188,7 @@ class ajax extends AWS_CONTROLLER
 			$this->model('account')->update_users_attrib_fields($update_attrib_data, $uid);
 		}
 
-		$this->model('account')->setcookie_logout();
-		$this->model('account')->setsession_logout();
+		$this->model('account')->logout();
 
 		if ($_POST['icode'])
 		{
@@ -248,7 +247,7 @@ class ajax extends AWS_CONTROLLER
 		if ($_POST['_is_mobile'])
 		{
 			$this->model('account')->setcookie_login($user_info['uid'], $user_info['user_name'], $_POST['password'], $user_info['salt']);
-			
+
 			if ($_POST['return_url'])
 			{
 				$user_info = $this->model('account')->get_user_info_by_uid($uid);
@@ -308,7 +307,7 @@ class ajax extends AWS_CONTROLLER
 				}
 
 				$this->model('account')->update_user_last_login($user_info['uid']);
-				$this->model('account')->setcookie_logout();
+				$this->model('account')->logout();
 
 				$this->model('account')->setcookie_login($user_info['uid'], $_POST['user_name'], $_POST['password'], $user_info['salt'], $expire);
 
@@ -444,25 +443,25 @@ class ajax extends AWS_CONTROLLER
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('用户不存在')));
 		}
-		
+
 		if ($user_info['valid_email'] == 1)
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('不允许已认证邮箱用户更改邮箱')));
 		}
-		
+
 		if ($this->model('account')->check_email($_POST['email']))
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('邮箱地址已被使用')));
 		}
-		
+
 		$this->model('account')->update_users_fields(array(
 			'email' => strtolower($_POST['email'])
 		), $user_info['uid']);
-		
+
 		$this->model('active')->new_valid_email($this->user_id);
-		
+
 		AWS_APP::session()->valid_email = strtolower($_POST['email']);
-		
+
 		H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('邮箱更改成功, 请前往邮箱接收验证邮件')));
 	}
 
@@ -535,8 +534,7 @@ class ajax extends AWS_CONTROLLER
 				}
 
 				// 帐户激活成功，切换为登录状态跳转至首页
-				$this->model('account')->setsession_logout();
-				$this->model('account')->setcookie_logout();
+				$this->model('account')->logout();
 
 				$this->model('account')->update_user_last_login($user_info['uid']);
 
@@ -642,9 +640,7 @@ class ajax extends AWS_CONTROLLER
 			$this->model('active')->active_user_by_uid($user_info['uid']);
 		}
 
-		$this->model('account')->setcookie_logout();
-
-		$this->model('account')->setsession_logout();
+		$this->model('account')->logout();
 
 		unset(AWS_APP::session()->find_password);
 
@@ -1257,7 +1253,7 @@ class ajax extends AWS_CONTROLLER
 		{
 			H::ajax_json_output(AWS_APP::RSM(null, '-1', $check_result));
 		}
-		
+
 		if ($this->user_info['user_name'] != $_POST['user_name'])
 		{
 			if ($this->model('account')->check_username_sensitive_words($_GET['username']) || $this->model('account')->check_username($_GET['username']))
@@ -1265,7 +1261,7 @@ class ajax extends AWS_CONTROLLER
 				H::ajax_json_output(AWS_APP::RSM(null, -1, AWS_APP::lang()->_t('用户名已被注册')));
 			}
 		}
-		
+
 		$update_data['user_name'] = $_POST['user_name'];
 
 		if (! H::valid_email($this->user_info['email']))

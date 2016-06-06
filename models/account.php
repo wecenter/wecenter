@@ -788,19 +788,10 @@ class account_class extends AWS_MODEL
         return true;
     }
 
-    public function setcookie_logout()
-    {
-        HTTP::set_cookie('_user_login', '', time() - 3600);
-    }
-
     public function logout()
     {
-        $this->setcookie_logout();
-        $this->setsession_logout();
-    }
+        HTTP::set_cookie('_user_login', '', time() - 3600);
 
-    public function setsession_logout()
-    {
         if (isset(AWS_APP::session()->client_info))
         {
             unset(AWS_APP::session()->client_info);

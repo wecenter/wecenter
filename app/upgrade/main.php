@@ -155,8 +155,7 @@ class main extends AWS_CONTROLLER
 	{
 		if ($this->user_id)
 		{
-			$this->model('account')->setcookie_logout();
-			$this->model('account')->setsession_logout();
+			$this->model('account')->logout();
 
 			HTTP::redirect('/upgrade/');
 		}
