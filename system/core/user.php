@@ -17,11 +17,11 @@ class core_user
 {
 	public function __construct()
 	{
-		if (AWS_APP::session()->client_info AND ! $_COOKIE[G_COOKIE_PREFIX . '_user_login'])
+		/*if (AWS_APP::session()->client_info AND ! $_COOKIE[G_COOKIE_PREFIX . '_user_login'])
 		{
 			// Cookie 清除则 Session 也清除
 			unset(AWS_APP::session()->client_info);
-		}
+		}*/
 
 		if (! AWS_APP::session()->client_info AND $_COOKIE[G_COOKIE_PREFIX . '_user_login'])
 		{
@@ -41,7 +41,7 @@ class core_user
 					return true;
 				}
 			}
-			
+
 			HTTP::set_cookie('_user_login', '', null, '/', null, false, true);
 
 			return false;
