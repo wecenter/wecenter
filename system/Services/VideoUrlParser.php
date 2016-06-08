@@ -135,7 +135,7 @@ class Services_VideoUrlParser
 	 * http://v.qq.com/cover/d/dtdqyd8g7xvoj0o/9SfqULsrtSb.html
 	 * http://imgcache.qq.com/tencentvideo_v1/player/TencentPlayer.swf?_v=20110829&vid=97abu74o4w3&autoplay=1&list=2&showcfg=1&tpid=23&title=%E7%AC%AC%E4%B8%80%E7%8E%B0%E5%9C%BA&adplay=1&cid=o9tab7nuu0q3esh
 	 */
-	private function _parseQq($url)
+	static private function _parseQq($url)
 	{
 		$html = self::_fget($url);
 
@@ -163,7 +163,7 @@ class Services_VideoUrlParser
 	 * http://v.youku.com/v_show/id_XMjI4MDM4NDc2.html
 	 * http://player.youku.com/player.php/sid/XMjU0NjI2Njg4/v.swf
 	 */
-	private function _parseYouku($url)
+	static private function _parseYouku($url)
 	{
 		preg_match("#id\_(\w+(?:==)?)#", $url, $matches);
 
@@ -220,7 +220,7 @@ class Services_VideoUrlParser
 	 * http://www.tudou.com/playlist/p/a65718.html?iid=74909603
 	 * http://www.tudou.com/l/G5BzgI4lAb8/&iid=74909603/v.swf
 	 */
-	private function _parseTudou($url)
+	static private function _parseTudou($url)
 	{
 		$html = self::_fget($url);
 
@@ -246,7 +246,7 @@ class Services_VideoUrlParser
 	 * http://www.56.com/u73/v_NTkzMDcwNDY.html
 	 * http://player.56.com/v_NTkzMDcwNDY.swf
 	 */
-	private function _parse56($url)
+	static private function _parse56($url)
 	{
 		preg_match("#/v_(\w+)\.html#", $url, $matches);
 
@@ -276,7 +276,7 @@ class Services_VideoUrlParser
 	}
 
 	// 搜狐TV http://my.tv.sohu.com/u/vw/5101536
-	private function _parseSohu($url)
+	static private function _parseSohu($url)
 	{
 		$html = iconv('GBK', 'UTF-8', self::_fget($url));
 
@@ -290,7 +290,7 @@ class Services_VideoUrlParser
 		return $data;
 	}
 
-	private function _parseYoutube($url)
+	static private function _parseYoutube($url)
 	{
 		preg_match("#\?v=([0-9a-zA-Z_\-]+)#", $url, $matches);
 
@@ -314,7 +314,7 @@ class Services_VideoUrlParser
 	/*
      * 通过 file_get_contents 获取内容
      */
-	private function _fget($url = '')
+	static private function _fget($url = '')
 	{
 		if (!$url)
 		{
@@ -336,7 +336,7 @@ class Services_VideoUrlParser
 	/*
      * 通过 fsockopen 获取内容
      */
-	private function _fsget($path = '/', $host = '', $user_agent = '')
+	static private function _fsget($path = '/', $host = '', $user_agent = '')
 	{
 		if (!$path || !$host)
 		{
@@ -373,7 +373,7 @@ HEADER;
 	/*
      * 通过 curl 获取内容
      */
-	private function _cget($url = '', $user_agent = '')
+	static private function _cget($url = '', $user_agent = '')
 	{
 		if (!$url)
 		{
@@ -414,7 +414,7 @@ HEADER;
 			return $html;
 	}
 
-	private function _vita_get_url_content($url)
+	static private function _vita_get_url_content($url)
 	{
 		$ch = curl_init();
 
@@ -429,7 +429,7 @@ HEADER;
 		return $file_contents;
 	}
 
-	private function _gzdecode($data)
+	static private function _gzdecode($data)
 	{
 		$len = strlen($data);
 
