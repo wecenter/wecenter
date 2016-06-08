@@ -38,8 +38,12 @@ class core_crypt
 
     public function decode($data, $key = null)
     {
-        if ($algorithm = strstr($data, '|', true))
+        if (strstr($data, '|'))
         {
+			$decode_data = explode('|', $data);
+
+			$algorithm = $decode_data[0];
+
             $data = str_replace($algorithm . '|', '', $data);
 
             $data = $this->hex_to_str($data);
