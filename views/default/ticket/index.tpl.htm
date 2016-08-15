@@ -224,7 +224,7 @@
                                             <em class="auth-img pull-right"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha" /></em>
                                     </div>
                                     <?php } ?>
-                                    <a href="javascript:;" onclick="AWS.ajax_post($('#reply_form'), AWS.ajax_processer, 'reply');" class="btn btn-normal btn-success pull-right btn-reply"><?php _e('回复'); ?></a>
+                                    <a href="javascript:;" onclick="AWS.ajax_post($('#reply_form'), AWS.ajax_processer, 'reply_question');" class="btn btn-normal btn-success pull-right btn-reply"><?php _e('回复'); ?></a>
                                     <span class="pull-right text-color-999" id="answer_content_message">&nbsp;</span>
                                     <?php if (get_setting('upload_enable') == 'Y') { ?>
                                     <div class="aw-upload-box">
