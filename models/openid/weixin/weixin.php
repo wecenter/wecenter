@@ -31,12 +31,7 @@ class openid_weixin_weixin_class extends AWS_MODEL
             return false;
         }
         
-        if (!$access_token = $this->get_access_token($app_id, $app_secret))
-		{
-			return false;
-		}
-
-        $url = self::WEIXIN_API . $url . '?access_token=' . $access_token;
+        $url = self::WEIXIN_API . $url . '?access_token=' . $this->get_access_token($app_id, $app_secret);
 
         $result = HTTP::request($url, $method, $contents);
 

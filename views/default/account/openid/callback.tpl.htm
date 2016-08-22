@@ -26,13 +26,13 @@
 		<form id="register_form" method="post" class="aw-register-form" onsubmit="return false" action="<?php echo $this->register_url; ?>">
 			<ul>
 				<li>
-					<input name="user_name" class="aw-register-name form-control" type="text" placeholder="<?php _e('用户名'); ?>" value="<?php echo $this->user_name; ?>" />
+					<input name="user_name" class="aw-register-name form-control" type="text" placeholder="<?php _e('用户名'); ?>" tips="<?php _e('请输入一个 2-14 位的用户名');?>" errortips="<?php _e('用户名长度不符合');?>" value="<?php echo $this->user_name; ?>" />
 				</li>
 				<li>
-					<input name="email" class="aw-register-email form-control" type="text" placeholder="<?php _e('邮箱'); ?>" value="<?php echo $this->email; ?>" />
+					<input name="email" class="aw-register-email form-control" type="text" placeholder="<?php _e('邮箱'); ?>" value="<?php echo $this->email; ?>" tips="<?php _e('请输入你常用的电子邮箱作为你的账号'); ?>" value="<?php echo htmlspecialchars($_GET['email']); ?>" errortips="<?php _e('邮箱格式不正确'); ?>" />
 				</li>
 				<li>
-					<input name="password" class="aw-register-pwd form-control" type="password" placeholder="<?php _e('密码'); ?>" />
+					<input name="password" class="aw-register-pwd form-control" type="password" placeholder="<?php _e('密码'); ?>" tips="<?php _e('请输入 6-16 个字符,区分大小写'); ?>" errortips="<?php _e('密码不符合规则'); ?>" />
 				</li>
 				<li class="last">
 					<label><input type="checkbox" checked="checked" value="agree" name="agreement_chk" /> <?php _e('我同意'); ?></label> <a href="javascript:;" onclick="$('.aw-regiter-agreement').show();"><?php _e('用户协议'); ?></a>
@@ -76,6 +76,109 @@
 				$(this).addClass('active');
 			}
 		});
+		verify_register_form('#register_form');
+
+	    /* 注册页面验证 */
+	    function verify_register_form(element)
+	    {
+	        $(element).find('[type=text], [type=password]').on({
+	            focus : function()
+	            {
+	                if (typeof $(this).attr('tips') != 'undefined' && $(this).attr('tips') != '')
+	                {
+	                    $(this).parent().append('<span class="aw-reg-tips">' + $(this).attr('tips') + '</span>');
+	                }
+	            },
+	            blur : function()
+	            {
+	                if ($(this).attr('tips') != '')
+	                {
+	                    switch ($(this).attr('name'))
+	                    {
+	                        case 'user_name' :
+	                            var _this = $(this);
+	                            $(this).parent().find('.aw-reg-tips').detach();
+								
+	                            if ($(this).val().length >= 0 && $(this).val().length < 2)
+	                            {
+	                                $(this).parent().find('.aw-reg-tips').detach();
+	                                $(this).parent().append('<span class="aw-reg-tips aw-reg-err"><i class="aw-icon i-err"></i>' + $(this).attr('errortips') + '</span>');
+	                                return;
+	                            }
+	                            if ($(this).val().length > 17)
+	                            {
+	                                $(this).parent().find('.aw-reg-tips').detach();
+	                                $(this).parent().append('<span class="aw-reg-tips aw-reg-err"><i class="aw-icon i-err"></i>' + $(this).attr('errortips') + '</span>');
+	                                return;
+	                            }
+	                            else
+	                            {
+	                                $.post(G_BASE_URL + '/account/ajax/check_username/', 
+	                                    {
+	                                        username: $(this).val()
+	                                    }, function (result)
+	                                {
+	                                    if (result.errno == -1)
+	                                    {
+	                                        _this.parent().find('.aw-reg-tips').detach();
+	                                        _this.parent().append('<span class="aw-reg-tips aw-reg-err"><i class="aw-icon i-err"></i>' + result.err + '</span>');
+	                                    }
+	                                    else
+	                                    {
+											$('.error_message').hide();
+	                                        _this.parent().find('.aw-reg-tips').detach();
+	                                        _this.parent().append('<span class="aw-reg-tips aw-reg-right"><i class="aw-icon i-followed"></i></span>');
+	                                    }
+	                                }, 'json');
+	                            }
+	                            return;
+
+	                        case 'email' :
+	                            $(this).parent().find('.aw-reg-tips').detach();
+	                            var emailreg = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]+$/;
+	                            if (!emailreg.test($(this).val()))
+	                            {
+	                                $(this).parent().find('.aw-reg-tips').detach();
+	                                $(this).parent().append('<span class="aw-reg-tips aw-reg-err"><i class="aw-icon i-err"></i>' + $(this).attr('errortips') + '</span>');
+	                                return;
+	                            }
+	                            else
+	                            {
+									$('.error_message').hide();
+	                                $(this).parent().find('.aw-reg-tips').detach();
+	                                $(this).parent().append('<span class="aw-reg-tips aw-reg-right"><i class="aw-icon i-followed"></i></span>');
+	                            }
+	                            return;
+
+	                        case 'password' :
+	                            $(this).parent().find('.aw-reg-tips').detach();
+	                            if ($(this).val().length >= 0 && $(this).val().length < 6)
+	                            {
+	                                $(this).parent().find('.aw-reg-tips').detach();
+	                                $(this).parent().append('<span class="aw-reg-tips aw-reg-err"><i class="aw-icon i-err"></i>' + $(this).attr('errortips') + '</span>');
+	                                return;
+	                            }
+	                            if ($(this).val().length > 17)
+	                            {
+	                                $(this).parent().find('.aw-reg-tips').detach();
+	                                $(this).parent().append('<span class="aw-reg-tips aw-reg-err"><i class="aw-icon i-err"></i>' + $(this).attr('errortips') + '</span>');
+	                                return;
+	                            }
+	                            else
+	                            {
+									$('.error_message').hide();
+	                                $(this).parent().find('.aw-reg-tips').detach();
+	                                $(this).parent().append('<span class="aw-reg-tips aw-reg-right"><i class="aw-icon i-followed"></i></span>');
+	                            }
+	                            return;
+
+	                    }
+						
+	                }
+
+	            }
+	        });
+	    }
 	});
 </script>
 

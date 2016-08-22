@@ -845,6 +845,8 @@ class question_class extends AWS_MODEL
 			return $invite_users_list;
 		}
 		
+		$invite_users_list = array();
+		
 		if ($invites = $this->fetch_all('question_invite', 'question_id = ' . intval($question_id), 'question_invite_id DESC', $limit))
 		{
 			foreach ($invites as $key => $val)
