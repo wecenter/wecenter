@@ -548,7 +548,7 @@ class weixin_class extends AWS_MODEL
                         'title' => $topic_info['topic_title'],
                         'link' => get_js_url('/m/topic/' . $topic_info['url_token']),
                         'image_file' => get_topic_pic_url('', $topic_info['topic_pic'])
-                    );
+                    );
 
                     if ($topic_posts = $this->model('posts')->get_posts_list(null, $param, 4, 'new', array($topic_info['topic_id'])))
                     {

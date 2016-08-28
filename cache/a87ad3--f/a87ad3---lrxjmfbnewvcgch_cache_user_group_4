@@ -1,0 +1,1 @@
+a:8:{s:8:"group_id";i:4;s:4:"type";i:0;s:6:"custom";i:0;s:10:"group_name";s:12:"普通会员";s:16:"reputation_lower";i:0;s:16:"reputation_higer";i:0;s:17:"reputation_factor";d:0;s:10:"permission";a:3:{s:21:"publish_approval_time";a:2:{s:5:"start";s:0:"";s:3:"end";s:0:"";}s:19:"question_valid_hour";s:2:"10";s:17:"answer_valid_hour";s:2:"10";}}

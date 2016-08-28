@@ -135,7 +135,7 @@ class Zend_Config_Writer_Yaml extends Zend_Config_Writer_FileAbstract
             if(is_array($value)) {
                 $encoded = "\n".self::_encodeYaml($indent+1, $value);
             } else {
-                $encoded = (string)$value."\n";
+                $encoded = (string)$value."\n";
             }
             $result .= str_repeat("  ", $indent).($numeric?"- ":"$key: ").$encoded;
         }

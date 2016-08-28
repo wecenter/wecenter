@@ -752,7 +752,7 @@ class Requests {
 	 */
 	public static function compatible_gzinflate($gzData) {
 		// Compressed data might contain a full zlib header, if so strip it for
-		// gzinflate()
+		// gzinflate()
 		if ( substr($gzData, 0, 3) == "\x1f\x8b\x08" ) {
 			$i = 10;
 			$flg = ord( substr($gzData, 3, 1) );

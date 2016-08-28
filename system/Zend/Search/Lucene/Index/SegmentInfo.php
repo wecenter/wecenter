@@ -144,7 +144,7 @@ class Zend_Search_Lucene_Index_SegmentInfo implements Zend_Search_Lucene_Index_T
      *
      * If true then one .nrm file is used for all fields
      * Otherwise .fN files are used
-     *
+     *
      * @var boolean
      */
     private $_hasSingleNormFile;

@@ -168,7 +168,7 @@ class Zend_Loader_ClassMapAutoloader implements Zend_Loader_SplAutoloader
      *
      * If the map has been previously loaded, returns the current instance;
      * otherwise, returns whatever was returned by calling include() on the
-     * location.
+     * location.
      * 
      * @param  string $location 
      * @return Zend_Loader_ClassMapAutoloader|mixed

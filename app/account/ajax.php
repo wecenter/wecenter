@@ -668,7 +668,7 @@ class ajax extends AWS_CONTROLLER
                     die("{'error':'错误代码: " . AWS_APP::upload()->get_error() . "'}");
                 break;
 
-                case 'upload_invalid_filetype':
+                case 'upload_invalid_filetype':
                     die("{'error':'文件类型无效'}");
                 break;
 

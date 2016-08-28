@@ -22,7 +22,7 @@ body{background:url('img/login_bg.jpg') no-repeat #e9f0f4;}
 .btn-primary:active, .btn-primary:focus{background-color: #1a90ff;}
 .btn:active, .btn.active{box-shadow: none;}
 .aw-login-box{width: 714px;margin:0 auto;background-color: #fff;border:1px solid #b3b3b3;border-radius: 3px;}
-.aw-login-box .logo{width:200px;height:94px;background:url('img/login_logo.png') no-repeat;}
+.aw-login-box .logo{width:151px;height:94px;background:url('img/login_logo.png') no-repeat;}
 .aw-login-box .logo a{display: block;width: 151px;height: 94px;}
 .aw-login-box .mod-body{padding:50px 60px;}
 .aw-login-box .mod-body .content{width: 300px;margin-right: 60px;}

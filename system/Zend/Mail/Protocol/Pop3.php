@@ -152,7 +152,7 @@ class Zend_Mail_Protocol_Pop3
              */
             //require_once 'Zend/Mail/Protocol/Exception.php';
             throw new Zend_Mail_Protocol_Exception('send failed - connection closed?');
-        }
+        }
     }
 
 

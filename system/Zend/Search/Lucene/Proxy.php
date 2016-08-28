@@ -146,7 +146,7 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
         return $this->_index->maxDoc();
     }
 
-    /**
+    /**
      * Returns the total number of non-deleted documents in this index.
      *
      * @return integer
