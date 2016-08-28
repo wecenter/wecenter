@@ -1,0 +1,253 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+<div class="aw-container-wrap aw-container-wrap">
+	<div class="aw-container aw-wecenter">
+		<div class="container">
+			<div class="row zc-publish">
+				<div class="col-sm-12">
+					<div class="tabbable">
+						<div class="row">
+							<div class="col-sm-3">
+								<h2><?php _e('准备提交审核'); ?></h2>
+							</div>
+							<div class="col-sm2 pull-right">
+								<a href="javascript:;"><?php _e('返回上一步'); ?></a>
+							</div>
+						</div>
+					</div>
+
+					<!-- 提交审核 -->
+					<div id="project-contact" class="tab-pane">
+						<div class="kn-box mod zc-publish-contact">
+							<div class="mod-head">
+								<p><?php _e('提示：提交审核后将在三个工作日内完成审核，请留意站内通知以及你的邮箱'); ?></p>
+							</div>
+							<div class="mod-body clearfix">
+								<dl>
+									<dt><?php _e('姓名'); ?>:</dt>
+									<dd><input type="text" class="form-control form-normal" name="contact[name]" value="<?php echo $this->project_info['contact']['name']; ?>" /></dd>
+								</dl>
+								<dl>
+									<dt><?php _e('手机'); ?>:</dt>
+									<dd><input type="text" class="form-control form-normal" name="contact[mobile]" value="<?php echo $this->project_info['contact']['mobile']; ?>" /></dd>
+								</dl>
+								<dl>
+									<dt><?php _e('QQ'); ?>:</dt>
+									<dd><input type="text" class="form-control form-normal" name="contact[qq]" value="<?php echo $this->project_info['contact']['qq']; ?>" /></dd>
+								</dl>
+							</div>
+							<div class="mod-footer">
+								<input type="button" class="btn btn-normal btn-green" value="提交审核" onclick="AWS.ajax_post($('#publish_form'));" />
+							</div>
+						</div>
+					</div>
+				<!-- end 提交审核 -->
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+var ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
+var ITEM_ID = '<?php echo $this->project_info['id']; ?>';
+
+$(function()
+{
+	if (typeof(DateInput) != 'undefined')
+	{
+		$('input.date-picker').date_input();
+	}
+
+	//分类初始化
+	init_category();
+
+	// 地址初始化
+	$('.select_area').LocationSelect({
+        labels: ["<?php _e('请选择省份或直辖市'); ?>", "<?php _e('请选择城市'); ?>"],
+        elements: document.getElementsByTagName("select"),
+        detector: function () {
+            this.select(["<?php echo $this->project_info['province']; ?>", "<?php echo $this->project_info['city']; ?>"]);
+        },
+		dataUrl: G_BASE_URL + '/account/ajax/areas_json_data/'
+    });
+
+    if (ATTACH_ACCESS_KEY != '')
+    {
+	    init_fileuploader('file_uploader', G_BASE_URL + '/publish/ajax/attach_upload/id-project__attach_access_key' + '-' + ATTACH_ACCESS_KEY);
+    }
+
+    if (ITEM_ID && G_UPLOAD_ENABLE == 'Y' && ATTACH_ACCESS_KEY != '')
+    {
+        if ($("#file_uploader ._ajax_upload-list").length) {
+            $.post(G_BASE_URL + '/project/ajax/attach_edit_list/', 'project_id=' + ITEM_ID, function (data) {
+                if (data['err']) {
+                    return false;
+                } else {
+                    $.each(data['rsm']['attachs'], function (i, v) {
+                        _ajax_uploader_append_file('#file_uploader ._ajax_upload-list', v);
+                    });
+                }
+            }, 'json');
+        }
+    }
+
+	$('.zc-add-return').click(function()
+	{
+		$(this).hide();
+
+		$('.zc-publish-setting .mod-body').append(Hogan.compile(AW_TEMPLATE.zcProjectForm).render({
+
+		}));
+
+		$('.zc-publish-setting .zc-project-return-form').fadeIn();
+
+		$('.zc-project-return-form .cancel').click(function()
+		{
+			$(this).parents('.zc-project-return-form').detach();
+			$('.zc-add-return').fadeIn();
+		});
+
+		$('.zc-project-return-form .limit-num-yes').click(function()
+		{
+			$(this).parents('dd').find('.count').show();
+		});
+
+		$('.zc-project-return-form .limit-num-no').click(function()
+		{
+			$(this).parents('dd').find('.count').hide();
+		});
+
+		$('.zc-project-return-form .btn.save').click(function()
+		{
+			// 验证表单
+			if ($('.zc-project-return-form .amount').val() == '')
+			{
+				$('.zc-project-return-form .amount').parents('dd').find('.label').fadeIn();
+				return false;
+			}
+			else
+			{
+				$('.zc-project-return-form .amount').parents('dd').find('.label').fadeOut();
+			}
+
+			if ($('.zc-project-return-form .content').val() == '')
+			{
+				$('.zc-project-return-form .content').parents('dd').find('.label').fadeIn();
+				return false;
+			}
+			else
+			{
+				$('.zc-project-return-form .content').parents('dd').find('.label').fadeOut();
+			}
+
+			var form = $(this).parents('.zc-project-return-form'),
+			amount = form.find('.amount').val(),
+			content = form.find('.content').val(),
+			limitNum = form.find('[name="limit-num"]:checked').val();
+
+			if (limitNum == 'false')
+			{
+				limitNum = '不限名额';
+			}
+			else
+			{
+				limitNum = form.find('.people-amount').val();
+			}
+
+			// 插入tr的id数
+			var projectId = checkProjectId();
+
+			//保存成功之后插入到原有基础上
+			var template = '<tr data-id="' + projectId + '">'+
+							'<td>' + amount + '</td>'+
+								'<td>' + limitNum + '</td>'+
+								'<td>' + nl2br(content) + '</td>'+
+								'<td>'+
+									'<a class="delete" href="javascript:;">删除</a>'+
+									'<input type="hidden" name="project_product[' + projectId + '][amount]" value="' + amount + '" />'+
+									'<input type="hidden" name="project_product[' + projectId + '][stock]" value="' + form.find('.people-amount').val() + '" />'+
+									'<input type="hidden" name="project_product[' + projectId + '][description]" value="' + content + '" />'+
+								'</td>'+
+							'</tr>';
+			$('.zc-project-return-list tbody').append(template);
+			$(this).parents('.zc-project-return-form').detach();
+			$('.zc-add-return').fadeIn();
+		});
+	});
+
+	// 回报删除
+	$(document).on('click', '.zc-project-return-list .delete', function()
+	{
+		if ($(this).data('id'))
+		{
+			var _this_element = $(this).parents('tr');
+
+			$.post(G_BASE_URL + '/project/ajax/remove_project_product/', 'product_id=' + $(this).data('id'), function (result) {
+				if (result.errno != 1)
+			    {
+			        $.alert(result.err);
+			    }
+			    else
+			    {
+				    _this_element.detach();
+			    }
+			}, 'json');
+		}
+		else
+		{
+			$(this).parents('tr').detach();
+		}
+	});
+
+	// 分类初始化
+	function init_category()
+	{
+		$.each($('#category_id option'), function (i, e)
+		{
+			if ($(this).val() != 0)
+			{
+				if ($(this).is(':checked') == true)
+				{
+					var checked = 'active';
+				}
+				else
+				{
+					var checked = '';
+				}
+
+				$('.category-list dd').append('<a href="javascript:;" data-value="'+ $(this).val() +'" class="project-category ' + checked + '">' + $(this).html() + '</a>');
+			}
+		});
+
+		// 分类点击
+		$('.project-category').click(function()
+		{
+			$(this).addClass('active').siblings().removeClass('active');
+			$('#category_id').val($(this).data('value'));
+		});
+	}
+
+	// 返回一个不重复的id数
+    function checkProjectId()
+    {
+    	var arr_projectId = [];
+		$.each($('.zc-project-return-list tbody tr'), function (i, e)
+		{
+			arr_projectId.push($(this).data('id'));
+		});
+
+		if (arr_projectId.length == 0)
+		{
+			return 1;
+		}
+		else
+		{
+			return Math.max.apply(Math, arr_projectId) + 1;
+		}
+
+    }
+});
+</script>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>

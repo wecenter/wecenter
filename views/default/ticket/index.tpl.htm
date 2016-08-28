@@ -1,0 +1,707 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+<div class="aw-container-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="aw-content-wrap clearfix">
+                <div class="col-sm-12 col-md-9 aw-main-content">
+                    <div class="aw-mod aw-question-detail aw-item">
+                        <div class="mod-head">
+                            <h1>
+                                <?php echo $this->ticket_info['title']; ?>
+                            </h1>
+
+                            <div class="operate clearfix">
+                                <!-- 下拉菜单 -->
+                                <div class="btn-group pull-left">
+                                    <a class="btn btn-gray dropdown-toggle" data-toggle="dropdown" href="javascript:;">...</a>
+                                    <div class="aw-dropdown pull-right" role="menu" aria-labelledby="dropdownMenu">
+                                        <ul class="aw-dropdown-list">
+                                            <li>
+                                                <?php if ($_GET['column'] == 'log') { ?>
+                                                    <a href="ticket/<?php echo $this->ticket_info['id']; ?>"><?php _e('工单详情'); ?></a>
+                                                <?php } else { ?>
+                                                    <a href="ticket/<?php echo $this->ticket_info['id']; ?>?column=log" rel="nofollow"><?php _e('工单日志'); ?></a>
+                                                <?php } ?>
+                                            </li>
+
+                                            <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_service'] OR $this->user_id == $this->ticket_info['id'] AND $this->ticket_info['status'] != 'closed') { ?>
+                                            <li>
+                                                <a href="javascript:;" onclick="AWS.ajax_request(G_BASE_URL + '/ticket/ajax/change_status/', 'id=<?php echo $this->ticket_info['id']; ?>&status=<?php if ($this->ticket_info['status'] == 'closed') { ?>pending<?php } else { ?>closed<?php } ?>');"><?php if ($this->ticket_info['status'] == 'closed') _e('打开工单'); else _e('关闭工单'); ?></a>
+                                            </li>
+                                            <?php } ?>
+
+                                            <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_service']) { ?>
+                                            <li>
+                                                <a href="javascript:;" onclick="AWS.dialog('confirm', {'message' : '<?php _e('确认删除？'); ?>'}, function(){AWS.ajax_request(G_BASE_URL + '/ticket/ajax/remove/', 'id=<?php echo $this->ticket_info['id']; ?>');});"><?php _e('删除工单'); ?></a>
+                                            </li>
+
+                                            <li>
+                                                <a href="javascript:;" onclick="AWS.dialog('confirm', {'message' : '<?php _e('确认发布？'); ?>'}, function(){AWS.ajax_request(G_BASE_URL + '/ticket/ajax/save_to_question/', 'id=<?php echo $this->ticket_info['id']; ?>');});"><?php _e('发布到问题'); ?></a>
+                                            </li>
+                                            <?php } ?>
+
+                                            <?php if (($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_service']) AND $this->ticket_info['ip']) { ?>
+                                            <li>
+                                                <a href="javascript:;" title="<?php echo long2ip($this->ticket_info['ip']); ?>" onclick="AWS.alert('<?php _e('系统记录的 IP 地址为'); ?>: <?php echo long2ip($this->ticket_info['ip']); ?>');"><?php _e('IP 地址'); ?></a>
+                                            </li>
+                                            <?php } ?>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- end 下拉菜单 -->
+                            </div>
+                        </div>
+
+                        <div class="mod-body">
+                            <div class="content markitup-box">
+                                <?php echo $this->ticket_info['message']; ?>
+
+                                <?php if ($this->ticket_info['attachs']) {  ?>
+                                <div class="aw-upload-img-list">
+                                <?php foreach ($this->ticket_info['attachs'] AS $attach) {
+                                    if ($attach['is_image'] AND (!$this->ticket_info['insert_attach_ids'] OR !in_array($attach['id'], $this->ticket_info['insert_attach_ids']))) { ?>
+                                    <a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-thumbnail" alt="<?php echo $attach['file_name']; ?>" /></a>
+                                    <?php }
+                                } ?>
+                                </div>
+                                <?php } ?>
+                            </div>
+
+                            <?php if ($this->ticket_info['attachs']) {  ?>
+                            <div class="aw-mod aw-upload-file-list">
+                                <!-- <div class="mod-head">
+                                    <h3><i class="icon icon-attach"></i> <?php _e('附件'); ?> :</h3>
+                                </div> -->
+                                <div class="mod-body">
+                                    <ul>
+                                    <?php foreach ($this->ticket_info['attachs'] AS $attach) {
+                                        if (!$attach['is_image'] AND (!$this->ticket_info['insert_attach_ids'] OR !in_array($attach['id'], $this->ticket_info['insert_attach_ids']))) { ?>
+                                            <li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><?php echo $attach['file_name']; ?></a></li>
+                                        <?php }
+                                    } ?>
+                                    </ul>
+                                </div>
+                            </div>
+                            <?php } ?>
+                        </div>
+                        <div class="mod-footer">
+                            <div class="meta">
+                                <span class="text-color-999"><?php echo date_friendly($this->ticket_info['time'], 604800, 'Y-m-d'); ?></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <?php if ($_GET['column'] == 'log') { ?>
+                    <div class="aw-mod aw-question-edit">
+                        <div class="mod-head common-head">
+                            <h2><span class="pull-right"><a class="text-color-999" href="ticket/<?php echo $this->ticket_info['id']; ?>"><?php _e('返回工单'); ?> »</a></span><?php _e('工单日志'); ?></h2>
+                        </div>
+                        <div class="mod-body">
+                            <?php if ($this->ticket_log) { ?>
+                            <ul id="c_log_list">
+                                <?php foreach($this->ticket_log AS $log_info) { ?>
+                                <li>
+                                    <p><a class="aw-user-name" href="people/<?php echo $log_info['user_info']['url_token']; ?>" data-id="<?php echo $log_info['user_info']['uid']; ?>"><?php echo $log_info['user_info']['user_name']; ?></a> <?php echo $log_info['text']; ?></p>
+
+                                    <p class="text-color-999">
+                                        <?php echo date_friendly($log_info['time'], null); ?>
+                                    </p>
+                                </li>
+                                <?php } ?>
+                            </ul>
+                            <?php } ?>
+                        </div>
+                    </div>
+                    <?php } else { ?>
+                    <div class="aw-mod aw-question-comment">
+                        <div class="mod-head">
+                            <ul class="nav nav-tabs aw-nav-tabs active">
+
+                                <h2 class="hidden-xs"><?php if ($_GET['reply_id']) _e('查看单个回复'); else _e('%s 个回复', $this->replies_count); ?></h2>
+                            </ul>
+                        </div>
+                        <div class="mod-body aw-feed-list">
+                            <?php if ($this->replies_list) {
+                                foreach ($this->replies_list AS $reply) { ?>
+                                <div class="aw-item" id="answer_list_<?php echo $reply['id']; ?>" data-id="<?php echo $reply['id']; ?>">
+                                    <div class="mod-head">
+                                        <a class="anchor" name="answer_<?php echo $reply['id']; ?>"></a>
+                                        <!-- 用户头像 -->
+                                        <a class="aw-user-img aw-border-radius-5 pull-right" href="people/<?php echo $reply['user_info']['url_token']; ?>" data-id="<?php echo $reply['user_info']['uid']; ?>"><img src="<?php echo get_avatar_url($reply['user_info']['uid'], 'mid'); ?>" alt="" /></a>
+                                        <!-- end 用户头像 -->
+                                        <div class="title">
+                                            <p>
+                                                <a class="aw-user-name" href="people/<?php echo $reply['user_info']['url_token']; ?>" data-id="<?php echo $reply['user_info']['uid']; ?>"><?php echo $reply['user_info']['user_name']; ?></a>
+                                                <?php if ($reply['user_info']['verified']) { ?><i class="icon-v<?php if ($reply['user_info']['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($reply['user_info']['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?>
+                                                <?php if ($reply['user_info']['signature']) { ?> - <span class="text-color-999"><?php echo $reply['user_info']['signature']; ?></span><?php } ?>
+                                                   <span class="remove-reply pull-right text-color-999" data-id="<?php echo $reply['id']; ?>" class="text-color-999">删除</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="mod-body clearfix">
+                                        <!-- 评论内容 -->
+                                        <div class="markitup-box">
+                                            <?php echo $reply['message']; ?>
+                                        </div>
+
+                                        <?php if ($reply['attachs']) { ?>
+                                        <div class="aw-upload-img-list">
+                                        <?php foreach ($reply['attachs'] AS $attach) {
+                                            if ($attach['is_image'] AND (!$reply['insert_attach_ids'] OR !in_array($attach['id'], $reply['insert_attach_ids']))) { ?>
+                                            <a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-thumbnail" alt="<?php echo $attach['attach_name']; ?>" /></a>
+                                            <?php }
+                                        } ?>
+                                        </div>
+
+                                        <ul class="aw-upload-file-list">
+                                        <?php foreach ($reply['attachs'] AS $attach) {
+                                            if (!$attach['is_image'] AND (!$reply['insert_attach_ids'] OR !in_array($attach['id'], $reply['insert_attach_ids']))) { ?>
+                                            <li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><i class="icon icon-attach"></i><?php echo $attach['file_name']; ?></a></li>
+                                            <?php }
+                                        } ?>
+                                        </ul>
+                                        <?php } ?>
+                                        <!-- end 评论内容 -->
+                                    </div>
+                                    <div class="mod-footer">
+                                        <!-- 删除评论 -->
+                                        <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?>
+                                        <div class="meta clearfix">
+                                            <span class="text-color-999 pull-right"><?php echo date_friendly($reply['time'], 604800, 'Y-m-d'); ?></span>
+
+                                        </div>
+                                          <?php } ?>
+                                        <!-- end 删除评论-->
+                                    </div>
+                                </div>
+                                <?php } ?>
+                            <?php } ?>
+                        </div>
+                        <div class="mod-footer">
+                            <?php if ($_GET['reply_id']) { ?>
+                                <a href="ticket/<?php echo $this->ticket_info['id']; ?>" class="aw-load-more-content">
+                                    <span><?php _e('查看全部回复'); ?></span>
+                                </a>
+                            <?php } ?>
+                        </div>
+
+                        <?php if ($this->pagination) { ?>
+                        <div class="clearfix"><?php echo $this->pagination; ?></div>
+                        <?php } ?>
+                    </div>
+                    <?php } ?>
+                    <!-- end 问题详细模块 -->
+
+                    <?php if (!$_GET['column']) { ?>
+                    <!-- 回复编辑器 -->
+                    <div class="aw-mod aw-replay-box question">
+                        <a name="answer_form"></a>
+                        <?php if ($this->ticket_info['status'] == 'closed') { ?>
+                        <p align="center"><?php _e('该工单目前已经被关闭, 无法回复'); ?></p>
+                        <?php } else { ?>
+                        <form action="ticket/ajax/reply/" onsubmit="return false;" method="post" id="reply_form" class="question_answer_form">
+                        <input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
+                        <input type="hidden" name="id" value="<?php echo $this->ticket_info['id']; ?>" />
+                        <input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
+                        <div class="mod-head">
+                            <a href="people/" class="aw-user-name"><img alt="<?php echo $this->user_info['user_name']; ?>" src="<?php echo get_avatar_url($this->user_info['uid'], 'mid'); ?>" /></a>
+                            <p>
+                                <?php echo $this->user_info['user_name']; ?>
+                            </p>
+                        </div>
+                        <div class="mod-body">
+                            <div class="aw-mod aw-editor-box">
+                                <div class="mod-head">
+                                    <div class="wmd-panel">
+                                        <textarea class="wmd-input form-control autosize editor" id="wmd-input" rows="15" name="message">&nbsp;&nbsp;<?php echo htmlspecialchars($this->draft_content['message']); ?></textarea>
+
+                                    </div>
+                                </div>
+                                <div class="mod-body clearfix">
+                                    <?php if ($this->human_valid) { ?>
+                                    <div class="aw-auth-img clearfix">
+                                            <input class="pull-right form-control" type="text" name="seccode_verify" placeholder="<?php _e('验证码'); ?>" />
+                                            <em class="auth-img pull-right"><img src="" onclick="this.src = G_BASE_URL + '/account/captcha/' + Math.floor(Math.random() * 10000);" id="captcha" /></em>
+                                    </div>
+                                    <?php } ?>
+                                    <a href="javascript:;" onclick="AWS.ajax_post($('#reply_form'), AWS.ajax_processer, 'reply');" class="btn btn-normal btn-success pull-right btn-reply"><?php _e('回复'); ?></a>
+                                    <span class="pull-right text-color-999" id="answer_content_message">&nbsp;</span>
+                                    <?php if (get_setting('upload_enable') == 'Y') { ?>
+                                    <div class="aw-upload-box">
+                                        <a class="btn btn-default">上传附件</a>
+                                        <div class="upload-container"></div>
+                                        <span class="text-color-999 aw-upload-tips hidden-xs"><?php _e('允许'); ?> : <?php echo get_setting('allowed_upload_types'); ?></span>
+                                    </div>
+                                    <?php } ?>
+                                </div>
+
+                            </div>
+
+                        </div>
+                        </form>
+                        <?php } ?>
+                    </div>
+                    <!-- end 回复编辑器 -->
+                    <?php } ?>
+                </div>
+                <!-- 侧边栏 -->
+                <div class="col-md-3 aw-side-bar hidden-xs hidden-sm">
+                    <div class="aw-mod order-status">
+                        <div class="mod-body">
+                            <ul>
+                                <li><?php _e('序号'); ?>: <?php echo $this->ticket_info['id']; ?></li>
+                                <!-- <li><?php _e('来源'); ?>: <?php echo $this->ticket_info['source']; ?></li> -->
+                                <li><?php _e('请求人'); ?>: <a class="aw-user-name" href="people/<?php echo $this->ticket_info['user_info']['url_token']; ?>" data-id="<?php echo $this->ticket_info['user_info']['uid']; ?>"><?php echo $this->ticket_info['user_info']['user_name'];?></a></li>
+                                <li><?php _e('处理人'); ?>: <?php if ($this->ticket_info['service_info']) { ?><a class="aw-user-name" id="deal-ticket-user" href="people/<?php echo $this->ticket_info['service_info']['url_token']; ?>" data-id="<?php echo $this->ticket_info['service_info']['uid']; ?>"><?php echo $this->ticket_info['service_info']['user_name'];?></a><?php } else { ?><a id="deal-ticket-user"><?php _e('未分配'); }?></a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="aw-mod order-operate">
+                        <div class="mod-body">
+                            <div class="alert alert-success hide error_message priority-message ">修改优先级成功</div>
+                            <div class="alert alert-success hide error_message rating-message">修改评级成功</div>
+                            <ul>
+                                <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_service']) {
+                                    if ($this->ticket_info['status'] != 'closed') { ?>
+                                <li>
+                                     <h3><?php _e('工单分配'); ?>:</h3>
+                                    <!-- 客服邀请 -->
+                                    <div class="aw-spec-invite-box" id="aw-spec-invite-box">
+                                        <div class="mod-head clearfix">
+                                            <div class="search-box">
+                                                <input id="ticket-invite-input" class="form-control" type="text"  placeholder="<?php _e('分配工单给客服...'); ?>"/>
+                                                <div class="aw-dropdown">
+                                                    <p class="title"><?php _e('没有找到相关结果'); ?></p>
+                                                    <ul class="aw-dropdown-list"></ul>
+                                                </div>
+                                                <i class="icon icon-search"></i>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!-- end 邀请 -->
+                                </li>
+
+                                <li>
+                                    <h3><?php _e('邀请'); ?>:</h3>
+                                    <!-- 工单邀请 -->
+                                    <div class="aw-ticket-invite" id="aw-ticket-invite">
+                                        <div class="mod-head clearfix">
+                                              <ul class="invite-list <?php if (!$this->invite_users) { ?> hide<?php } ?> clearfix">
+                                              <span class="pull-left"><?php _e('已邀请'); ?>:</span>
+                                                <?php if ($this->invite_users) { ?>
+                                                    <?php foreach($this->invite_users AS $invite_user) { ?>
+                                                    <li class="pull-left">
+                                                        <a class="invite-list-user text-color-999" data-id="<?php echo $invite_user['recipient_info']['uid']; ?>" data-original-title="<?php echo $invite_user['recipient_info']['user_name']; ?>" data-placement="right" data-toggle="tooltip"><img src="<?php echo get_avatar_url($invite_user['recipient_info']['uid'], 'mid'); ?>" />
+                                                            <i data-id="<?php echo $invite_user['recipient_info']['uid']; ?>" class="icon icon-delete" onclick="AWS.User.ticket_disinvite_user($(this))"></i>
+                                                        </a>
+                                                    </li>
+                                                <?php } ?>
+                                               <?php } ?>
+                                            </ul>
+                                            <?php if ($this->ticket_info['status'] != 'closed') { ?>
+                                            <div class="search-box">
+                                                <input id="ticket-input" class="form-control" type="text"  placeholder="<?php _e('搜索你想邀请的人...'); ?>"/>
+                                                <div class="aw-dropdown">
+                                                    <p class="title"><?php _e('没有找到相关结果'); ?></p>
+                                                    <ul class="aw-dropdown-list"></ul>
+                                                </div>
+                                                <i class="icon icon-search"></i>
+                                            </div>
+                                            <?php } ?>
+
+                                        </div>
+                                    </div>
+                                    <!-- end 站内邀请 -->
+                                </li>
+                                <?php } ?>
+
+                                <li>
+                                    <h3><?php _e('优先级'); ?>:</h3>
+                                    <form action="ticket/ajax/change_priority/" id="priority">
+                                        <input type="hidden" name="id" value="<?php echo $this->ticket_info['id']; ?>">
+
+                                        <select name="rating" class="form-control" id="pri_select">
+                                            <option value="low"<?php if ($this->ticket_info['priority'] == 'low') { ?> selected="selected"<?php } ?>><?php _e('低'); ?></option>
+                                            <option value="normal"<?php if ($this->ticket_info['priority'] == 'normal') { ?> selected="selected"<?php } ?>><?php _e('中'); ?></option>
+                                            <option value="high"<?php if ($this->ticket_info['priority'] == 'high') { ?> selected="selected"<?php } ?>><?php _e('高'); ?></option>
+                                            <option value="urgent"<?php if ($this->ticket_info['priority'] == 'urgent') { ?> selected="selected"<?php } ?>><?php _e('紧急'); ?></option>
+                                        </select>
+                                    </form>
+                                </li>
+
+                                <li>
+                                    <h3><?php _e('评级'); ?>:</h3>
+                                    <form action="ticket/ajax/change_rating/" id="rating">
+                                        <input type="hidden" name="id" value="<?php echo $this->ticket_info['id']; ?>">
+
+                                        <select name="rating" class="form-control" id="rate_select">
+                                            <option value="valid"<?php if ($this->ticket_info['rating'] == 'valid') { ?> selected="selected"<?php } ?>><?php _e('有效'); ?></option>
+                                            <option value="invalid"<?php if ($this->ticket_info['rating'] == 'invalid') { ?> selected="selected"<?php } ?>><?php _e('无效'); ?></option>
+                                            <option value="undefined"<?php if ($this->ticket_info['rating'] == 'undefined') { ?> selected="selected"<?php } ?>><?php _e('未评级'); ?></option>
+                                        </select>
+                                    </form>
+                                </li>
+
+                                <li>
+                                    <h3><?php _e('话题'); ?></h3>
+                                    <!-- 话题bar -->
+                                    <div class="aw-topic-bar ticket_topic_editor" id="question_topic_editor" data-type="ticket" data-url="<?php echo base_url(); if (get_setting('url_rewrite_enable') != 'Y') { ?>/<?php echo rtrim(G_INDEX_SCRIPT, '/'); } ?>/ticket/ajax/remove_topic_relation/" data-id="<?php echo $this->ticket_info['id']; ?>">
+                                        <div class="tag-bar clearfix">
+                                            <?php if ($this->ticket_topics) {
+                                                foreach($this->ticket_topics AS $topic) { ?>
+                                            <span class="topic-tag" data-id="<?php echo $topic['topic_id']; ?>">
+                                                <a href="topic/<?php echo $topic['url_token']; ?>" class="text"><?php echo $topic['topic_title']; ?></a>
+                                            </span><?php
+                                                }
+                                            } ?>
+
+                                            <span class="icon-inverse aw-edit-topic"<?php if (!$this->ticket_topics) { ?><?php } ?>><i class="icon icon-edit"></i></span>
+                                        </div>
+                                    </div>
+                                    <!-- end 话题bar -->
+                                </li>
+                                <?php } ?>
+
+                                <li>
+                                    <h3><?php _e('工单状态'); ?></h3>
+                                    <?php if ($this->ticket_info['status'] == 'closed') _e('已完成'); else if ($this->ticket_info['service_info']) _e ('已受理'); else _e('未受理'); ?>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- end 侧边栏 -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
+    ITEM_IDS = "<?php echo addslashes($_GET['item_id']); ?>";
+
+    TICKET_ID = <?php echo $this->ticket_info['id'];?>;
+    QUESTION_ID = <?php echo $this->ticket_info['id'];?>;
+    var ANSWER_TYPE = 'ticket_reply';
+    var USER_ANSWERED = 0;
+</script>
+<script type="text/javascript" src="<?php echo G_STATIC_URL; ?>/js/app/question_detail.js"></script>
+<script>
+    // 绑定事件
+    $(function ()
+    {
+
+
+        // modify by wecenter
+        AWS.Dropdown.bind_dropdown_list($('#aw-spec-invite-box #ticket-invite-input'), 'invite');
+        AWS.Dropdown.bind_dropdown_list($('#aw-ticket-invite #ticket-input'), 'invite');
+
+
+        // modify by wecenter
+        $(document).on('click', '#aw-spec-invite-box .aw-dropdown-list a', function ()
+        {
+            AWS.User.ticket_invite_spec_user($(this),$(this).find('img').attr('src'));
+        });
+
+        //  modify by wecenter
+        $(document).on('click', '#aw-ticket-invite .aw-dropdown-list a', function ()
+        {
+            AWS.User.ticket_invite_user($(this),$(this).find('img').attr('src'));
+        });
+
+
+        $('#pri_select').change(function ()
+        {
+            $.post(G_BASE_URL + '/ticket/ajax/change_priority/',
+            {
+                'priority': $(this).val(),
+                'id': TICKET_ID
+            }, function (result)
+            {
+                if (result.errno == -1)
+                 {
+
+                    $('.priority-message').show();
+                    $('.rating-message').hide();
+                } else {
+                    AWS.alert(result.err);
+                }
+            }, 'json');
+        });
+
+        $('#rate_select').change(function ()
+        {
+            $.post(G_BASE_URL + '/ticket/ajax/change_rating/',
+            {
+                'rating': $(this).val(),
+                'id': TICKET_ID
+            }, function (result)
+            {
+                if (result.errno == -1)
+                 {
+                    $('.rating-message').show();
+                    $('.priority-message').hide();
+                } else {
+                    AWS.alert(result.err);
+                }
+            }, 'json');
+        });
+
+        // 删除工单评论
+        $('.aw-item .remove-reply').on('click', function ()
+        {
+            var _this = this;
+            $.post(G_BASE_URL + '/ticket/ajax/remove_reply/',
+            {
+                'id': $(this).attr('data-id')
+            }, function (result)
+            {
+               if (result.errno == 1)
+               {
+                    $(_this).parents('.aw-item').fadeOut();
+               }
+            }, 'json')
+        });
+       // 删除草稿
+
+
+
+    })
+
+    // 邀请别人回答工单
+    AWS.User.ticket_invite_user = function(selector, img, url)
+    {
+        $.post(G_BASE_URL + '/ticket/ajax/invite_user/',
+        {
+            'ticket_id': TICKET_ID,
+            'uid': selector.attr('data-id')
+        }, function (result)
+        {
+            if (result.errno == -1)
+            {
+                if (result.err)
+                {
+                    AWS.alert(result.err);
+                }
+                else
+                {
+                    if (selector.parents('#aw-ticket-invite').find('.invite-list a').length == 0)
+                    {
+                        selector.parents('#aw-ticket-invite').find('.invite-list').show();
+                    }
+                        selector.parents('#aw-ticket-invite').find('.invite-list').append('<li class="pull-left"><a class="invite-list-user text-color-999" data-id="' + selector.attr('data-id') + '" data-toggle="tooltip" data-placement="right" data-original-title="'+ selector.attr('data-value') +'"><img src='+ img +' /><i class="icon icon-delete" data-id="' + selector.attr('data-id') + '" onclick="AWS.User.ticket_disinvite_user($(this))" ></i> </a> </li>');
+                }
+            }
+            else if (result.errno != -1)
+            {
+                AWS.alert(result.err);
+            }
+        }, 'json');
+    }
+
+    //  邀请客服回答工单
+    AWS.User.ticket_invite_spec_user = function(selector, img)
+    {
+        $.post(G_BASE_URL + '/ticket/ajax/assign_service/',
+        {
+            'ticket_id': TICKET_ID,
+            'uid': selector.attr('data-id')
+        }, function (result)
+        {
+            var deal_ticket = $('.aw-side-bar .order-status #deal-ticket-user').text();
+
+            if (result.err)
+            {
+                AWS.alert(result.err);
+            }
+            else
+            {
+                deal_ticket = $('.aw-side-bar .order-status #deal-ticket-user').text(selector.attr('data-value'));
+            }
+        }, 'json')
+
+    }
+
+    // 取消邀请回答工单
+    AWS.User.ticket_disinvite_user =  function(selector)
+    {
+        $.post(G_BASE_URL + '/ticket/ajax/cancel_invite/',
+        {
+            'ticket_id': TICKET_ID,
+            'uid': selector.attr('data-id')
+        }, function (result)
+        {
+            if (result.errno != -1)
+            {
+                $.each($('#aw-ticket-invite .invite-list-user'), function (i, e)
+                {
+                    if ($(this).attr('data-id') == selector.attr('data-id'))
+                    {
+                        $(this).parent().detach();
+
+                        if ($('#aw-ticket-invite .invite-list li').length == 0)
+                        {
+                            $('#aw-ticket-invite .invite-list').fadeOut();
+                        }
+                    }
+                });
+            }
+        });
+    }
+
+    AWS.Init.init_topic_edit_box =  function(selector) //selector -> .aw-edit-topic
+    {
+        $(selector).click(function ()
+        {
+            var _topic_editor = $(this).parents('.aw-topic-bar'),
+                data_id = _topic_editor.attr('data-id'),
+                data_type = _topic_editor.attr('data-type');
+
+            if (!_topic_editor.hasClass('active'))
+            {
+                _topic_editor.addClass('active');
+
+                if (!_topic_editor.find('.topic-tag .close').length)
+                {
+                    _topic_editor.find('.topic-tag').append('<a class="close"><i class="icon icon-delete"></i></a>');
+                }
+            }
+            else
+            {
+                _topic_editor.addClass('active');
+            }
+
+            // 判断插入编辑box
+            if (_topic_editor.find('.aw-edit-topic-box').length == 0)
+            {
+                _topic_editor.append(AW_TEMPLATE.editTopicBox);
+
+                // 给编辑box添加按钮添加事件
+                _topic_editor.find('.add').click(function ()
+                {
+                    if (_topic_editor.find('#aw_edit_topic_title').val() != '')
+                    {
+                        switch (data_type)
+                        {
+                            case 'publish':
+                                _topic_editor.find('.tag-bar').prepend('<span class="topic-tag"><a class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close" onclick="$(this).parents(\'.topic-tag\').remove();"><i class="icon icon-delete"></i></a><input type="hidden" value="' + _topic_editor.find('#aw_edit_topic_title').val() + '" name="topics[]" /></span>').hide().fadeIn();
+
+                                _topic_editor.find('#aw_edit_topic_title').val('');
+                            break;
+
+                            case 'question':
+                                $.post(G_BASE_URL + '/topic/ajax/save_topic_relation/', 'type=question&item_id=' + data_id + '&topic_title=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()), function (result)
+                                {
+                                    if (result.errno != 1)
+                                    {
+                                        AWS.alert(result.err);
+
+                                        return false;
+                                    }
+
+                                    _topic_editor.find('.tag-bar').prepend('<span class="topic-tag" data-id="' + result.rsm.topic_id + '"><a href="' + G_BASE_URL + '/topic/' + result.rsm.topic_id + '" class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>').hide().fadeIn();
+
+                                    _topic_editor.find('#aw_edit_topic_title').val('');
+                                }, 'json');
+                            break;
+
+                            // modify by wecenter 添加工单话题
+                            case 'ticket':
+                                $.post(G_BASE_URL + '/ticket/ajax/save_topic_relation/',
+
+                                'item_id=' + data_id + '&topic_title=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()),
+
+                                function (result)
+                                {
+                                    if (result.errno != 1)
+                                    {
+                                        AWS.alert(result.err);
+
+                                        return false;
+                                    }
+                                    _topic_editor.find('.tag-bar').prepend('<span class="topic-tag" data-id="' + result.rsm.topic_id + '"><a href="' + G_BASE_URL + '/topic/' + result.rsm.topic_id + '" class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>').hide().fadeIn();
+
+                                    _topic_editor.find('#aw_edit_topic_title').val('');
+                                }, 'json');
+                            break;
+
+                            case 'article':
+                                $.post(G_BASE_URL + '/topic/ajax/save_topic_relation/', 'type=article&item_id=' + data_id + '&topic_title=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()), function (result)
+                                {
+                                    if (result.errno != 1)
+                                    {
+                                        AWS.alert(result.err);
+
+                                        return false;
+                                    }
+
+                                    _topic_editor.find('.tag-bar').prepend('<span class="topic-tag" data-id="' + result.rsm.topic_id + '"><a href="' + G_BASE_URL + '/topic/' + result.rsm.topic_id + '" class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>').hide().fadeIn();
+
+                                    _topic_editor.find('#aw_edit_topic_title').val('');
+                                }, 'json');
+                            break;
+
+
+                            case 'topic':
+                                $.post(G_BASE_URL + '/topic/ajax/save_related_topic/topic_id-' + data_id, 'topic_title=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()), function (result)
+                                {
+                                    if (result.errno != 1)
+                                    {
+                                        AWS.alert(result.err);
+
+                                        return false;
+                                    }
+
+                                    _topic_editor.find('.tag-bar').prepend('<span class="topic-tag"><a href="' + G_BASE_URL + '/favorite/tag-' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()) + '" class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>').hide().fadeIn();
+
+                                    _topic_editor.find('#aw_edit_topic_title').val('');
+                                }, 'json');
+                            break;
+
+                            case 'favorite':
+                                $.post(G_BASE_URL + '/favorite/ajax/update_favorite_tag/', 'item_id=' + data_id + '&item_type=' + _topic_editor.attr('data-item-type') + '&tags=' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()), function (result)
+                                {
+                                    if (result.errno != 1)
+                                    {
+                                        AWS.alert(result.err);
+
+                                        return false;
+                                    }
+
+                                    _topic_editor.find('.tag-bar').prepend('<span class="topic-tag"><a href="' + G_BASE_URL + '/favorite/tag-' + encodeURIComponent(_topic_editor.find('#aw_edit_topic_title').val()) + '" class="text">' + _topic_editor.find('#aw_edit_topic_title').val() + '</a><a class="close"><i class="icon icon-delete"></i></a></span>').hide().fadeIn();
+
+                                    _topic_editor.find('#aw_edit_topic_title').val('');
+                                }, 'json');
+                            break;
+                        }
+                    }
+                });
+
+                // 给编辑box取消按钮添加事件
+                _topic_editor.find('.close-edit').click(function ()
+                {
+                    _topic_editor.removeClass('active');
+                    _topic_editor.find('.aw-edit-topic-box').hide();
+                    _topic_editor.find('.aw-edit-topic').show();
+                });
+
+                AWS.Dropdown.bind_dropdown_list($(this).parents('.aw-topic-bar').find('#aw_edit_topic_title'),'topic');
+            }
+
+            $(this).parents('.aw-topic-bar').find('.aw-edit-topic-box').fadeIn();
+
+            // 是否允许创建新话题
+            if (!G_CAN_CREATE_TOPIC)
+            {
+                $(this).parents('.aw-topic-bar').find('.add').hide();
+            }
+
+            $(this).hide();
+        });
+    }
+
+</script>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>

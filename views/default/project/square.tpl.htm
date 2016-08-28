@@ -1,0 +1,125 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+
+<div class="aw-container-wrap aw-project-container-wrap">
+	<div class="aw-container aw-wecenter">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-md-12">
+					<div class="aw-nav-filter">
+							<div class="mod-head clearfix">
+								<h2 class="pull-left"><i class="icon icon-users"></i>活动</h2>
+								<div class="btn-group pull-right">
+									<a class="btn btn-gray btn-sm dropdown-toggle" data-toggle="dropdown">
+										●●●
+									</a>
+									<div class="dropdown-menu aw-dropdown" aria-labelledby="dropdownMenu" rolw="menu">
+										<span><i class="aw-icon i-dropdown-triangle"></i></span>
+										<ul class="aw-dropdown-list">
+											<li>
+												<a href="project/manage/"><?php _e('我发起的活动'); ?></a>
+											</li>
+											<li>
+												<a href="project/sponsored/"><?php _e('我支持的活动'); ?></a>
+											</li>
+										</ul>
+									</div>
+								</div>
+							</div>
+							<div class="mod-body clearfix">
+								<div class="pull-left">
+								<?php if ($this->category_list) { ?>
+								<ul>
+									<li <?php if (!$_GET['category'] AND !$this->feature_info) { ?> class="active"<?php } ?>><a href="<?php echo $this->category_list['base']['link']; ?>"><?php _e('全部'); ?></a>
+									</li>
+									<?php foreach ($this->category_list as $key => $val) { ?>
+									<?php if ($val['title']) { ?>
+									<li <?php if ($val['type'] == 'category' AND $val['id'] == $_GET['category']) { ?> class="active"<?php } ?>>
+										<a href="<?php echo $val['link']; ?>"<?php if ($val['type'] == 'custom') { ?> target="_blank"<?php } ?>><?php echo $val['title']; ?></a>
+										<?php if ($val['child'] && get_setting('nav_menu_show_child') == 'Y') { ?>
+										<div class="aw-dropdown" role="menu" aria-labelledby="dropdownMenu">
+											<span></span>
+											<ul class="aw-dropdown-list">
+												<?php foreach ($val['child'] AS $_key => $_val) { ?>
+												<li><a href="<?php echo $_val['link']; ?>"<?php if ($_val['id'] == $this->category_info['id']) { ?> class="active"<?php } ?>><?php echo $_val['title']; ?></a></li>
+												<?php } ?>
+											</ul>
+										</div>
+										<?php } ?>
+									</li>
+									<?php } ?>
+									<?php } ?>
+								</ul>
+								<?php } ?>
+								</div>
+								<div class="pull-right">
+									<a href="javascript:;" class="hr">&nbsp</a>
+									<a href="project/sort-add_time__category_id-<?php echo $_GET['category_id']; ?>"<?php if (!$_GET['sort'] OR $_GET['sort'] == 'add_time') { ?> class="active"<?php } ?>>最新上线</a>
+									<a href="project/sort-update_time__category_id-<?php echo $_GET['category_id']; ?>"<?php if ($_GET['sort'] == 'update_time') { ?> class="active"<?php } ?>>最近更新</a>
+									<a href="project/sort-amount__category_id-<?php echo $_GET['category_id']; ?>"<?php if ($_GET['sort'] == 'amount') { ?> class="active"<?php } ?>>金额最高</a>
+									<a href="project/sort-sponsored_users__category_id-<?php echo $_GET['category_id']; ?>"<?php if ($_GET['sort'] == 'sponsored_users') { ?> class="active"<?php } ?>>支持最多</a>
+								</div>
+							</div>
+					</div>
+				</div>
+				<div class="col-sm-12 col-md-12">
+					<div class="aw-project-list clearfix">
+							<?php if ($this->project_list) { ?>
+							<ul>
+								<?php foreach ($this->project_list AS $key => $val) { ?>
+								<li class="col-sm-4 col-md-4">
+									<div class="mod-head">
+										<a href="project/<?php echo $val['id']; ?>" class="img"><img src="<?php echo get_setting('upload_url'); ?>/project/<?php echo $val['id']; ?>_main.jpg" alt="" title="" /></a>
+
+									</div>
+									<div class="mod-body">
+										<h3><a href="project/<?php echo $val['id']; ?>" title="<?php echo $val['title']; ?>"><?php echo $val['title']; ?></a></h3>
+										<div class="progress">
+										  <div class="progress-bar progress-bar-success progress-bar-green" role="progressbar" aria-valuenow="<?php echo get_paid_progress_bar($val['amount'], $val['paid']); ?>" aria-valuemin="0" aria-valuemax="<?php echo get_paid_progress_bar($val['amount'], $val['paid']); ?>" style="width: <?php echo get_paid_progress_bar($val['amount'], $val['paid']); ?>%">
+										  	<span class="sr-only"></span>
+										  </div>
+										</div>
+									</div>
+									<div class="mod-footer">
+										<div class="status clearfix">
+											<span>
+												<b><?php echo get_paid_progress_bar($val['amount'], $val['paid']); ?>%</b>
+												已达到
+											</span>
+											<span>
+												<?php if ($val['project_type'] == 'EVENT') { ?>
+												<b><?php echo intval($val['paid']); ?></b>
+												报名人数
+												<?php } else { ?>
+												<b>¥ <?php echo $val['paid']; ?></b>
+												已获支持
+												<?php } ?>
+											</span>
+											<span class="pull-right">
+												<b><?php echo get_left_days($val['end_time']); ?> 天</b>
+												剩余时间
+											</span>
+										</div>
+										<div class="desc clearfix">
+											<a href="project/<?php echo $val['id']; ?>" class="pull-left label <?php if ($val['project_type'] == 'DEFAULT') { ?>label-oragin<?php } else if ($val['project_type'] == 'EVENT') { ?>label-blue<?php } ?> <?php if (!$val['approved']) { ?>label-gray<?php } else if ($val['end_time'] < time()) { ?>label-gray<?php } else if ($val['start_time'] > time()) { ?>label-gray<?php } else { ?><?php if ($val['paid'] > 0) { if ($val['project_type'] == 'STOCK') { ?>label-blue<?php } else { ?>label-blue2<?php } } else if ($val['paid'] >= $val['amount']) { ?>label-oragin2<?php } else { ?>label-oragin2<?php } ?><?php } ?>" >
+											<?php if ($val['project_type'] == 'DEFAULT') { ?>众筹<?php } else if ($val['project_type'] == 'EVENT') { ?>活动<?php } ?> | <?php if (!$val['approved']) { ?>待审核<?php } else if ($val['end_time'] < time()) { ?>已结束<?php } else if ($val['start_time'] > time()) { ?>预热中<?php } else { ?><?php if ($val['paid'] > 0) { if ($val['project_type'] == 'STOCK') { ?>已筹到<?php } else { ?>进行中<?php } } else if ($val['paid'] >= $val['amount']) { ?>已成功<?php } else { ?>进行中<?php } ?><?php } ?></a>
+											<a href="topic/<?php echo $val['topic_id']; ?>">支持: <?php echo $val['sponsored_users']; ?></a>
+											<a href="project/<?php echo $val['id']; ?>#project-support">讨论: <?php echo $val['discuss_count']; ?></a>
+
+										</div>
+									</div>
+								</li>
+								<?php } ?>
+							</ul>
+							<?php } ?>
+					</div>
+				</div>
+				<div class="square-page">
+					<?php echo $this->pagination; ?>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>

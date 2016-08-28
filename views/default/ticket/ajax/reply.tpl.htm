@@ -1,0 +1,49 @@
+ <div class="aw-item" id="answer_list_<?php echo $this->reply_info['id']; ?>" data-id="<?php echo $this->reply_info['id']; ?>">
+    <div class="mod-head">
+    <a class="anchor" name="answer_<?php echo $this->reply_info['id']; ?>"></a>
+        <!-- 用户头像 -->
+        <a class="aw-user-img aw-border-radius-5 pull-right" href="people/<?php echo $this->reply_info['user_info']['url_token']; ?>" data-id="<?php echo $this->reply_info['user_info']['uid']; ?>"><img src="<?php echo get_avatar_url($this->reply_info['user_info']['uid'], 'mid'); ?>" alt="" /></a>
+        <!-- end 用户头像 -->
+        <div class="title">
+            <p>
+                <a class="aw-user-name" href="people/<?php echo $this->reply_info['user_info']['url_token']; ?>" data-id="<?php echo $this->reply_info['user_info']['uid']; ?>"><?php echo $this->reply_info['user_info']['user_name']; ?></a>
+                <?php if ($this->reply_info['user_info']['verified']) { ?><i class="icon-v<?php if ($this->reply_info['user_info']['verified'] == 'enterprise') { ?> i-ve<?php } ?>" title="<?php if ($this->reply_info['user_info']['verified'] == 'enterprise') { ?>企业认证<?php } else { ?>个人认证<?php } ?>"></i><?php } ?>
+                <?php if ($this->reply_info['user_info']['signature']) { ?> - <span class="text-color-999"><?php echo $this->reply_info['user_info']['signature']; ?></span><?php } ?>
+            </p>
+        </div>
+    </div>
+    <div class="mod-body clearfix">
+        <!-- 评论内容 -->
+        <div class="markitup-box">
+            <?php echo $this->reply_info['message']; ?>
+        </div>
+
+        <?php if ($this->reply_info['attachs']) {  ?>
+        <div class="aw-upload-img-list">
+            <?php foreach ($this->reply_info['attachs'] AS $attach) { ?>
+            <?php if ($attach['is_image'] AND (!$this->reply_info['insert_attach_ids'] OR !in_array($attach['id'], $this->reply_info['insert_attach_ids']))) { ?>
+            <a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-thumbnail" alt="<?php echo $attach['attach_name']; ?>" /></a>
+            <?php } ?>
+            <?php } ?>
+        </div>
+        <?php } ?>
+
+        <?php if ($this->reply_info['attachs']) {  ?>
+        <ul class="aw-upload-file-list">
+            <?php foreach ($this->reply_info['attachs'] AS $attach) { ?>
+            <?php if (!$attach['is_image'] AND (!$this->reply_info['insert_attach_ids'] OR !in_array($attach['id'], $this->reply_info['insert_attach_ids']))) { ?>
+            <li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><i class="icon icon-attach"></i><?php echo $attach['file_name']; ?></a></li>
+            <?php } ?>
+            <?php } ?>
+        </ul>
+        <?php } ?>
+        <!-- end 评论内容 -->
+    </div>
+     <div class="mod-footer">
+        <!-- 删除评论 -->
+        <div class="meta clearfix">
+            <span class="text-color-999 pull-right"><?php echo date_friendly($this->reply_info['time'], 604800, 'Y-m-d'); ?></span>
+        </div>
+        <!-- end 删除评论-->
+    </div>
+</div>

@@ -1,0 +1,350 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+<div class="aw-container-wrap aw-project-container-wrap">
+    <div class="aw-container aw-wecenter">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 aw-global-tips">
+                    <?php if ($this->project_info['approved'] == 0) { ?>
+                    <div class="alert alert-warning fade in">
+                        <?php _e('注: 当前项目正在审核中, 只有管理员与发起者可见'); ?>
+                    </div>
+                    <?php } else if ($this->project_info['approved'] == -1) { ?>
+                    <div class="alert alert-danger fade in">
+                        <?php _e('注: 当前项目未通过审核, 只有管理员与发起者可见'); ?>
+                    </div>
+                    <?php } else if ($this->project_info['status'] == 'OFFLINE') { ?>
+                    <div class="alert alert-danger fade in">
+                        <?php _e('注: 当前项目已下线, 只有管理员与发起者可见'); ?>
+                    </div>
+                    <?php } ?>
+
+                </div>
+            </div>
+
+            <div class="row aw-project-page">
+                <div class="col-sm-12 col-md-8">
+                    <div class="mod aw-project-detail">
+                        <div class="mod-head">
+                            <div class="aw-breadcrumb">
+                                <a style="display:none;" href="project/"><?php _e('活动'); ?></a>
+                                <a href="project/category_id-<?php echo $this->project_info['category_info']['id']; ?>"><?php echo $this->project_info['category_info']['title']; ?></a>
+                                <div class="aw-topic-bar clearfix">
+                                    <?php if ($this->project_topics) { ?>
+                                    <?php foreach ($this->project_topics AS $key => $val) { ?>
+                                    <span class="topic-tag"><a class="text" href="topic/<?php echo $val['url_token']; ?>"><?php echo $val['topic_title']; ?></a></span>
+                                    <?php } ?>
+                                    <?php } ?>
+                                    <?php if ($this->user_info['permission']['is_administortar'] OR $this->user_info['permission']['is_moderator']) { ?><a href="project/publish/<?php echo $this->project_info['id']; ?>" class="icon-inverse edit"><i class="icon icon-edit"></i></a><?php } ?>
+                                </div>
+                            </div>
+                            <h2><?php echo $this->project_info['title']; ?></h2>
+                            <ul class="nav nav-tabs aw-nav-tabs">
+                                <li class="active">
+                                    <a href="#project" data-toggle="tab">活动介绍</a>
+                                </li>
+                                <li>
+                                    <a href="#discuss" data-toggle="tab">相关讨论</a>
+                                </li>
+                                <li>
+                                    <a href="#support" data-toggle="tab"><?php if ($this->project_info['project_type'] == 'EVENT') { ?> 报名者 <?php } else { ?> 支持者  <?php } ?></a>
+                                </li>
+
+                            </ul>
+                        </div>
+                        <div class="mod-body">
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="project">
+                                     <img src="<?php echo get_setting('upload_url'); ?>/project/<?php echo $this->project_info['id']; ?>_main.jpg" alt="" title="" />
+                                    <div class="markitup-box">
+
+                                            <?php echo $this->project_info['description']; ?>
+
+                                            <?php if ($this->project_info['attachs']) { ?>
+                                            <div class="aw-comment-upload-img-list">
+                                            <?php foreach ($this->project_info['attachs'] AS $attach) { ?>
+                                            <?php if ($attach['is_image'] AND !in_array($attach['id'], $this->project_info['attachs_ids'])) { ?>
+                                                <a href="<?php echo $attach['attachment']; ?>" target="_blank" data-fancybox-group="thumb" rel="lightbox"><img src="<?php echo $attach['attachment']; ?>" class="img-polaroid" alt="<?php echo $attach['attach_name']; ?>" /></a>
+                                            <?php } ?>
+                                            <?php } ?>
+                                            </div>
+                                            <?php } ?>
+
+                                            <?php if ($this->project_info['attachs']) {  ?>
+                                            <ul class="aw-comment-upload-file-list">
+                                                <?php foreach ($this->project_info['attachs'] AS $attach) { ?>
+                                                <?php if (!$attach['is_image'] AND !in_array($attach['id'], $this->project_info['attachs_ids'])) { ?>
+                                                    <li><a href="<?php echo download_url($attach['file_name'], $attach['attachment']); ?>"><i class="fa fa-paperclip"></i> <?php echo $attach['file_name']; ?></a></li>
+                                                <?php } ?>
+                                                <?php } ?>
+                                            </ul>
+                                            <?php } ?>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="discuss">
+                                    <div class="mod aw-project-suggest ">
+
+                                        <?php if ($this->question_related_list) { ?>
+                                        <div class="mod-body aw-common-list">
+                                                <?php foreach($this->question_related_list AS $key => $val) { ?>
+                                                    <div class="aw-item clearfix">
+                                                       <?php if ($val['anonymous'] == 0) { ?><a class="aw-user-name hidden-xs" data-id="<?php echo $val['user_info']['uid']; ?>" href="people/<?php echo $val['user_info']['url_token']; ?>" rel="nofollow"><img src="<?php echo get_avatar_url($val['user_info']['uid'], 'max'); ?>" alt="" /><?php if ($val['user_info']['verified']) { ?><?php if ($val['user_info']['verified'] == 'personal') { ?><i class="icon icon-v"></i><?php } else { ?><i class="icon icon-v i-ve"></i><?php } ?><?php } ?></a><?php } else { ?><a class="aw-user-name hidden-xs" href="javascript:;"><img src="<?php echo G_STATIC_URL; ?>/common/avatar-max-img.png" alt="<?php _e('匿名用户'); ?>" title="<?php _e('匿名用户'); ?>" /></a><?php } ?>
+                                                        <div class="question-content pull-left">
+                                                            <h4>
+                                                            <a href="question/<?php echo $val['question_id']; ?>"><?php echo $val['question_content']; ?> </a>
+                                                            </h4>
+                                                            <p>
+                                                                <?php if ($_GET['category'] != $val['category_id'] AND $val['category_info']['title']) { ?>
+                                                                    <a class="aw-question-tags" href="explore/category-<?php echo $val['category_info']['url_token']; ?>"><?php echo $val['category_info']['title']; ?></a>
+                                                                    • <?php } ?>
+                                                                <?php if ($val['question_id']) { ?>
+                                                                <?php if ($val['answer_count'] > 0) { ?>
+                                                                <?php if ($val['answer_info']['anonymous']) { ?>
+                                                                    <a href="javascript:;" class="aw-user-name"><?php _e('匿名用户'); ?></a><?php } else { ?><a href="people/<?php echo $val['answer_info']['user_info']['url_token']; ?>" class="aw-user-name" data-id="<?php echo $val['answer_info']['user_info']['uid']; ?>"><?php echo $val['answer_info']['user_info']['user_name']; ?></a><?php } ?>
+                                                                    <span class="text-color-999"><?php _e('回复了问题'); ?> • <?php _e('%s 人关注', $val['focus_count']); ?> • <?php _e('%s 个回复', $val['answer_count']); ?> • <?php _e('%s 次浏览', $val['view_count']); ?> • <?php echo date_friendly($val['update_time']); ?>
+                                                                    </span>
+                                                                <?php } else { ?>
+                                                                <?php if ($val['anonymous'] == 0) { ?>
+                                                                    <a href="people/<?php echo $val['user_info']['url_token']; ?>" class="aw-user-name"><?php echo $val['user_info']['user_name']; ?></a><?php } else { ?><a href="javascript:;" class="aw-user-name" data-id="<?php echo $val['uid']; ?>"><?php _e('匿名用户'); ?></a><?php } ?>
+                                                                    <span class="text-color-999"><?php _e('发起了问题'); ?> • <?php _e('%s 人关注', $val['focus_count']); ?> • <?php _e('%s 个回复', $val['answer_count']); ?> • <?php _e('%s 次浏览', $val['view_count']); ?> • <?php echo date_friendly($val['add_time']); ?>
+                                                                    </span>
+                                                                <?php } ?>
+                                                                <?php } else { ?>
+                                                                    <a href="people/<?php echo $val['user_info']['url_token']; ?>" class="aw-user-name"><?php echo $val['user_info']['user_name']; ?></a> <span class="text-color-999"><?php _e('发表了文章'); ?> • <?php _e('%s 个评论', $val['comments']); ?> • <?php _e('%s 次浏览', $val['views']); ?> • <?php echo date_friendly($val['add_time']); ?></span>
+                                                                <?php } ?>
+                                                                <span class="text-color-999 related-topic hide"> •  来自相关话题</span>
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                <?php } ?>
+                                        </div>
+                                        <?php } ?>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="support">
+                                    <a name="project-support"></a>
+                                    <div class="mod aw-project-support">
+                                        <div class="mod-body clearfix">
+                                            <?php if ($this->sponsored_users) { ?>
+                                                <?php foreach($this->sponsored_users AS $key => $val) { ?>
+                                                <dl>
+                                                    <dt>
+                                                        <img src="<?php echo get_avatar_url($val['uid'], 'mid'); ?>" alt="" title="<?php echo $val['user_name']; ?>" />
+                                                    </dt>
+                                                    <dd>
+                                                         <a href="people/<?php echo $val['url_token']; ?>">
+                                                           <?php echo $val['user_name']; ?>
+                                                        </a>
+                                                        <p><?php echo $val['signature']; ?></p>
+                                                    </dd>
+
+                                                </dl>
+                                                <?php } ?>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-sm-12 col-md-4 aw-side-bar">
+
+                    <div class="mod aw-project-title">
+                        <div class="mod-head">
+                        <?php if ($this->project_info['project_type'] == 'EVENT') { ?>
+                            <div class="tile">
+                                <a class="btn-blue-large" href="javascript:;"><?php _e('活动'); ?> | <?php if (!$this->project_info['approved']) { ?><?php _e('待审核'); ?><?php } else if ($this->project_info['end_time'] < time()) { ?><?php _e('已结束'); ?><?php } else if ($this->project_info['start_time'] > time()) { ?><?php _e('预热中'); ?><?php } else { ?><?php if ($this->project_info['paid'] > 0) { if ($this->project_info['project_type'] == 'STOCK') { ?><?php _e('已筹到'); ?><?php } else { ?><?php _e('进行中'); ?><?php } } else if ($this->project_info['paid'] >= $this->project_info['amount']) { ?><?php _e('已成功'); ?><?php } else { ?><?php _e('进行中'); ?><?php } ?><?php } ?>
+                                    <i></i>
+                                </a>
+                            </div>
+                            <p><?php _e('报名人数'); ?>:</p>
+                            <p><strong><?php echo intval($this->project_info['paid']); ?></strong></p>
+                            <p><?php _e('截止日期'); ?>: <?php echo date('Y年m月d日', $this->project_info['end_time']); ?></p>
+                            <div class="progress-box">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success progress-bar-green" role="progressbar" aria-valuenow="<?php echo get_paid_progress_bar($this->project_info['amount'], $this->project_info['paid']); ?>" aria-valuemin="0" aria-valuemax="<?php echo get_paid_progress_bar($this->project_info['amount'], $this->project_info['paid']); ?>" style="width: <?php echo get_paid_progress_bar($this->project_info['amount'], $this->project_info['paid']); ?>%">
+
+                                </div>
+                            </div>
+                            <span><?php echo get_paid_progress_bar($this->project_info['amount'], $this->project_info['paid']); ?>%</span>
+                            </div>
+                        <?php } else { ?>
+                            <div class="tile oragin">
+                                <a href="javascript:;"><?php _e('众筹'); ?> | <?php if (!$this->project_info['approved']) { ?><?php _e('待审核'); ?> <?php } else if ($this->project_info['end_time'] < time()) { ?><?php _e('已结束'); ?><?php } else if ($this->project_info['start_time'] > time()) { ?><?php _e('预热中'); ?><?php } else { ?><?php if ($this->project_info['paid'] > 0) { if ($this->project_info['project_type'] == 'STOCK') { ?><?php _e('已筹到'); ?><?php } else { ?><?php _e('进行中'); ?><?php } } else if ($this->project_info['paid'] >= $this->project_info['amount']) { ?><?php _e('已成功'); ?><?php } else { ?><?php _e('进行中'); ?><?php } ?><?php } ?>
+                                    <i ></i>
+                                </a>
+                            </div>
+                            <p><?php _e('累计筹集') ?>:</p>
+                            <p><strong>￥<?php echo $this->project_info['paid']; ?></strong></p>
+                            <p><?php _e('%s 前须得到', date('Y年m月d日 H:m', $this->project_info['end_time'])); ?> ¥<?php echo $this->project_info['amount']; ?></p>
+                            <div class="progress-box">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-success progress-bar-green" role="progressbar" aria-valuenow="<?php echo get_paid_progress_bar($this->project_info['amount'], $this->project_info['paid']); ?>" aria-valuemin="0" aria-valuemax="<?php echo get_paid_progress_bar($this->project_info['amount'], $this->project_info['paid']); ?>" style="width: <?php echo get_paid_progress_bar($this->project_info['amount'], $this->project_info['paid']); ?>%">
+
+                                </div>
+                            </div>
+                            <span><?php echo get_paid_progress_bar($this->project_info['amount'], $this->project_info['paid']); ?>%</span>
+                            </div>
+                        <?php } ?>
+                        </div>
+                        <div class="mod-body">
+                            <ul class="clearfix">
+                                <li><span><?php echo get_left_days($this->project_info['end_time']); ?> <?php _e('天'); ?></span><br><?php _e('剩余天数'); ?></li>
+                                <li><span><?php echo $this->project_info['sponsored_users']; ?></span><br><?php _e('参与人数'); ?></li>
+                                <li><span><?php echo $this->project_info['like_count']; ?></span><br><?php _e('喜欢人数'); ?></li>
+                            </ul>
+                        </div>
+                        <div class="mod-footer clearfix">
+                            <?php if ($this->project_info['project_type'] == 'DEFAULT') {?>
+                                <a <?php if ($this->user_id) { ?>onclick="AWS.ajax_request(G_BASE_URL + '/project/ajax/set_like/', 'project_id=<?php echo $this->project_info['id'];?>');" <?php } else { ?> href="account/login/" <?php }?> class="pull-left <?php if ($this->like_status) { ?>btn-gray btn-gray-large<?php } else { ?>btn-red btn-red-large<?php } ?>">
+                                <?php
+                                    if ($this->like_status) {
+                                        _e('已喜欢');
+                                    } else {
+                                        _e('喜欢');
+                                    }
+                                ?>
+                                </a>
+                                <?php
+                            }?>
+                            <?php if ($this->project_info['project_type'] != 'DEFAULT') { ?>
+                                <a <?php if ($this->user_id) { ?>onclick="AWS.ajax_request(G_BASE_URL + '/project/ajax/set_like/', 'project_id=<?php echo $this->project_info['id'];?>');" <?php } else { ?> href="account/login/" <?php }?> class="pull-left <?php if ($this->like_status) { ?>btn-gray<?php } else { ?>btn-red<?php } ?>">
+                                <?php
+                                    if ($this->like_status) {
+                                        _e('已喜欢');
+                                    } else {
+                                        _e('喜欢');
+                                    }
+                                ?>
+                                </a>
+                                <a <?php if ($this->project_order) {
+                                        ?>class="pull-right btn-gray"<?php
+                                         } else {
+                                            ?>class="pull-right btn-blue"<?php
+                                        }
+                                    ?>
+                                <?php if ($this->user_id AND !$this->project_order){
+                                    ?>onclick="AWS.dialog('project<?php
+                                    if ($this->project_info['project_type'] == 'EVENT') {
+                                        ?>Event<?php
+                                    }
+                                    else {
+                                        ?>Stock<?php
+                                    } ?>Form', {project_id:<?php echo $this->project_info['id']; ?>, contact_name:'<?php echo $this->user_info['user_name']; ?>', contact_tel:'<?php echo $this->user_info['mobile']; ?>', contact_email:'<?php echo $this->user_info['email']; ?>'})"
+                                <?php } else {
+                                    if ($this->project_order) {
+                                         ?>onclick="javascript:;"<?php
+                                    } else {
+                                        ?>href="account/login/"<?php
+                                    }
+                                } ?>>
+
+                                <?php if ($this->project_info['project_type'] == 'EVENT') {
+                                    if ($this->project_order) {
+                                        ?><?php _e('已经报名'); ?><?php
+                                    } else {
+                                        ?><?php _e('我要报名'); ?><?php
+                                    }
+                                }
+                                else {
+                                    if ($this->project_order) {
+                                    ?><?php _e('已经支持'); ?><?php
+                                     } else {
+                                        ?><?php _e('支持'); ?><?php
+                                    }
+                                } ?></a> &nbsp; <?php
+                            } ?>
+
+                        </div>
+                    </div>
+
+                    <?php if ($this->project_info['project_type'] == 'DEFAULT') { ?>
+                    <?php if ($this->project_products) { ?>
+                    <div class="mod aw-project-return-list">
+                        <div class="mod-body">
+                            <ul>
+                                <?php foreach($this->project_products AS $key => $val) { ?>
+                                <li>
+                                    <h4>
+                                    <span class="pull-left"><?php echo $val['title']; ?><?php if (intval($val['amount']) > 0) { ?> ¥<?php echo $val['amount']; ?><?php } ?></span>
+                                            <span class="pull-right"><?php if ($val['stock'] < 0) { ?><?php _e('不限额'); ?><?php } else { ?><?php _e('还剩 %s 位', $val['stock']); ?><?php }?></span>
+                                    </h4>
+
+                                    <p><?php echo nl2br($val['description']); ?></p>
+
+                                    <?php if ($this->project_info['start_time'] > time()) { ?>
+                                    <a onclick="AWS.alert('<?php _e('项目正在预热中, 目前还不能进行现金支持'); ?>');" class="btn btn-green btn-large" target="_blank"><?php if (intval($val['amount']) > 0) { ?><?php _e('支持'); ?> ¥<?php echo $val['amount']; ?><?php } else { echo $val['title']; } ?></a>
+                                        <?php } else if ($val['stock'] == 0) { ?>
+                                    <a class="btn btn-green btn-large disabled"><?php _e('限额已满'); ?></a>
+                                          <?php } else { ?>
+                                    <a href="project/order/add/<?php echo $val['id']; ?>" class="btn btn-green btn-large"  target="_blank"><?php if (intval($val['amount']) > 0) { ?><?php _e('支持'); ?> ¥<?php echo $val['amount']; ?><?php } else { echo $val['title']; } ?></a>
+                                          <?php } ?>
+                                </li>
+                                <?php } ?>
+                            </ul>
+                        </div>
+                    </div>
+                    <?php } ?>
+
+                    <!-- <div class="mod zc-project-payment-refund">
+                        <div class="mod-body">
+                            <h3><?php _e('关于支持与退款'); ?>:</h3>
+                            <p>
+                                      <?php _e('这个项目必须在'); ?> <?php echo date('Y年m月d日', $this->project_info['end_time']); ?> 23:59:59 <?php _e('之前达到 ¥%s 的目标才算成功, 否则已经支持的订单将取消', $this->project_info['amount']); ?>
+                            </p>
+                            <p>
+                             <?php _e('订单取消时, 您的支持金额将自动退款您的支付宝或其他付款账户'); ?>
+                            </p>
+                        </div>
+                        </div> -->
+                    <?php } ?>
+
+
+                    <div class="mod aw-project-author">
+                        <div class="mod-head">
+                            <h3><?php _e('发起人'); ?></h3>
+                        </div>
+                        <div class="mod-body clearfix">
+                            <a href="people/<?php echo $this->project_info['user_info']['url_token']; ?>"><img class="pull-left" src="<?php echo get_avatar_url($this->project_info['uid'], 'mid'); ?>" alt="" title="" /></a>
+                            <ul class="pull-left">
+                                <li>
+                                    <a href="people/<?php echo $this->project_info['user_info']['url_token']; ?>"><?php echo $this->project_info['user_info']['user_name']; ?></a>
+                                    <p><?php echo $val['signature']; ?></p>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mod-footer clearfix">
+                            <h3><?php if ($this->project_info['project_type'] == 'DEFAULT') { ?><?php _e('项目简介'); ?>
+                            <?php } else if ($this->project_info['project_type'] == 'EVENT') { ?><?php _e('活动摘要'); ?><?php } ?></h3>
+                            <p>
+                                <?php echo nl2br($this->project_info['summary']); ?>
+                            </p>
+                              <div class="Share">
+                                <h3><?php _e('分享'); ?>:</h3>
+                                <div class="bdsharebuttonbox"><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间"></a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a></a></a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信"></a></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    // 判断是否有分类
+    $(function() {
+        if($('.aw-breadcrumb > a:eq(1)').html().trim() != '')
+        {
+            $('.aw-breadcrumb > a:eq(1)').prev().show();
+            $('.aw-breadcrumb > a:eq(1)').addClass('event-category');
+            $('.aw-project-detail .mod-head .aw-topic-bar').css('margin-left','10px')
+
+        }
+    })
+</script>
+<?php TPL::output('global/footer.tpl.htm'); ?>

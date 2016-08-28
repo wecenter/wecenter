@@ -1,0 +1,256 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="aw-content-wrap">
+    <div class="mod">
+        <div class="mod-head">
+            <h3>
+                <span class="pull-left"><?php _e('编辑订单'); ?></span>
+            </h3>
+        </div>
+        <div class="tab-content mod-content">
+            <form action="admin/project/save_order/" id="order_form" method="post" onsubmit="return false">
+            <table class="table table-striped">
+                <input name="id" type="hidden" value="<?php echo $this->order_info['id']; ?>" />
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('项目名称'); ?>:</span>
+                            <div class="col-sm-6 col-xs-8">
+                                <div class="btn-group">
+                                    <a href="project/<?php echo $this->order_info['project_id']; ?>" target="_blank"><?php echo $this->order_info['project_title']; ?></a>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('项目类型'); ?>:</span>
+                            <div class="col-sm-6 col-xs-8">
+                                <div class="btn-group mod-btn"><?php
+                                switch ($this->order_info['project_type']) {
+                                    case 'DEFAULT':
+                                        _e('众筹');
+                                        break;
+
+
+                                    case 'EVENT':
+                                        _e('活动');
+                                        break;
+                                }
+                                ?></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <?php if ($this->order_info['project_type'] == 'DEFAULT') { ?>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('商品说明'); ?>:</span>
+                            <div class="col-sm-6 col-xs-8">
+                                <div class="btn-group mod-btn">
+                                    <?php echo $this->order_info['description']; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <?php } ?>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('用户名'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <div class="btn-group">
+                                    <a href="people/<?php echo $this->order_user['url_token']; ?>"><?php echo $this->order_user['user_name']; ?></a>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php ($this->order_info['project_type'] == 'DEFAULT') ? _e('下单时间') : _e('报名时间'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <div class="btn-group mod-btn">
+                                    <?php echo date_friendly($this->order_info['add_time']); ?>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <?php if ($this->order_info['project_type'] == 'DEFAULT') { ?>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('订单金额'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <div class="btn-group mod-btn">
+                                    <?php echo $this->order_info['amount']; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('状态'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <div class="btn-group mod-btn"><?php
+                                if ($this->order_info['refund_time']) {
+                                    _e('已退款');
+                                } else if ($this->order_info['track_no']) {
+                                    _e('已发货');
+                                } else if ($this->order_info['payment_time']) {
+                                     _e('已付款');
+                                } else if ($this->order_info['cancel_time']) {
+                                     _e('已取消');
+                                } else {
+                                     _e('未付款');
+                                }
+                                ?></div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <?php } ?>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php ($this->order_info['project_type'] == 'DEFAULT') ? _e('收货人') : _e('报名人'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input class="form-control" name="shipping_name" type="text" value="<?php echo $this->order_info['shipping_name']; ?>" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('联系电话'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input class="form-control" name="shipping_mobile" type="text" value="<?php echo $this->order_info['shipping_mobile']; ?>" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <?php if ($this->order_info['project_type'] == 'DEFAULT') { ?>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <label class="col-sm-4 col-xs-3 control-label"><?php _e('收货地址'); ?>:</label>
+
+                            <div class="col-sm-3 col-xs-8">
+                                <select name="shipping_province" class="select_area form-control"></select>
+                            </div>
+                            <div class="col-sm-2 col-xs-3">
+                                <select name="shipping_city" class="select_area form-control hide"></select>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <?php } ?>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php ($this->order_info['project_type'] == 'DEFAULT') ? _e('详细地址') : _e('邮箱'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input class="form-control" name="shipping_address" type="text" value="<?php echo $this->order_info['shipping_address']; ?>" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <?php if ($this->order_info['project_type'] == 'DEFAULT') { ?>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('邮编'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input class="form-control" name="shipping_zipcode" type="text" value="<?php echo $this->order_info['shipping_zipcode']; ?>" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <?php } ?>
+
+                <?php if ($this->order_info['project_type'] == 'EVENT') { ?>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('地址'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input class="form-control" name="address" type="text" value="<?php echo $this->order_info['address']; ?>" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <?php } ?>
+
+                <?php if ($this->order_info['track_no']) { ?>
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('物流公司'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input class="form-control" name="track_branch" type="text" value="<?php echo $this->order_info['track_branch']; ?>" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="form-group">
+                            <span class="col-sm-4 col-xs-3 control-label"><?php _e('运单号码'); ?>:</span>
+                            <div class="col-sm-5 col-xs-8">
+                                <input class="form-control" name="track_no" type="text" value="<?php echo $this->order_info['track_no']; ?>" />
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <?php } ?>
+
+                <tfoot>
+                <tr>
+                    <td>
+                        <input type="button" value="<?php _e('保存设置'); ?>" class="btn btn-primary center-block" onclick="AWS.ajax_post($('#order_form'));" />
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    $('.select_area').LocationSelect({
+        labels: ["<?php _e('请选择省份或直辖市'); ?>", "<?php _e('请选择城市'); ?>"],
+        elements: document.getElementsByTagName("select"),
+        detector: function () {
+            this.select(["<?php echo $this->order_info['shipping_province']; ?>", "<?php echo $this->order_info['shipping_city']; ?>"]);
+        },
+        dataUrl: G_STATIC_URL + '/js/areas.js'
+    });
+});
+</script>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

@@ -1,0 +1,60 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="aw-content-wrap">
+    <div class="mod">
+        <div class="mod-head">
+            <h3>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="admin/project/project_list/"><?php _e('活动管理'); ?></a></li>
+                    <li><a href="admin/project/approval_list/"><?php _e('活动审核'); ?></a></li>
+                    <li><a href="admin/project/order_list/"><?php _e('订单管理'); ?></a></li>
+                </ul>
+            </h3>
+        </div>
+
+        <div class="mod-body tab-content">
+            <form id="batchs_form" action="admin/project/status_batch/" method="post">
+            <input type="hidden" id="batch_type" name="batch_type" value="OFFLINE" />
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th><input type="checkbox" class="check-all"></th>
+                            <th width="50%">项目名称</th>
+                            <th>活动时间</th>
+                            <th>活动金额</th>
+                            <th>状态</th>
+                        </tr>
+                    </thead>
+
+                    <?php if ($this->approval_list) { ?>
+                    <tbody>
+                        <?php foreach ($this->approval_list AS $key => $val) { ?>
+                        <tr>
+                            <td><input type="checkbox" name="approval_ids[]" value="<?php echo $val['id']; ?>"></td>
+                            <td><a href="project/<?php echo $val['id']; ?>" target="_blank"><?php echo $val['title']; ?></a></td>
+                            <td><?php echo date('Y-m-d', $val['start_time']); ?> - <?php echo date('Y-m-d', $val['end_time']); ?></td>
+                            <td><?php echo $val['amount']; ?></td>
+                            <td><?php if ($val['status'] == 'OFFLINE') { ?>下线<?php } else { ?>上线<?php } ?></td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                    <?php } ?>
+            </table>
+            </form>
+
+            <div class="mod-table-foot">
+                <?php echo $this->pagination; ?>
+
+                <a class="btn btn-primary" onClick="$('#batch_type').val('ONLINE'); AWS.ajax_post($('#batchs_form'));" href="javascript:;" id="batch_approval"><?php _e('设置上线'); ?></a>
+
+                <a class="btn btn-primary" onClick="$('#batch_type').val('OFFLINE'); AWS.ajax_post($('#batchs_form'));" href="javascript:;" id="batch_decline"><?php _e('设置下线'); ?></a>
+
+                <a class="btn btn-danger" onClick="$('#batch_type').val('delete'); AWS.ajax_post($('#batchs_form'));" href="javascript:;" id="batch_decline"><?php _e('删除'); ?></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

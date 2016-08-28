@@ -1,0 +1,136 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+
+<div class="aw-container-wrap aw-container-wrap aw-project-container-wrap">
+    <div class="aw-container aw-wecenter">
+        <div class="container">
+            <div class="row aw-payment">
+                <div class="col-sm-12 col-md-8">
+                    <form action="project/ajax/add_product_order/" method="post" onsubmit="return false" id="order_form">
+                    <div class="mod aw-payment-content clearfix">
+                        <input type="hidden" name="project_id" value="<?php echo $this->product_info['project_id']; ?>" />
+                        <input type="hidden" name="product_id" value="<?php echo $this->product_info['id']; ?>" />
+                        <h1><?php _e('支持'); ?> ¥<?php echo intval($this->product_info['amount']); ?></h1>
+                        <div class="mod-head content">
+                            <div class="mod-body">
+                                    <h2><?php _e('回报内容'); ?></h2>
+                                    <p>
+                                        <?php echo nl2br($this->product_info['description']); ?>
+                                    </p>
+                                    <label><input type="checkbox" name="is_donate" value="1" /> <?php _e('不需要回报, 纯粹支持 (选择此项, 项目成功后发起人将不会给您发送回报)'); ?></label>
+                            </div>
+                            <?php if (intval($this->product_info['amount']) == 0) { ?>
+                            <div class="mod-body amount">
+                                <h2><?php _e('不定额支持'); ?></h2>
+                                <dl class="dl-horizontal">
+                                    <dt><?php _e('支持金额'); ?>:</dt>
+                                    <dd><input type="text" class="form-control form-normal" name="amount" placeholder="<?php _e('请输入您要支持的金额数'); ?>"/></dd>
+                                </dl>
+                            </div>
+                            <?php } ?>
+
+
+                        </div>
+                        <div class="mod-body address">
+                                <h2><?php _e('收货信息'); ?></h2>
+                                <dl class="dl-horizontal">
+                                    <dt><?php _e('收件人姓名'); ?>:</dt>
+                                    <dd><input type="text" class="form-control form-normal" name="shipping_name" /></dd>
+                                </dl>
+                                <dl class="dl-horizontal">
+                                    <dt><?php _e('省份/直辖市'); ?>:</dt>
+                                    <dd>
+                                        <select name="shipping_province" class="select_area"></select> <select name="shipping_city" class="select_area"></select>
+                                    </dd>
+                                </dl>
+                                <dl class="dl-horizontal">
+                                    <dt><?php _e('详细地址'); ?>:</dt>
+                                    <dd><input type="text" class="form-control form-normal" name="shipping_address" /></dd>
+                                </dl>
+                                <dl class="dl-horizontal">
+                                    <dt><?php _e('邮政编码'); ?>:</dt>
+                                    <dd><input type="text" class="form-control form-normal" name="shipping_zipcode" /></dd>
+                                </dl>
+                                <dl class="dl-horizontal">
+                                    <dt><?php _e('收件人手机'); ?>:</dt>
+                                    <dd><input type="text" class="form-control form-normal" name="shipping_mobile" /></dd>
+                                </dl>
+
+                        </div>
+                        <div class="mod-footer remark">
+                            <h2><?php _e('备注信息'); ?></h2>
+                            <textarea class="form-control" rows="4" placeholder="<?php _e('在此填写关于回报内容的具体选择或者任何你想告诉项目发起人的话'); ?>" name="note"></textarea>
+                        </div>
+                        <a onclick="AWS.ajax_post($('#order_form'))" class="btn btn-large btn-success btn-green pull-right"><?php _e('确定提交'); ?></a>
+                    </div>
+                    </form>
+
+                </div>
+
+                <div class="col-sm-12 col-md-4 aw-side-bar">
+                    <div class="aw-project-list">
+                    <ul>
+                        <li>
+                            <div class="mod-head">
+                                        <a href="project/<?php echo $this->project_info['id']; ?>" class="img"><img src="<?php echo get_setting('upload_url'); ?>/project/<?php echo $this->project_info['id']; ?>_main.jpg" alt="" title="" /></a>
+                            </div>
+                            <div class="mod-body">
+                                <h3><a href="project/<?php echo $this->project_info['id']; ?>"><?php echo $this->project_info['title']; ?></a></h3>
+                                <div class="progress">
+                                    <div class="progress-bar progress-bar-success progress-bar-green" role="progressbar" aria-valuenow="<?php echo get_paid_progress_bar($this->project_info['amount'], $this->project_info['paid']); ?>" aria-valuemin="0" aria-valuemax="<?php echo get_paid_progress_bar($this->project_info['amount'], $this->project_info['paid']); ?>" style="width: <?php echo get_paid_progress_bar($this->project_info['amount'], $this->project_info['paid']); ?>%">
+                                            <span class="sr-only"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mod-footer">
+                                <div class="status clearfix">
+                                    <span href="">
+                                        <b><?php echo get_paid_progress_bar($this->project_info['amount'], $this->project_info['paid']); ?>%</b>
+                                                <?php _e('已达到'); ?>
+                                    </span>
+                                    <span href="">
+                                        <b>¥ <?php echo $this->project_info['paid']; ?></b>
+                                                <?php _e('已获支持'); ?>
+                                    </span>
+                                    <span href="" class="pull-right">
+                                                <b><?php echo get_left_days($this->project_info['end_time']); ?></b>
+                                                <?php _e('剩余时间'); ?>
+                                    </span>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // 地址初始化
+        $('.select_area').LocationSelect({
+            labels: ["<?php _e('请选择省份或直辖市'); ?>", "<?php _e('请选择城市'); ?>"],
+            elements: document.getElementsByTagName("select"),
+            detector: function () {
+                this.select(["", ""]);
+            },
+            dataUrl: G_STATIC_URL + '/js/areas.js'
+        });
+
+        $('input[name="is_donate"]').click(function() {
+            if ($('input[name="is_donate"]').is(':checked'))
+            {
+                $('.amount').css('display', 'none');
+                $('.address').css('display', 'none');
+            }
+            else
+            {
+                $('.amount').removeAttr('style');
+                $('.address').removeAttr('style');
+            }
+        });
+    });
+</script>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>
