@@ -72,7 +72,7 @@ class core_captcha
 
 	public function is_validate($validate_code, $generate_new = true)
 	{
-		if (strtolower($this->captcha->getWord()) == strtolower($validate_code))
+		if (!empty($validate_code) AND strtolower($this->captcha->getWord()) == strtolower($validate_code))
 		{
 			if ($generate_new)
 			{
