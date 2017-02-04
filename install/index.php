@@ -349,13 +349,14 @@ switch ($_POST['step'])
 			 'time' => time()
 		));
 
-		//加载网站配置
+		// 加载网站配置
 		$base_dir = dirname(dirname($_SERVER['PHP_SELF']));
 		$base_dir = ($base_dir == DIRECTORY_SEPARATOR) ? '' : $base_dir;
 
 		$insert_query = file_get_contents(ROOT_PATH . 'install/db/system_setting.sql');
 
 		$insert_query = str_replace('[#DB_PREFIX#]', $db_prefix, $insert_query);
+		
 		if (defined('IN_SAE'))
 		{
 			$insert_query = str_replace('[#UPLOAD_URL#]', serialize($_POST['upload_url']), $insert_query);
@@ -377,27 +378,28 @@ switch ($_POST['step'])
 		$insert_query = str_replace('[#FROM_EMAIL#]', serialize($_POST['email']), $insert_query);
 		$insert_query = str_replace('[#DB_VERSION#]', serialize(G_VERSION_BUILD), $insert_query);
 
-		//$db->query($insert_query);
+		$insert_query = str_replace("\n", "\r", $insert_query);
 
-		$sql_query = str_replace("\n", "\r", $insert_query);
+		$insert_query = explode("\r", $insert_query);
+		
+		unset($insert_query[0]);
 
-		$db_table_querys = explode(";\r", $sql_query);
-
-		foreach ($db_table_querys as $_sql)
+		foreach ($insert_query AS $_sql)
 		{
-			if ($query_string = trim(str_replace(array(
-				"\r",
-				"\n",
-				"\t"
-			), '', $_sql)))
+			$insert_vars = explode("', '", ltrim(rtrim(rtrim(rtrim($_sql, ','), ';'), ')'), '('));
+						
+			try {
+				$db->insert($db_prefix . 'system_setting', array(
+					'varname' => ltrim($insert_vars[0], "'"),
+					'value' => rtrim($insert_vars[1], "'")
+				));
+			}
+			catch (Exception $e)
 			{
-				try {
-					$db->query($query_string);
-				}
-				catch (Exception $e)
-				{
-					die('SQL Error: ' . $e->getMessage() . '<br /><br />Query: ' . $query_string);
-				}
+				die('SQL Error: ' . $e->getMessage() . '<br /><br />Query: ' . json_encode(array(
+					'varname' => ltrim($insert_vars[0], "'"),
+					'value' => rtrim($insert_vars[1], "'")
+				)));
 			}
 		}
 
