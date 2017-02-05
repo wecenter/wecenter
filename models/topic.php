@@ -597,7 +597,7 @@ class topic_class extends AWS_MODEL
 	{
 		return $this->get_item_ids_by_topics_ids(array(
 			$topic_id
-		), $limit);
+		), $type, $limit);
 	}
 
 	public function get_item_ids_by_topics_ids($topic_ids, $type = null, $limit = null)
