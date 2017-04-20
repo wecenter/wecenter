@@ -378,9 +378,9 @@ switch ($_POST['step'])
 		$insert_query = str_replace('[#FROM_EMAIL#]', serialize($_POST['email']), $insert_query);
 		$insert_query = str_replace('[#DB_VERSION#]', serialize(G_VERSION_BUILD), $insert_query);
 
-		$insert_query = str_replace("\n", "\r", $insert_query);
+		$insert_query = str_replace("\r", '', $insert_query);
 
-		$insert_query = explode("\r", $insert_query);
+		$insert_query = explode("\n", $insert_query);
 		
 		unset($insert_query[0]);
 
