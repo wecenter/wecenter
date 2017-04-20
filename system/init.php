@@ -14,7 +14,7 @@
 
 define('IN_ANWSION', TRUE);
 define('ENVIRONMENT_PHP_VERSION', '5.2.2');
-//define('SYSTEM_LANG', 'en_US');
+define('SYSTEM_LANG', $SYSTEM_LANG);
 
 if (substr(PHP_VERSION, -4) == 'hhvm')
 {
