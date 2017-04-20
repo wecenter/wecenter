@@ -191,7 +191,7 @@ class crond_class extends AWS_MODEL
     // 每周执行
     public function week()
     {
-	    $this->model('notify')->clean_mark_read_notifications(2592000);
+	//$this->model('notify')->clean_mark_read_notifications(2592000);
         $this->model('system')->clean_break_attach();
         $this->model('email')->mail_queue_error_clean();
     }
