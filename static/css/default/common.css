@@ -1016,6 +1016,7 @@ blockquote {margin: 0 40px;padding: 0 15px;font-size: 14px;color: #777;border-le
     .navbar-collapse {
         position: static;
         width: auto;
+        background: #499ef3;
     }
 }
 /* iphone横屏幕 */
