@@ -949,7 +949,7 @@ class Zend_Mail extends Zend_Mime_Message
      * Clears the encoded subject from the message
      *
      * @return  Zend_Mail Provides fluent interface
-     */
+     */
     public function clearSubject()
     {
         $this->_subject = null;

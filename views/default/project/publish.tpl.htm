@@ -1,0 +1,688 @@
+
+<?php TPL::output('global/header.tpl.htm'); ?>
+<script src="<?php echo G_STATIC_URL; ?>/js/fileupload.js" type="text/javascript"></script>
+<!-- 众筹 -->
+<div class="aw-container-wrap aw-container-wrap">
+	<div class="aw-container aw-wecenter">
+		<div class="container">
+			<div class="row aw-event-publish">
+				<div class="col-sm-12">
+					<form action="project/ajax/<?php if ($this->project_info['id']) { ?>update<?php } else { ?>publish<?php } ?>_project/" method="post" id="publish_form" onsubmit="return false;" enctype="multipart/form-data">
+						<input type="hidden" name="project_id" value="<?php echo $this->project_info['id']; ?>" />
+						<input type="hidden" name="post_hash" value="<?php echo new_post_hash(); ?>" />
+						<input type="hidden" name="attach_access_key" value="<?php echo $this->attach_access_key; ?>" />
+						<input type="hidden" name="project_type" id="projectPost" value="<?php if ($this->project_info['project_type']) { echo $this->project_info['project_type']; } else { ?>DEFAULT<?php } ?>">
+
+						<input type="hidden"  name="contact[name]" id="project_name" value="" />
+						<input type="hidden"  name="contact[mobile]" id="project_mobile" value="" />
+						<input type="hidden"  name="contact[qq]" id="project_qq" value="" />
+
+						<div class="tabbable">
+							<ul class="nav nav-tabs aw-nav-tabs aw-reset-nav-tabs aw-publish-tabs<?php if ($this->project_info['id']) { ?> visibility <?php } ?>">
+
+								<li class="active">
+									<a href="#project-status" data-toggle="tab">众筹</a>
+								</li>
+								<li><a href="#project-contact" data-toggle="tab">活动</a></li>
+								<h2 class="hidden-xs"><i class="icon icon-ask"></i>发起活动</h2>
+							</ul>
+							<div class="mod aw-publish-desc">
+								<div class="mod-body">
+									<dl class="category-list clearfix">
+										<dt><strong>*</strong>选择分类:</dt>
+										<dd>
+										<?php if ($this->project_category_list) { ?>
+										<select name="category_id" id="category_id" class="project-sort">
+											<option value="0">- <?php _e('请选择分类'); ?> -</option>
+											<?php echo $this->project_category_list; ?>
+										</select>
+										<?php } ?>
+										</dd>
+										<div class="col-sm-8">
+											<label class="label label-danger hide">请选择分类</label>
+										</div>
+									</dl>
+									<dl class="clearfix">
+										<dt><strong>*</strong>活动名称:</dt>
+										<dd>
+											<input type="text" name="title" class="form-control project-name" value="<?php echo $this->project_info['title']; ?>" />
+										</dd>
+										<div class="col-sm-8">
+											<label class="label label-danger hide">请输入活动名称</label>
+										</div>
+									</dl>
+									<dl class="clearfix">
+										<dt><strong>*</strong>所属话题:</dt>
+										<dd>
+										 <div class="aw-topic-bar" data-type="publish">
+											<div class="tag-bar clearfix">
+												<?php if ($_GET['topic_title']) { ?>
+												<span class="topic-tag"><a href="javascript:;" class="text"><?php echo urldecode($_GET['topic_title']); ?><i class="aw-icon i-close-hover" onclick="$(this).parents('.topic-tag').remove();"></i><input type="hidden" value="<?php echo urldecode($_GET['topic_title']); ?>" name="topics[]" /></a>
+												</span>
+
+												<?php } ?>
+
+												<?php if ($this->project_topics) { ?>
+												<?php foreach ($this->project_topics AS $key => $val) { ?>
+												<span class="topic-tag"><a href="javascript:;" class="text"><?php echo $val['topic_title']; ?><input type="hidden" value="<?php echo $val['topic_title']; ?>" name="topics[]" /></a></span>
+												<?php } ?>
+												<?php } ?>
+
+												<span class="aw-edit-topic icon-inverse"><i class="icon icon-edit"></i></span>
+												</span>
+											</div>
+										</div>
+										</dd>
+										<div class="col-sm-8">
+											<label class="label label-danger hide">请选择话题</label>
+										</div>
+									</dl>
+									<dl class="clearfix">
+										<dt><strong>*</strong>发起地点:</dt>
+										<dd>
+											<select name="province" class="select_area"></select> <select name="city" class="select_area"></select>
+										</dd>
+										<div class="col-sm-8">
+											<label class="label label-danger hide">请选择发出地点</label>
+										</div>
+									</dl>
+									<dl id="upload-attach" class="clearfix">
+										<dt><strong>*</strong>封面图片:</dt>
+										<dd>
+											<a href="javascript:;" class="btn btn-default"><?php if ($this->project_info['id']) { ?>添加图片<?php } else { ?>添加图片<?php } ?></a>
+											<span class="aw-text-color-999 upload-url"></span>
+											<input type="file" onchange="$('.upload-url').html($(this).val());" class="upload-attach form-control hide" name="cover" />
+										</dd>
+									</dl>
+									<dl class="clearfix">
+										<dt><strong>&nbsp</strong>封面视频:</dt>
+										<dd>
+											<input type="text"  class="form-control" placeholder="http://"/>
+											<p class="help-block">
+												支持: 优酷、酷六、土豆、56、新浪播客、乐视、Youtube 与 SWF 文件
+											</p>
+										</dd>
+									</dl>
+									<dl class="clearfix">
+										<dt><strong>*</strong>活动详情:</dt>
+										<dd>
+											<div class="aw-mod aw-editor-box">
+												<div class="mod-head">
+													<div class="wmd-panel">
+														<textarea class="wmd-input form-control autosize" id="wmd-input" rows="15" name="description"><?php echo $this->project_info['description']; ?></textarea>
+													</div>
+												</div>
+												<div class="mod-body">
+													<div class="aw-replay-box-control clearfix">
+														<div id="file_uploader_answer">
+															<div class="aw-upload-box">
+																<a class="btn btn-default">上传附件</a>
+																<div class="upload-container"></div>
+															</div>
+														</div>
+														<span class="aw-text-color-999 aw-upload-tips  hidden-xs"><?php _e('允许的附件文件类型'); ?>: <?php echo get_setting('allowed_upload_types'); ?></span>
+													</div>
+												</div>
+											</div>
+										</dd>
+										<div class="col-sm-8">
+											<label class="label label-danger hide">请填写活动详情</label>
+										</div>
+									</dl>
+									<dl class="clearfix lump">
+										<dt><strong>*</strong>众筹总额:</dt>
+										<dd>
+											<div class="col-sm-5 clpadding">
+												<input type="text" name="amount" class="form-control" value="<?php echo $this->project_info['amount']; ?>" />
+											</div>
+										</dd>
+										<div class="col-sm-8">
+											<label class="label label-danger hide">请输入众筹总额</label>
+										</div>
+									</dl>
+									<dl class="clearfix">
+										<dt><strong>*</strong>开始时间:</dt>
+										<dd class="start-time">
+											<input type="hidden" name="start_time" value="">
+											<input type="text" class="form-control form-mini pull-left date-picker"  value="<?php if ($this->project_info['start_time']) echo $this->project_info['start_time']; ?>" />
+											<span class="pull-left">&nbsp;&nbsp;-&nbsp;&nbsp;</span>
+											<input type="text" class="form-control form-mini pull-left unix-time" value="<?php if ($this->project_info['start_time']) echo $this->project_info['start_time']; ?>" placeholder="格式: 00:00:00" >
+											<span class="text-color-999">（注意：请以 24 小时格式输入）</span>
+										</dd>
+										<div class="col-sm-8">
+											<label class="label label-danger hide">请选择活动时间</label>
+										</div>
+									</dl>
+									<dl class="clearfix">
+										<dt><strong>*</strong>结束时间:</dt>
+										<dd class="end-time">
+											<input type="hidden" name="end_time" value="">
+											<input type="text" class="form-control form-mini  pull-left date-picker"  value="<?php if ($this->project_info['end_time']) echo $this->project_info['end_time']; ?>" />
+											<span class="pull-left">&nbsp;&nbsp;-&nbsp;&nbsp;</span>
+											<input type="text" class="form-control form-mini pull-left unix-time" value="<?php if ($this->project_info['end_time']) echo $this->project_info['end_time']; ?>" placeholder="格式: 00:00:00" >
+											<span class="text-color-999">（注意：请以 24 小时格式输入）</span>
+										</dd>
+										<div class="col-sm-8">
+											<label class="label label-danger hide">请选择活动时间</label>
+										</div>
+									</dl>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="tab-content">
+							<!--项目说明 -->
+							<div id="project-status" class="tab-pane active">
+								<!-- 分割线 -->
+								<div class="mod aw-publish-setting">
+									<div class="mod-body clearfix fire">
+										<div class="payback">
+											<dt><strong>*</strong>项目简介:</dt>
+											<textarea  name="summary" class="form-control" rows="6"><?php echo $this->project_info['summary']; ?></textarea>
+										</div>
+									</div>
+
+									<div class="mod-body clearfix raise">
+										<hr>
+										<div class="payback">
+											<dt><strong>*</strong>回报设置:</dt>
+											<div class="tips">
+												<h3>小提示:</h3>
+												<p>【3个以上的回报】多些选择能提高项目的支持率。</p>
+												<p>&nbsp&nbsp几十、几百、上千元的支持档位】3个不同的档次的回报，能让你的项目更快成功。</p>
+												<p>【回报必须低于市价】给第一批支持者最好最优惠的回报，感谢他们的支持。</p>
+												<p>【回报最好是项目的衍生品】，与项目内容有关的回报更能吸引大家的支持。</p>
+											</div>
+											<div class="aw-project-return-list">
+												<table class="table table-striped">
+													<thead>
+														<tr>
+															<th>回报名称</th>
+															<th>支持金额</th>
+															<th>是否限额</th>
+															<th>回报内容</th>
+															<th>操作</th>
+														</tr>
+													</thead>
+													<tbody>
+													<?php if ($this->project_products) { ?>
+													<?php foreach($this->project_products AS $key => $val) { ?>
+														<tr data-id="<?php echo $val['id']; ?>">
+															<td><?php echo $val['title']; ?></td>
+															<td><?php echo $val['amount']; ?></td>
+															<td><?php if ($val['stock'] == -99) { ?>不限限额<?php } else { ?><?php echo $val['stock']; ?><?php } ?></td>
+															<td><?php echo nl2br($val['description']); ?></td>
+															<td>
+																<a class="delete" data-id="<?php echo $val['id']; ?>" href="javascript:;">删除</a>
+															</td>
+														</tr>
+													<?php } ?>
+													<?php } ?>
+													</tbody>
+												</table>
+											</div>
+											<label class="label label-danger hide">请填回报内容</label>
+											<a href="javascript:;" class="btn btn-default aw-add-return">添加新回报</a>
+										</div>
+									</div>
+
+									<div class="mod-footer">
+										<a href="javascript:;" class="btn btn-normal btn-success">下一步</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php if ($this->project_info['start_time'] || $this->project_info['end_time'] ) { ?>
+<!-- 编辑的时候显示时间 -->
+<script>
+	//
+	// 时间戳转换成日期
+	//
+	// s 开始时间
+	function toDatetimeStart(start_time) {
+		var now = new Date(parseInt(start_time) * 1000);
+		return now;
+
+		}
+		var start_time = $('.start-time .date-picker').val();
+		var sDatetime = toDatetimeStart(start_time);
+		var sYear = sDatetime.getFullYear();
+		var sMonth = sDatetime.getMonth() + 1;
+		var sDay = sDatetime.getDate();
+		var sHours = sDatetime.getHours();
+		var sMinuts = sDatetime.getMinutes();
+		var sSeconds = sDatetime.getSeconds();
+		var sYmTime = sYear + '-' + sMonth + '-' + sDay;
+		var sHsTime = sHours + '-' + sMinuts + '-' + sSeconds;
+		var sHsTime = sHsTime.replace(/-/g,":");
+
+		$('.start-time .date-picker').val(sYmTime);
+		$('.start-time .unix-time').val(sHsTime);
+
+
+
+	// e 结束时间
+	function toDatetimeEnd(end_time) {
+		var now = new Date(parseInt(end_time) * 1000);
+		return now;
+	}
+	var end_time = $('.end-time .date-picker').val();
+	var eDatetime = toDatetimeStart(end_time);
+	var eYear = eDatetime.getFullYear();
+	var eMonth =eDatetime.getMonth() + 1;
+	var eDay = eDatetime.getDate();
+	var eHours = eDatetime.getHours();
+	var eMinuts = eDatetime.getMinutes();
+	var eSeconds = eDatetime.getSeconds();
+	var eYmTime = eYear + '-' + eMonth + '-' + eDay;
+	var eHsTime = eHours + '-' + eMinuts + '-' + eSeconds;
+	var eHsTime = eHsTime.replace(/-/g,":");
+	$('.end-time .date-picker').val(eYmTime);
+	$('.end-time .unix-time').val(eHsTime);
+</script>
+<?php } ?>
+
+<script type="text/javascript">
+
+var ATTACH_ACCESS_KEY = '<?php echo $this->attach_access_key; ?>';
+var ITEM_ID = '<?php echo $this->project_info['id']; ?>';
+var PUBLISH_TYPE = 'question';
+$(function()
+{
+	// 编辑器初始化
+	var editor = CKEDITOR.replace( 'wmd-input' );
+
+	if (ATTACH_ACCESS_KEY != '' && $('.aw-upload-box').length)
+	{
+		var fileupload = new FileUpload('file', '.aw-editor-box .aw-upload-box .btn', '.aw-editor-box .aw-upload-box .upload-container', G_BASE_URL + '/publish/ajax/attach_upload/id-' + PUBLISH_TYPE + '__attach_access_key-' + ATTACH_ACCESS_KEY, {
+					'editor' : editor
+			});
+	}
+
+	// 无分类则隐藏
+	if(!$('.category-list dd select').length) {
+		$('.category-list').hide();
+	}
+
+	// 选择日期
+	if (typeof(DateInput) != 'undefined')
+	{
+		$('input.date-picker').date_input();
+	}
+
+	// 地址初始化
+	$('.select_area').LocationSelect({
+		labels: ["<?php _e('请选择省份或直辖市'); ?>", "<?php _e('请选择城市'); ?>"],
+		elements: document.getElementsByTagName("select"),
+		detector: function () {
+			this.select(["<?php echo $this->project_info['province']; ?>", "<?php echo $this->project_info['city']; ?>"]);
+		},
+		dataUrl: G_STATIC_URL + '/js/areas.js'
+	});
+
+
+	// 众筹回报设置
+	$('.aw-add-return').click(function()
+	{
+		$(this).hide();
+
+		$('.aw-publish-setting .raise').append(Hogan.compile(AW_TEMPLATE.ProjectForm).render({}));
+
+		$('.aw-publish-setting .aw-project-return-form').fadeIn();
+
+		$('.aw-project-return-form .cancel').click(function()
+		{
+			$(this).parents('.aw-project-return-form').detach();
+			$('.aw-add-return').fadeIn();
+		});
+
+		$('.aw-project-return-form .limit-num-yes').click(function()
+		{
+			$(this).parents('dd').find('.count').show();
+		});
+
+		$('.aw-project-return-form .limit-num-no').click(function()
+		{
+			$(this).parents('dd').find('.count').hide();
+		});
+
+		$('.aw-project-return-form .save').click(function()
+		{
+			// 验证回报设置表单
+			if ( $('.aw-project-return-form .title').val() == '' && $('.aw-project-return-form .amount').val() == '')
+			{
+				$('.aw-project-return-form .title').next().show();
+				return false;
+			}
+			else
+			{
+				$('.aw-project-return-form .amount').parents('dd').find('.label').hide();
+			}
+
+			if ($('.aw-project-return-form .content').val() == '')
+			{
+				$('.aw-project-return-form .content').next().show();
+				return false;
+			}
+			else
+			{
+				$('.aw-project-return-form .content').parents('dd').find('.label').hide();
+			}
+
+
+			// 用表格显示回报设置的值
+			var form = $(this).parents('.aw-project-return-form'),
+				title = form.find('.title').val(),
+				amount = form.find('.amount').val(),
+				content = form.find('.content').val(),
+				limitNum = form.find('[name="limit-num"]:checked').val();
+
+			if (limitNum == 'false')
+			{
+				limitNum = '不限名额';
+			}
+			else
+			{
+				limitNum = form.find('.people-amount').val();
+			}
+
+			var projectId = checkProjectId(); // 获取tr的id数
+			var template = '<tr data-id="' + projectId + '">'+
+							'<td>' + title + '</td>'+
+							'<td>' + amount + '</td>'+
+								'<td>' + limitNum + '</td>'+
+								'<td>' + content + '</td>'+
+								'<td>'+
+									'<a class="delete" href="javascript:;">删除</a>'+
+									'<input type="hidden" name="project_product[' + projectId + '][title]" value="' + title + '" />'+
+									'<input type="hidden" name="project_product[' + projectId + '][amount]" value="' + amount + '" />'+
+									'<input type="hidden" name="project_product[' + projectId + '][stock]" value="' + form.find('.people-amount').val() + '" />'+
+									'<input type="hidden" name="project_product[' + projectId + '][description]" value="' + content + '" />'+
+								'</td>'+
+							'</tr>';
+			$('.aw-project-return-list tbody').append(template); // 插入回报设置结果
+			$(this).parents('.aw-project-return-form').detach(); // 同时删除回报设置框
+			$('.aw-add-return').fadeIn();
+		});
+	});
+
+
+
+	// 删除回报
+	$(document).on('click', '.aw-project-return-list .delete', function()
+	{
+		if ($(this).data('id'))
+		{
+			var _this_element = $(this).parents('tr');
+
+			$.post(G_BASE_URL + '/project/ajax/remove_project_product/', 'product_id=' + $(this).data('id'), function (result) {
+				if (result.errno != 1)
+				{
+					$.alert(result.err);
+				}
+				else
+				{
+					_this_element.detach();
+				}
+			}, 'json');
+		}
+		else
+		{
+			$(this).parents('tr').detach();
+		}
+	});
+
+	// 返回回报列表ID
+	function checkProjectId()
+	{
+		var arr_projectId = [];
+		$.each($('.aw-project-return-list tbody tr'), function (i, e)
+		{
+			arr_projectId.push($(this).data('id'));
+		});
+
+		if (arr_projectId.length == 0)
+		{
+			return 1;
+		}
+		else
+		{
+			return Math.max.apply(Math, arr_projectId) + 1;
+		}
+
+	}
+
+	// 点击切换众筹和活动
+	$('.aw-publish-tabs li').click(function(){
+		$('.fire .payback dt').html('<strong>*</strong>项目简介:');
+		$('.tab-content .raise').show();
+		$('.aw-project-return-form').show()
+		$('.lump').show();
+		$('#projectPost').attr("value",'DEFAULT');
+
+	})
+
+	$('.aw-publish-tabs li:gt(0)').click(function(){
+		$('.tab-content .raise').hide().siblings(".fire").show();
+		$('.aw-project-return-form').hide()
+		if($(this).index() == 1){
+			$('.fire .payback dt').html('<strong>*</strong>活动摘要:');
+			$('.lump dt').html('<strong>*</strong>活动人数:');
+			$('#projectPost').attr("value",'EVENT');
+		}
+
+	})
+
+
+	//初始化选择众筹
+	if($('#projectPost').val() == 'DEFAULT')
+	{
+		$('.aw-publish-tabs li:eq(0)').click();
+	}
+	else if($('#projectPost').val() == 'EVENT')
+	{
+		$('.aw-publish-tabs li:eq(1)').click();
+	}
+
+	if($('.lump dt').text()=='*活动人数:')
+	{
+		var $num = parseInt($('.lump dd').find("input").val());
+		$('.lump dd').find("input").val($num)
+	}
+
+	// 默认展开话题编辑框和回报设置框
+	$('.aw-add-return').click();
+	$('.aw-edit-topic').click();
+
+	// 整个表单提交验证
+	$('.aw-publish-setting .mod-footer .btn').on('click',function()
+	{
+
+		checkForm($('.date-picker'),'length'); // 验证日期
+		checkForm($('.col-sm-5 input'),'length'); // 验证众筹总额
+		checkForm($('.select_area:eq(1)'),'select'); // 验证地址
+		checkForm($('.project-name'),'length'); // 验证活动名称
+		checkForm($('.project-sort'),'check'); // 验证活动分类
+		checkForm($('iframe'),'editor'); // 验证编辑器内容
+
+		// 日期转换成时间戳
+		//
+		// 开始时间
+		function toUnixStart(start_time){
+		    var tmp_datetime = start_time.replace(/:/g,'-');
+		    tmp_datetime = tmp_datetime.replace(/ /g,'-');
+		    var arr = tmp_datetime.split("-");
+		    var now = new Date(Date.UTC(arr[0],arr[1]-1,arr[2],arr[3]-8,arr[4],arr[5]));
+		    return parseInt(now.getTime()/1000);
+		}
+		var start_time = $('.start-time .date-picker').val() +' '+ $(".start-time .unix-time").val();
+		var unix = toUnixStart(start_time);
+		$('.start-time input[type="hidden"]').val(unix);
+
+		// 结束时间
+		function toUnixEnd(end_time){
+		    var tmp_datetime = end_time.replace(/:/g,'-');
+		    tmp_datetime = tmp_datetime.replace(/ /g,'-');
+		    var arr = tmp_datetime.split("-");
+		    var now = new Date(Date.UTC(arr[0],arr[1]-1,arr[2],arr[3]-8,arr[4],arr[5]));
+		    return parseInt(now.getTime()/1000);
+		}
+		var end_time = $('.end-time .date-picker').val() +' '+ $(".end-time .unix-time").val();
+		var unix = toUnixEnd(end_time);
+		$('.end-time input[type="hidden"]').val(unix);
+
+
+
+		//验证回报设置内容
+		if ( $('.aw-project-return-list tbody tr').length == 0 && $('.aw-project-return-form').is(':visible'))
+		{
+			$('.payback .label-danger').removeClass("hide");
+			return false;
+		}
+		else
+		{
+			$('.payback .label-danger').addClass("hide");
+		};
+
+		AWS.dialog('activityBox',{contact_name:'<?php echo $this->project_info['contact']['name']; ?>',contact_tel:'<?php echo $this->project_info['contact']['mobile']; ?>',contact_qq:'<?php echo $this->project_info['contact']['qq']; ?>'});
+		$('#publish-name').val(readCookie('HD_publish_cookie_name'));
+		$('#publish-tel').val(readCookie('HD_publish_cookie_tel'));
+		$('#publish-qq').val(readCookie('HD_publish_cookie_qq'));
+
+		function checkForm(obj,type)
+		{
+			// 验证函数
+			var tempObj = obj.parents('dd').siblings(".col-sm-8").find('.label-danger')
+
+			switch(type)
+			{
+				case 'length':
+					fromType(obj.val().length <= 0);
+				break;
+
+				case 'select':
+					fromType(!obj.find("option").is(":selected"));
+				break;
+
+				case 'check':
+					fromType(obj.find('option:eq(0)').is(':selected'));
+				break;
+
+				case 'editor':
+					fromType(obj.contents().find('body').html().trim() == '');
+				break;
+
+			}
+
+			function fromType(status)
+			{
+
+				if(status)
+				{
+					tempObj.removeClass("hide");
+
+					$('html,body').scrollTop(obj.offset().top - 80)
+
+					return false;
+				}
+				else
+				{
+					tempObj.addClass("hide");
+				};
+
+			}
+
+		};
+
+
+	})
+
+
+	// 弹出层验证，验证QQ 手机  姓名
+	$('#aw-ajax-box').delegate(".btn-success ","click",function()
+	{
+		var flag = false;
+
+		var strName = getValue(0),
+			strTel = getValue(1),
+			strQQ =  getValue(2),
+			$showText = $('#aw-ajax-box').find(".label-danger");
+
+			$('#project_name').val(strName);
+			$('#project_mobile').val(strTel);
+			$('#project_qq').val(strQQ);
+			getCheck(strQQ,'对不起，请输入QQ');
+			getCheck(strTel,'对不起，请输入正确的手机号');
+			getCheck(strName,'对不起，请输入用户名');
+
+		if (strName.length != 0 && strTel.length != 0 && strQQ.length != 0)
+		{
+			flag = true;
+		}
+
+		if (flag)
+		{
+			setCookie('HD_publish_cookie_name', $('#project_name').val())
+			setCookie('HD_publish_cookie_tel', $('#project_mobile').val())
+			setCookie('HD_publish_cookie_qq', $('#project_qq').val())
+			AWS.ajax_post($('#publish_form'));
+		}
+
+		function getValue(num)
+		{
+			var str = $('.mod-body dl:eq('+ num +')', '.aw-publish-contact').find("input").val();
+			return str;
+		}
+
+		function getCheck(obj,text)
+		{
+			if(obj.length == 0 )
+			{
+				$showText.removeClass("hide").css({'display':'block'}).text(text);
+			}
+			else
+			{
+				$showText.addClass("hide")
+			}
+		}
+	})
+
+	//cookie 存储提交资料
+	function readCookie(name)
+	{
+		var cookieStr = "; " + document.cookie + "; ";
+		var index = cookieStr.indexOf("; " + name + "=");
+		if (index != -1)
+		{
+			var s = cookieStr.substring(index + name.length + 3, cookieStr.length);
+			return unescape(s.substring(0, s.indexOf("; ")));
+		}
+		else
+		{
+			return null;
+		}
+	}
+
+	// 设置
+	function setCookie(name, value, expires)
+	{
+		var expDays = expires * 24 * 60 * 60 * 1000;
+		var expDate = new Date();
+		expDate.setTime(expDate.getTime() + expDays);
+		var expString = expires ? "; expires=" + expDate.toGMTString() : "";
+		var pathString = ";path=/";
+		document.cookie = name + "=" + escape(value) + expString + pathString;
+	}
+
+});
+</script>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>

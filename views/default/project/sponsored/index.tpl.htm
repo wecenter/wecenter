@@ -1,0 +1,112 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+
+<div class="aw-container-wrap aw-container-wrap aw-project-container-wrap">
+	<div class="aw-container aw-wecenter">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 aw-project-record sponsored">
+					<div class="tabbable">
+						<ul class="nav nav-tabs aw-tabs">
+							<li<?php if (!$_GET['id']) { ?> class="active"<?php } ?>><a href="project/sponsored/"><?php _e('所有'); ?></a></li>
+							<li<?php if ($_GET['id'] == 'preparing') { ?> class="active"<?php } ?>><a href="project/sponsored/preparing"><?php _e('等待回报'); ?></a></li>
+							<li<?php if ($_GET['id'] == 'shipped') { ?> class="active"<?php } ?>><a href="project/sponsored/shipped"><?php _e('已发回报'); ?></a></li>
+							<li<?php if ($_GET['id'] == 'refunded') { ?> class="active"<?php } ?>><a href="project/sponsored/refunded"><?php _e('已退款'); ?></a></li>
+							<li<?php if ($_GET['id'] == 'donate') { ?> class="active"<?php } ?>><a href="project/sponsored/donate"><?php _e('无需回报'); ?></a></li>
+							<li<?php if ($_GET['id'] == 'pay') { ?> class="active"<?php } ?>><a href="project/sponsored/pay"><?php _e('未支付'); ?></a></li>
+							<li<?php if ($_GET['id'] == 'event') { ?> class="active"<?php } ?>><a href="project/sponsored/event"><?php _e('活动'); ?></a></li>
+						</ul>
+					</div>
+					<div class="tab-content">
+						<!--项目说明 -->
+						<div class="mod project-support-list">
+							<table>
+								<thead>
+									<tr>
+										<th><?php _e('项目名称'); ?></th>
+										<th><?php _e('支持日期'); ?></th>
+										<th><?php _e('支持金额'); ?></th>
+										<th><?php _e('状态'); ?></th>
+										<th><?php _e('查看'); ?></th>
+									</tr>
+								</thead>
+								<?php if ($this->order_list) { ?>
+								<tbody>
+								<?php foreach ($this->order_list AS $key => $val) { ?>
+									<tr>
+										<th>
+											<dl class="dl-horizontal">
+												<dt>
+													<a href="project/<?php echo $val['project_id']; ?>"><img src="<?php echo get_setting('upload_url'); ?>/project/<?php echo $val['project_id']; ?>_thumb.jpg" alt="" title="" /></a>
+												</dt>
+												<dd>
+													<a href="project/<?php echo $val['project_id']; ?>"><?php echo $val['project_title']; ?></a><br/>
+													<p><?php if ($val['product_title']) { ?><?php echo $val['product_title']; ?>, <?php } ?><?php if ($val['project_type'] == 'DEFAULT') { ?><?php _e('订单号'); ?><?php } else { ?><?php _e('报名号'); ?><?php } ?>：<?php echo $val['id']; ?></p>
+
+												</dd>
+											</dl>
+										</th>
+										<td>
+											<?php echo date('Y-m-d H:i:s', $val['add_time']); ?>
+										</td>
+										<td>
+											<?php echo $val['amount'] ; ?>
+										</td>
+										<td>
+											<?php if ($val['project_type'] == 'DEFAULT') { ?>
+											<?php if ($val['order_status'] == 'pay') { ?>
+											<a href="project/order/init_payment/<?php echo $val['id']; ?>"><?php _e('未支付,点击支付'); ?></a> | <a onclick="AWS.ajax_request(G_BASE_URL + '/project/ajax/cancel_project_order/', 'id=<?php echo $val['id']; ?>');"><?php _e('取消订单'); ?></a>
+											<?php } else if ($val['order_status'] == 'refunded') { ?>
+											<?php _e('已退款'); ?>
+											<?php } else if ($val['order_status'] == 'shipped') { ?>
+											<?php _e('已回报'); ?>
+											<?php } else if ($val['order_status'] == 'donate') { ?>
+											<?php _e('无需回报'); ?>
+											<?php } else { ?>
+											<?php _e('等待回报'); ?>
+											<?php } ?>
+											<?php } else { ?>
+											-
+											<?php } ?>
+										</td>
+										<td>
+											<?php if ($val['project_type'] == 'DEFAULT') { ?>
+											<a data-title="<?php echo nl2br($val['description']); ?>" class="aw-tooltip"><span><?php _e('回报内容'); ?></span></a><?php if ($val['note']) { ?> &nbsp; <a data-title="<?php echo nl2br($val['note']); ?>" class="aw-tooltip"><span><?php _e('备注'); ?></span></a><?php } ?>
+											<?php } else { ?>-<?php } ?>
+										</td>
+									</tr>
+									<tr>
+										<td colspan="5">
+										<?php if ($val['project_type'] == 'DEFAULT') { ?>
+											<?php _e('收货地址'); ?>: <?php echo $val['shipping_province']; ?> <?php echo $val['shipping_city']; ?> <?php echo $val['shipping_address']; ?>, <?php _e('邮编'); ?>: <?php echo $val['shipping_zipcode']; ?>, <?php _e('收件人'); ?>: <?php echo $val['shipping_name']; ?> <?php _e('手机'); ?>: <?php echo $val['shipping_mobile']; ?>
+											<?php if ($val['track_branch']) { ?>
+												<?php _e('发货时间'); ?>: <?php echo date_friendly($val['shipping_time']); ?> <?php _e('物流公司'); ?>: <?php echo $val['track_branch']; ?> <?php _e('物流单号'); ?>: <?php echo $val['track_no']; ?>
+											<?php } ?>
+										<?php } else { ?>
+											<?php _e('报名信息'); ?>: <?php _e('邮箱'); ?>: <?php echo $val['shipping_address']; ?>, <?php _e('联系人'); ?>: <?php echo $val['shipping_name']; ?>, <?php _e('手机'); ?>: <?php echo $val['shipping_mobile']; ?>
+											<?php if ($val['project_type'] == 'EVENT') { ?>
+												<?php _e('地址'); ?>: <?php echo $val['address']; ?>
+											<?php } ?>
+										<?php } ?>
+										</td>
+									</tr>
+								<?php } ?>
+								</tbody>
+								<?php } ?>
+							</table>
+						</div>
+
+						<?php echo $this->pagination; ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function () {
+		AWS.show_card_box('.aw-tooltip', 'tooltip', '0');
+	});
+</script>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>

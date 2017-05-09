@@ -1,0 +1,65 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="aw-content-wrap">
+	<div class="mod">
+		<div class="mod-head">
+			<h3>
+				<ul class="nav nav-tabs">
+					<li><a href="admin/user/group_list/#_members"><?php _e('会员组'); ?></a></li>
+					<li><a href="admin/user/group_list/#_system"><?php _e('系统组'); ?></a></li>
+					<li><a href="admin/user/group_list/#_custom"><?php _e('特殊组'); ?></a></li>
+					<li class="active"><a href="admin/ticket/service_group_list/"><?php _e('客服组'); ?></a></li>
+				</ul>
+			</h3>
+		</div>
+		<div class="mod-body tab-content">
+			<div class="table-responsive">
+				<form id="batchs_form" action="admin/ajax/ticket/save_service_group/" method="post" >
+					<table class="table table-striped" id="batchs_table">
+						<thead>
+							<tr>
+								<th><input type="checkbox" class="check-all"></th>
+								<th>ID</th>
+								<th><?php _e('客服组名称'); ?></th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<?php if ($this->groups_list) {
+								foreach ($this->groups_list AS $group_info) { ?>
+							<tr>
+								<td><input type="checkbox" value="<?php echo $group_info['group_id']; ?>" name="remove_group[]"></td>
+								<td><?php echo $group_info['group_id']; ?></td>
+								<td>
+									<input class="form-control" type="text" name="edit_group[<?php echo $group_info['group_id']; ?>]" value="<?php echo $group_info['group_name']; ?>" />
+								</td>
+								<td><a href="admin/user/group_edit/group_id-<?php echo $group_info['group_id']; ?>" title="<?php _e('权限编辑'); ?>" class="icon icon-edit md-tip"></a></td>
+							</tr>
+							<?php }
+							} ?>
+							<tr id="group_add_form" class="hide">
+								<td></td>
+								<td></td>
+								<td>
+									<input type="text" class="form-control" name="new_group[]" placeholder="<?php _e('客服组名称'); ?>" />
+								</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+					<div class="mod-table-foot">
+						<a class="btn btn-primary add" onclick="$('#batchs_table').append('<tr>' + $('#group_add_form').html() + '</tr>')"><?php _e('新增'); ?></a>
+						<a class="btn btn-primary" onclick="AWS.ajax_post($('#batchs_form'));"><?php _e('保存'); ?></a>
+						<a class="btn btn-danger" onclick="AWS.ajax_post($('#batchs_form'));"><?php _e('删除'); ?></a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+</script>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

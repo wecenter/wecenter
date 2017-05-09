@@ -668,7 +668,7 @@ class ajax extends AWS_CONTROLLER
                     die("{'error':'错误代码: " . AWS_APP::upload()->get_error() . "'}");
                 break;
 
-                case 'upload_invalid_filetype':
+                case 'upload_invalid_filetype':
                     die("{'error':'文件类型无效'}");
                 break;
 
@@ -1118,7 +1118,7 @@ class ajax extends AWS_CONTROLLER
 
 		if ($this->model('account')->update_user_password($_POST['old_password'], $_POST['password'], $this->user_id, $this->user_info['salt']))
 		{
-			H::ajax_json_output(AWS_APP::RSM(null, 1, AWS_APP::lang()->_t('密码修改成功, 请牢记新密码')));
+			H::ajax_json_output(AWS_APP::RSM(null, '-1', AWS_APP::lang()->_t('密码修改成功, 请牢记新密码')));
 		}
 		else
 		{

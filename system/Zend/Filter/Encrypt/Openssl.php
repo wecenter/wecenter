@@ -135,7 +135,7 @@ class Zend_Filter_Encrypt_Openssl implements Zend_Filter_Encrypt_Interface
             } else {
                 $cert = $key;
                 $key  = count($this->_keys[$type]);
-            }
+            }
 
             switch ($type) {
                 case 'public':
@@ -429,7 +429,7 @@ class Zend_Filter_Encrypt_Openssl implements Zend_Filter_Encrypt_Interface
         }
 
         if (!$this->_package && empty($envelope)) {
-            //require_once 'Zend/Filter/Exception.php';
+            //require_once 'Zend/Filter/Exception.php';
             throw new Zend_Filter_Exception('Please give a envelope key for decryption with Openssl');
         }
 

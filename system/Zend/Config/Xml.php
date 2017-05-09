@@ -310,5 +310,5 @@ class Zend_Config_Xml extends Zend_Config
         }
 
         return $config;
-    }
+    }
 }

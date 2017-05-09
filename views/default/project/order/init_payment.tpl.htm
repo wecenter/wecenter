@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title><?php echo $this->page_title; ?></title>
+</head>
+<body>
+<form action='<?php echo get_js_url('/payment/alipay/'); ?>' method='post'>
+    <input type='hidden' name='order_id' value='<?php echo $this->order_info['payment_order_id']; ?>' />
+    <input type='hidden' name='project_order_id' value='<?php echo $this->order_info['id']; ?>' />
+    <input type='hidden' name='amount' value='<?php echo $this->order_info['amount']; ?>' />
+    <input type='hidden' name='params' value='<?php echo $this->params; ?>' />
+    <input type="submit" id="payment_submit" value="<?php _e('继续'); ?>" />
+</form>
+
+<script type="text/javascript">
+	document.getElementById('payment_submit').click();
+	document.getElementById('payment_submit').style.display = 'none';
+</script>
+</body>
+</html>

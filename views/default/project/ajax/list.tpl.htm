@@ -1,0 +1,12 @@
+<?php if ($this->project_list) { ?>
+<?php foreach($this->project_list as $key => $val) { ?>
+
+<div class="aw-item">
+	<div class="aw-question-content">
+		<h4>
+			<a href="project/<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a> / <?php if (!$val['approved']) { ?><?php _e('待审核'); ?><?php } else if ($val['end_time'] < time()) { ?><?php _e('已结束'); ?><?php } else if ($val['start_time'] > time()) { ?><?php _e('预热中'); ?><?php } else { ?><?php if ($val['paid'] > 0) { ?><?php _e('已筹到'); ?><?php } else if ($val['paid'] >= $val['amount']) { ?><?php _e('已成功'); ?><?php } else { ?><?php _e('活动中'); ?><?php } ?><?php } ?>
+		</h4>
+	</div>
+</div>
+<?php } ?>
+<?php } ?>

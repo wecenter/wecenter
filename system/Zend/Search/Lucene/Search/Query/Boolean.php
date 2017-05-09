@@ -785,7 +785,7 @@ class Zend_Search_Lucene_Search_Query_Boolean extends Zend_Search_Lucene_Search_
      *
      * @return string
      */
-    public function __toString()
+    public function __toString()
     {
         // It's used only for query visualisation, so we don't care about characters escaping
 

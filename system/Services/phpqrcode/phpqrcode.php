@@ -2061,7 +2061,7 @@
         }
 
         //----------------------------------------------------------------------
-        public function eatAn()
+        public function eatAn()
         {
             $la = QRspec::lengthIndicator(QR_MODE_AN,  $this->input->getVersion());
             $ln = QRspec::lengthIndicator(QR_MODE_NUM, $this->input->getVersion());

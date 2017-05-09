@@ -73,3 +73,4 @@ aws_lang['暂无介绍'] = 'No Introduction';
 aws_lang['没有未读通知'] = 'No unread notifications';
 aws_lang['暂无评论'] = 'No comments';
 aws_lang['帮助中心'] = 'Help center';
+aws_lang['文件类型不允许上传'] = 'File type is not allowed to upload';

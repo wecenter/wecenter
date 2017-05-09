@@ -132,7 +132,7 @@ class Zend_Loader
          */
         if ($once) {
             include_once $filename;
-        } else {
+        } else {
             include $filename;
         }
 
@@ -287,7 +287,7 @@ class Zend_Loader
          * Security check
          */
         if (preg_match('/[^a-z0-9\\/\\\\_.:-]/i', $filename)) {
-            //require_once 'Zend/Exception.php';
+            //require_once 'Zend/Exception.php';
             throw new Zend_Exception('Security check: Illegal character in filename');
         }
     }

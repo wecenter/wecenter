@@ -135,4 +135,4 @@ class Zend_Log_Writer_Stream extends Zend_Log_Writer_Abstract
             throw new Zend_Log_Exception("Unable to write to stream");
         }
     }
-}
+}

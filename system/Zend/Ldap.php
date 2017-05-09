@@ -300,7 +300,7 @@ class Zend_Ldap
                     case 'useStartTls':
                     case 'optReferrals':
                     case 'tryUsernameSplit':
-                        $permittedOptions[$key] = ($val === true ||
+                        $permittedOptions[$key] = ($val === true ||
                                 $val === '1' || strcasecmp($val, 'true') == 0);
                         break;
                     default:

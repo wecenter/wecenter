@@ -1,0 +1,163 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+
+<div class="aw-container-wrap aw-work-wrap">
+    <?php TPL::output('block/content_nav_menu.tpl.htm'); ?>
+    <div class="container">
+        <div class="row">
+            <div class="aw-content-wrap clearfix">
+                <!-- 侧边栏 -->
+                <div class="col-sm-12 col-md-3 aw-side-bar hidden-xs hidden-sm">
+                    <div class="aw-mod side-nav">
+                        <h2><i class="icon icon-order"></i><?php _e('工单'); ?></h2>
+                        <ul>
+                            <?php if ($this->user_info['permission']['is_service']) { ?>
+                            <li>
+                                <a href="ticket/service-me__status-pending"<?php if ($_GET['service'] == 'me' AND $_GET['status'] == 'pending') { ?> class="active"<?php } ?>><?php _e('我的待处理工单'); ?><span class="badge"><?php echo $this->my_pending_tickets; ?></span></a>
+                            </li>
+                            <?php } ?>
+                            <li>
+                                <a href="ticket/service-none__status-pending"<?php if ($_GET['service'] == 'none' AND $_GET['status'] == 'pending') { ?> class="active"<?php } ?>><?php _e('未分配工单'); ?></a>
+                            </li>
+                            <li>
+                                <a href="ticket/status-pending"<?php if (!$_GET['service'] AND $_GET['status'] == 'pending') { ?> class="active"<?php } ?>><?php _e('所有待处理工单'); ?></a>
+                            </li>
+                            <li>
+                                <a href="ticket/"<?php if (!$_GET['service'] AND !$_GET['status']) { ?> class="active"<?php } ?>><?php _e('所有工单'); ?></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <?php if ($this->user_info['permission']['is_administortar']) { ?>
+                    <div class="aw-mod side-nav">
+                        <h2><i class="icon icon-count"></i><?php _e('统计分析'); ?></h2>
+                        <ul>
+                            <li>
+                                <a href="ticket/data/"><?php _e('综合数据表'); ?></a>
+                            </li>
+                            <li>
+                                <a href="ticket/data/"><?php _e('业绩报表'); ?></a>
+                            </li>
+                            <li>
+                                <a href="ticket/topic/"><?php _e('热门话题'); ?></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="aw-mod side-nav">
+                        <h2><i class="icon icon-job"></i><?php _e('管理中心'); ?></h2>
+                        <ul>
+                            <li>
+                                <a><?php _e('渠道管理'); ?></a>
+                            </li>
+                            <li>
+                                <a href="admin/ticket/service_group_list/" target="_blank"><?php _e('客服组管理'); ?></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <?php } ?>
+                </div>
+                <!-- end 侧边栏 -->
+
+                <div class="col-sm-12 col-md-9 aw-main-content">
+                    <div class="aw-mod aw-work-list">
+                        <div class="mod-head">
+                            <?php if (!$_GET['service'] AND !$_GET['status']) { ?>
+                            <div class="pull-right">
+                                <?php _e('本周工单统计'); ?>: <?php _e('有效'); ?> (<?php echo $this->valid_tickets_count; ?>)&nbsp;&nbsp;&nbsp;<?php _e('无效'); ?> (<?php echo $this->invalid_tickets_count; ?>)&nbsp;&nbsp;&nbsp;<?php _e('已解决'); ?> (<?php echo $this->closed_tickets_count; ?>)
+                            </div>
+                             <?php } ?>
+                            <h1>
+                                <i class="icon icon-order"></i> 工单列表
+                            </h1>
+                        </div>
+                        <div class="mod-body">
+                            <table class="table table-hover aw-table">
+                                <tr>
+                                    <th width="10%" class="text-center">优先级</th>
+                                    <th><?php _e('状态'); ?></th>
+                                    <th>ID</th>
+                                    <th><?php _e('标题'); ?></th>
+                                    <th><?php _e('请求者'); ?></th>
+                                    <th><?php _e('来源'); ?></th>
+                                    <th><?php _e('发起时间'); ?></th>
+                                    <th><?php _e('处理人'); ?></th>
+                                </tr>
+                                <?php if ($this->tickets_list) {
+                                    foreach ($this->tickets_list AS $ticket_info) { ?>
+                                <tr>
+                                    <td class="text-center"><em class="label label-<?php
+                                    switch ($ticket_info['priority']) {
+                                        case 'low':
+                                            ?>default<?php
+                                            break;
+
+                                        case 'normal':
+                                            ?>primary<?php
+                                            break;
+
+                                        case 'high':
+                                            ?>warning<?php
+                                            break;
+
+                                        case 'urgent':
+                                            ?>danger<?php
+                                            break;
+                                    } ?>"><?php
+                                    switch ($ticket_info['priority']) {
+                                        case 'low':
+                                            _e('低');
+                                            break;
+
+                                        case 'normal':
+                                            _e('中');
+                                            break;
+
+                                        case 'high':
+                                            _e('高');
+                                            break;
+
+                                        case 'urgent':
+                                            _e('紧急');
+                                            break;
+                                    } ?></em></td>
+                                    <td><?php if ($ticket_info['status'] == 'closed') _e('已完成'); else if ($ticket_info['service_info']) _e ('已受理'); else _e('未受理'); ?></td>
+                                    <td>#<?php echo $ticket_info['id']; ?></td>
+                                    <td><a href="ticket/<?php echo $ticket_info['id']; ?>"><?php echo $ticket_info['title']; ?></a></td>
+                                    <td><a href="people/<?php echo $ticket_info['user_info']['uid']; ?>"><?php echo $ticket_info['user_info']['user_name']; ?></a></td>
+                                    <td><?php
+                                    switch ($ticket_info['source']) {
+                                        case 'local':
+                                            _e('本站');
+                                            break;
+
+                                        case 'weibo':
+                                            _e('微博');
+                                            break;
+
+                                        case 'weixin':
+                                            _e('微信');
+                                            break;
+
+                                        case 'email':
+                                            _e('邮件');
+                                            break;
+                                    } ?></td>
+                                    <td><?php echo date_friendly($ticket_info['time']); ?></td>
+                                    <td><?php if ($ticket_info['service_info']) { ?><a href="people/<?php echo $ticket_info['service_info']['uid']; ?>"><?php echo $ticket_info['service_info']['user_name']; ?></a><?php } else { _e('未分配'); } ?></td>
+                                </tr>
+                                <?php }
+                                } ?>
+                            </table>
+                        </div>
+
+                        <div class="mod-footer clearfix">
+                            <?php if ($this->pagination) echo $this->pagination; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>

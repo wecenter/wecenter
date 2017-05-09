@@ -316,7 +316,7 @@ class Zend_Validate_File_Size extends Zend_Validate_Abstract
             return false;
         }
 
-        return true;
+        return true;
     }
 
     /**

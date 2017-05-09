@@ -1,0 +1,79 @@
+<?php TPL::output('admin/global/header.tpl.htm'); ?>
+<?php TPL::output('admin/global/nav_menu.tpl.htm'); ?>
+
+<div class="aw-content-wrap">
+    <div class="mod">
+        <div class="mod-head">
+            <h3>
+                <ul class="nav nav-tabs">
+                    <li><a href="admin/project/project_list/"><?php _e('活动管理'); ?></a></li>
+                    <li><a href="admin/project/approval_list/"><?php _e('活动审核'); ?></a></li>
+                    <li class="active"><a href="admin/project/order_list/"><?php _e('订单管理'); ?></a></li>
+                </ul>
+            </h3>
+        </div>
+
+        <div class="mod-body tab-content">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th><?php _e('项目名称'); ?></th>
+                            <th><?php _e('项目类型'); ?></th>
+                            <th><?php _e('用户名'); ?></th>
+                            <th><?php _e('下单时间'); ?></th>
+                            <th><?php _e('订单金额'); ?></th>
+                            <th><?php _e('收货人/报名人'); ?></th>
+                            <th><?php _e('无需回报'); ?></th>
+                            <th><?php _e('状态'); ?></th>
+                            <th><?php _e('操作'); ?></th>
+                        </tr>
+                    </thead>
+
+                    <?php if ($this->order_list) { ?>
+                    <tbody>
+                        <?php foreach ($this->order_list AS $order_info) { ?>
+                        <tr>
+                            <td><a href="project/<?php echo $order_info['project_id']; ?>" target="_blank"><?php echo $order_info['project_title']; ?></a></td>
+                            <td><?php switch ($order_info['project_type']) {
+                                case 'DEFAULT':
+                                    _e('众筹');
+                                    break;
+
+                                case 'EVENT':
+                                    _e('活动');
+                                    break;
+                            } ?></td>
+                            <td><a href="people/<?php echo $this->users_info[$order_info['uid']]['url_token']; ?>"><?php echo $this->users_info[$order_info['uid']]['user_name']; ?></a></td>
+                            <td><?php echo date_friendly($order_info['add_time']); ?></td>
+                            <td><?php if ($order_info['project_type'] == 'DEFAULT') { echo $order_info['amount']; } ?></td>
+                            <td><?php echo $order_info['shipping_name']; ?></td>
+                            <td><?php if ($order_info['project_type'] == 'DEFAULT') { ($order_info['is_donate']) ? _e('是') : _e('否'); } ?></td>
+                            <td><?php if ($order_info['project_type'] == 'DEFAULT') {
+                                if ($order_info['refund_time']) {
+                                    _e('已退款');
+                                } else if ($order_info['track_no']) {
+                                    _e('已发货');
+                                } else if ($order_info['payment_time']) {
+                                     _e('已付款');
+                                } else if ($order_info['cancel_time']) {
+                                     _e('已取消');
+                                } else {
+                                     _e('未付款');
+                                }
+                            } ?></td>
+                            <td><a href="admin/project/edit_order/<?php echo $order_info['id']; ?>" data-toggle="tooltip" title="<?php _e('编辑'); ?>" class="icon icon-edit md-tip"></a></td>
+                        </tr>
+                        <?php } ?>
+                    </tbody>
+                    <?php } ?>
+            </table>
+            </form>
+
+            <div class="mod-table-foot">
+                <?php echo $this->pagination; ?>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php TPL::output('admin/global/footer.tpl.htm'); ?>

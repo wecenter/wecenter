@@ -349,7 +349,7 @@ var AWS =
 		        	'name':data.name,
 		        	'from_id':data.from_id
 		        });
-		    break;
+		    break;
 
 		    // 后台微信群发消息
 		    case 'adminWechatSendMsg':

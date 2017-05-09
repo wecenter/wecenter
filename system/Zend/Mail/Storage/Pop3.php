@@ -214,7 +214,7 @@ class Zend_Mail_Storage_Pop3 extends Zend_Mail_Storage_Abstract
     }
 
     /**
-     * Remove a message from server. If you're doing that from a web enviroment
+     * Remove a message from server. If you're doing that from a web enviroment
      * you should be careful and use a uniqueid as parameter if possible to
      * identify the message.
      *

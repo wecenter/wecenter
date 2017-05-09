@@ -117,7 +117,7 @@ class Zend_Pdf_Annotation_Markup extends Zend_Pdf_Annotation
 
         $annotationDictionary->Type    = new Zend_Pdf_Element_Name('Annot');
         $annotationDictionary->Subtype = new Zend_Pdf_Element_Name($subType);
-
+
         $rectangle = new Zend_Pdf_Element_Array();
         $rectangle->items[] = new Zend_Pdf_Element_Numeric($x1);
         $rectangle->items[] = new Zend_Pdf_Element_Numeric($y1);

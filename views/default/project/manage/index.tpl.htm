@@ -1,0 +1,79 @@
+<?php TPL::output('global/header.tpl.htm'); ?>
+
+<div class="aw-container-wrap aw-container-wrap aw-project-container-wrap">
+	<div class="aw-container aw-wecenter">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 aw-project-record manage">
+					<div class="tabbable">
+						<ul class="nav nav-tabs aw-tabs">
+							<li<?php if (!$_GET['id']) { ?> class="active"<?php } ?>><a href="project/manage/"><?php _e('我的项目'); ?></a></li>
+							<li<?php if ($_GET['id'] == 'preparing') { ?> class="active"<?php } ?>><a href="project/manage/order/preparing"><?php _e('等待回报'); ?></a></li>
+							<li<?php if ($_GET['id'] == 'shipped') { ?> class="active"<?php } ?>><a href="project/manage/order/shipped"><?php _e('已发回报'); ?></a></li>
+							<li<?php if ($_GET['id'] == 'refunded') { ?> class="active"<?php } ?>><a href="project/manage/order/refunded"><?php _e('已退款'); ?></a></li>
+							<li<?php if ($_GET['id'] == 'donate') { ?> class="active"<?php } ?>><a href="project/manage/order/donate"><?php _e('无需回报'); ?></a></li>
+							<li<?php if ($_GET['id'] == 'event') { ?> class="active"<?php } ?>><a href="project/manage/order/event"><?php _e('活动'); ?></a></li>
+						</ul>
+					</div>
+					<div class="tab-content">
+						<!--项目说明 -->
+						<div class="mod project-support-list">
+							<table>
+								<thead>
+									<tr>
+										<th><?php _e('项目名称'); ?></th>
+										<th><?php _e('活动时间'); ?></th>
+										<th><?php _e('活动金额'); ?></th>
+										<th><?php _e('状态'); ?></th>
+									</tr>
+								</thead>
+								<?php if ($this->project_list) { ?>
+								<tbody>
+								<?php foreach ($this->project_list AS $key => $val) { ?>
+									<tr>
+										<th>
+											<dl class="dl-horizontal">
+												<dt>
+													<a href="project/<?php echo $val['id']; ?>"><img src="<?php echo get_setting('upload_url'); ?>/project/<?php echo $val['id']; ?>_thumb.jpg" alt="" title="" /></a>
+												</dt>
+												<dd>
+													<a href="project/<?php echo $val['id']; ?>"><?php echo $val['title']; ?></a><br/>
+												</dd>
+											</dl>
+										</th>
+										<td>
+											<?php echo date('Y-m-d', $val['start_time']); ?> - <?php echo date('Y-m-d', $val['end_time']); ?>
+										</td>
+										<td>
+											<?php echo $val['amount'] ; ?>
+										</td>
+										<td>
+
+											<?php if (!$val['approved']) { ?>
+											<?php _e('待审核'); ?>
+											<?php } else if ($val['approved'] == -1) { ?>
+											<?php _e('审核拒绝'); ?>
+ 											<?php } else if ($val['end_time'] < time()) { ?>
+											<?php _e('已结束'); ?>
+											<?php } else if ($val['start_time'] > time()) { ?>
+											<?php _e('还有 %s 天开始', get_left_days($val['start_time'])); ?> / <?php _e('预热中'); ?>
+											<?php } else { ?>
+											<?php _e('还有 %s 天', get_left_days($val['end_time'])); ?> / <?php if ($val['paid'] > 0) { ?><?php _e('已筹到'); ?><?php } else if ($val['paid'] >= $val['amount']) { ?><?php _e('已成功'); ?><?php } else { ?><?php _e('活动中'); ?><?php } ?>
+											<?php } ?>
+										</td>
+									</tr>
+								<?php } ?>
+								</tbody>
+								<?php } ?>
+							</table>
+						</div>
+
+						<?php echo $this->pagination; ?>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<?php TPL::output('global/footer.tpl.htm'); ?>

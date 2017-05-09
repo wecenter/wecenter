@@ -880,7 +880,7 @@ AWS.Dropdown =
 											$(this).parents('.aw-topic-bar').find('.add').click();
 										});
 										
-										$(element).parent().find('.aw-dropdown-list').show();
+										$(element).parent().find('.aw-dropdown-list').removeClass('hide').show();
 
 										ul.show();
 									}else
@@ -1136,7 +1136,7 @@ AWS.Init =
 				}
 			});
 
-			AWS.Dropdown.bind_dropdown_list('.aw-topic-bar input','topic');
+			AWS.Dropdown.bind_dropdown_list('.aw-topic-bar input.topic-text','topic');
 
 			/* 话题编辑添加按钮 */
 			$('.aw-topic-bar .add').click(function()
