@@ -689,6 +689,7 @@ class ajax extends AWS_CONTROLLER
                 'message' => $_POST['message'],
                 'category_id' => $_POST['category_id'],
                 'topics' => $_POST['topics'],
+                'attach_access_key' => $_POST['attach_access_key'],
                 'permission_create_topic' => $this->user_info['permission']['create_topic']
             ), $this->user_id, $_POST['attach_access_key']);
 
