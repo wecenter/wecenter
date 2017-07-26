@@ -216,6 +216,21 @@ function parse_link_callback($matches)
 		$url = $matches[1];
 	}
 
+	if (stristr($url, 'http://%'))
+	{
+		return false;
+	}
+
+	if (stristr($url, 'http://&'))
+	{
+		return false;
+	}
+
+	if (!preg_match('#^(http|https)://(?:[^<>\"]+|[a-z0-9/\._\- !&\#;,%\+\?:=]+)$#iU', $url))
+	{
+		return false;
+	}
+
 	if (is_inside_url($url))
 	{
 		return '<a href="' . $url . '">' . FORMAT::sub_url($matches[1], 50) . '</a>';
@@ -224,6 +239,35 @@ function parse_link_callback($matches)
 	{
 		return '<a href="' . $url . '" rel="nofollow" target="_blank">' . FORMAT::sub_url($matches[1], 50) . '</a>';
 	}
+}
+
+function parse_link_callback_bbcode($matches)
+{
+	if (preg_match('/^(?!http).*/i', $matches[1]))
+	{
+		$url = 'http://' . $matches[1];
+	}
+	else
+	{
+		$url = $matches[1];
+	}
+
+	if (stristr($url, 'http://%'))
+	{
+		return false;
+	}
+
+	if (stristr($url, 'http://&'))
+	{
+		return false;
+	}
+
+	if (!preg_match('#^(http|https)://(?:[^<>\"]+|[a-z0-9/\._\- !&\#;,%\+\?:=]+)$#iU', $url))
+	{
+		return false;
+	}
+
+	return '[url=' . $url . ']' . FORMAT::sub_url($matches[1], 50) . '[/url]';
 }
 
 function is_inside_url($url)

@@ -88,7 +88,7 @@ switch ($_POST['step'])
 		{
 			$system_require['ft_font'] = TRUE;
 		}
-		
+
 		if (function_exists('mcrypt_module_open'))
 		{
 			$system_require['mcrypt'] = TRUE;
@@ -98,7 +98,7 @@ switch ($_POST['step'])
 		{
 			$system_require['zlib'] = TRUE;
 		}
-		
+
 		// 检测 AWS_PATH 是否有写权限
 		if (is_really_writable(AWS_PATH) OR defined('IN_SAE'))
 		{
@@ -356,7 +356,7 @@ switch ($_POST['step'])
 		$insert_query = file_get_contents(ROOT_PATH . 'install/db/system_setting.sql');
 
 		$insert_query = str_replace('[#DB_PREFIX#]', $db_prefix, $insert_query);
-		
+
 		if (defined('IN_SAE'))
 		{
 			$insert_query = str_replace('[#UPLOAD_URL#]', serialize($_POST['upload_url']), $insert_query);
@@ -381,13 +381,13 @@ switch ($_POST['step'])
 		$insert_query = str_replace("\r", '', $insert_query);
 
 		$insert_query = explode("\n", $insert_query);
-		
+
 		unset($insert_query[0]);
 
 		foreach ($insert_query AS $_sql)
 		{
 			$insert_vars = explode("', '", ltrim(rtrim(rtrim(rtrim($_sql, ','), ';'), ')'), '('));
-						
+
 			try {
 				$db->insert($db_prefix . 'system_setting', array(
 					'varname' => ltrim($insert_vars[0], "'"),
