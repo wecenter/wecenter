@@ -14,16 +14,20 @@
 
 class FORMAT
 {
-	public static function parse_links($str)
+	public static function parse_links($str, $mode = 'text')
 	{
-		$str = @preg_replace_callback('/(?<!!!\[\]\(|"|\'|\)|>)(https?:\/\/[-a-zA-Z0-9@:;%_\+.~#?\&\/\/=!]+)(?!"|\'|\)|>)/i', 'parse_link_callback', $str);
-
-		if (strpos($str, 'http') === FALSE)
+		if ($mode == 'bbcode')
 		{
-			$str = @preg_replace_callback('/(www\.[-a-zA-Z0-9@:;%_\+\.~#?&\/\/=]+)/i', 'parse_link_callback', $str);
+			$callback = 'parse_link_callback_bbcode';
+
+			$str = preg_replace('#\[url\]([\w]+?://[\w\#$%&~/.\-;:=,?@\[\]+]*?)\[/url\]#is', '$1', $str);
+		}
+		else
+		{
+			$callback = 'parse_link_callback';
 		}
 
-		$str = @preg_replace('/([a-z0-9\+_\-]+[\.]?[a-z0-9\+_\-]+@[a-z0-9\-]+\.+[a-z]{2,6}+(\.+[a-z]{2,6})?)/is', '<a href="mailto:\1">\1</a>', $str);
+		$str = @preg_replace_callback('/(?<!!!\[\]\(|"|\'|\=|\)|>)(https?:\/\/[-a-zA-Z0-9@:;%_\+.~#?\&\/\/=!]+)(?!"|\'|\)|>)/i', $callback, $str);
 
 		return $str;
 	}
@@ -81,7 +85,7 @@ class FORMAT
 			return false;
 		}
 
-		return self::parse_links(load_class('Services_BBCode')->parse($text));
+		return load_class('Services_BBCode')->parse(self::parse_links($text, 'bbcode'));
 	}
 
 	// 兼容旧版本
