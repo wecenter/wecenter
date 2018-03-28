@@ -1,4 +1,4 @@
-INSERT INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
+REPLACE INTO `[#DB_PREFIX#]system_setting` (`varname`, `value`) VALUES
 ('site_name', 's:8:"WeCenter";'),
 ('description', 's:30:"WeCenter 社交化知识社区";'),
 ('keywords', 's:47:"WeCenter,知识社区,社交社区,问答社区";'),

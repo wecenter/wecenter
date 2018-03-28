@@ -6,32 +6,32 @@ class Services_BBCode
 
 	private function _code_callback($match)
 	{
-		return "<pre>" . str_replace('[', '<span>[</span>', $match[1]) . "</pre>";
+		return '<pre>' . str_replace('[', '<span>[</span>', $match[1]) . '</pre>';
 	}
 
 	private function _b_callback($match)
 	{
-		return "<strong>$match[1]</strong>";
+		return '<strong>' . $match[1] . '</strong>';
 	}
 
 	private function _i_callback($match)
 	{
-		return "<em>$match[1]</em>";
+		return '<em>' . $match[1] . '</em>';
 	}
 
 	private function _quote_callback($match)
 	{
-		return "<blockquote><p>$match[1]</p></blockquote>";
+		return '<blockquote><p>' . $match[1] . '</p></blockquote>';
 	}
 
 	private function _size_callback($match)
 	{
-		return "<span style=\"font-size:$match[1]px\">$match[2]</span>";
+		return '<span style="font-size:' . intval($match[1]) . 'px">' . $match[2] . '</span>';
 	}
 
 	private function _s_callback($match)
 	{
-		return "<del>$match[1]</del>";
+		return '<del>' . $match[1] . '</del>';
 	}
 
 	private function _u_callback($match)
@@ -41,32 +41,69 @@ class Services_BBCode
 
 	private function _url_callback($match)
 	{
-		if (substr($match[1], 0, 4) != 'http')
+		if (stristr($match[1], 'http://%'))
 		{
-			return $match[1];
+			return false;
 		}
 
-		return "<a href=\"$match[1]\" rel=\"nofollow\" target=\"_blank\">$match[1]</a>";
+		if (stristr($match[1], 'http://&'))
+		{
+			return false;
+		}
+
+		if (!preg_match('#^(http|https)://(?:[^<>\"]+|[a-z0-9/\._\- !&\#;,%\+\?:=]+)$#iU', $match[1]))
+		{
+			return false;
+		}
+
+		return '<a href="' . str_replace(array('"', "'"), '', $match[1]) . '" rel="nofollow" target="_blank">' . $match[1] . '</a>';
 	}
 
 	private function _link_callback($match)
 	{
-		if (substr($match[1], 0, 4) != 'http')
+		if (stristr($match[1], 'http://%'))
 		{
-			return $match[2];
+			return false;
 		}
 
-		return "<a href=\"$match[1]\" rel=\"nofollow\" target=\"_blank\">$match[2]</a>";
+		if (stristr($match[1], 'http://&'))
+		{
+			return false;
+		}
+
+		if (!preg_match('#^(http|https)://(?:[^<>\"]+|[a-z0-9/\._\- !&\#;,%\+\?:=]+)$#iU', $match[1]))
+		{
+			return false;
+		}
+
+		return '<a href="' . str_replace(array('"', "'"), '', $match[1]) . '" rel="nofollow" target="_blank">' . htmlspecialchars($match[2]) . '</a>';
 	}
 
 	private function _img_callback($match)
 	{
-		if (substr($match[1], 0, 4) != 'http')
+		if (!$match[1])
 		{
-			return $match[1];
+			return false;
 		}
 
-		return "<img src=\"$match[1]\" />";
+		$match[1] = strip_tags($match[1]);
+
+		if (stristr($match[1], 'http://%'))
+		{
+			return false;
+		}
+
+		if (stristr($match[1], 'http://&'))
+		{
+			return false;
+		}
+
+		if (!preg_match('#^(http|https)://(?:[^<>\"]+|[a-z0-9/\._\- !&\#;,%\+\?:=]+)$#iU', $match[1]))
+		{
+			return false;
+		}
+
+		return '<img src="' . str_replace(array('"', "'"), '', $match[1]) . '" alt="" />';
 	}
 
 	private function _list_callback($match)
@@ -153,26 +190,16 @@ class Services_BBCode
         return $this;
     }
 
-    public function parse($text, $escapeHTML = false, $nr2br = false)
+    public function parse($text)
     {
         if (! $text)
         {
             return false;
         }
 
-        if ($escapeHTML)
-        {
-            $text = htmlspecialchars($text);
-        }
-
         foreach ($this->bbcode_table AS $key => $val)
         {
             $text = preg_replace_callback($key, array(&$this, $val), $text);
-        }
-
-        if ($nr2br)
-        {
-            $text = nl2br($text);
         }
 
         return $text;
